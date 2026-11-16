@@ -1047,3 +1047,239 @@ Kerajaan negeri bersetuju untuk mengkaji laluan baharu Bas Smart Selangor yang m
   ]
 };
 
+/* ============================================================================
+   SHARED LEADERSHIP PORTRAIT & PHOTO UPLOAD CONTROLLER
+============================================================================ */
+let _activeLeaderUploadId = null;
+let _leaderToastTimer = null;
+
+function escLeaderHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function getLeaderPhotoSrc(leader) {
+  if (!leader) return '';
+  try {
+    const cached = localStorage.getItem('permas_leader_photo_' + leader.id);
+    if (cached && cached.startsWith('data:image/')) return cached;
+  } catch (e) {}
+  return leader.photo || `assets/ahli/${leader.id}.jpg`;
+}
+
+function showLeaderUploadToast(message, isError = false) {
+  let toast = document.getElementById('permas-leader-upload-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'permas-leader-upload-toast';
+    toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl border backdrop-blur-md transition-all duration-300 opacity-0 translate-y-2 pointer-events-none flex items-center gap-2 max-w-[92vw] text-center';
+    document.body.appendChild(toast);
+  }
+  toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[120] px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl border backdrop-blur-md transition-all duration-300 flex items-center gap-2 max-w-[92vw] text-center ${
+    isError
+      ? 'bg-red-950/95 border-red-500/50 text-red-100'
+      : 'bg-slate-900/95 border-amber-400/50 text-amber-200'
+  }`;
+  toast.textContent = message;
+  clearTimeout(_leaderToastTimer);
+  _leaderToastTimer = setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-2');
+  }, 4200);
+}
+
+window.handleLeaderImgError = function (leaderId) {
+  document.querySelectorAll(`[data-leader-img="${leaderId}"]`).forEach((img) => {
+    img.classList.add('hidden');
+  });
+  document.querySelectorAll(`[data-leader-fallback="${leaderId}"]`).forEach((fb) => {
+    fb.classList.remove('hidden');
+  });
+};
+
+window.refreshLeaderPhotoDom = function (leaderId, src) {
+  document.querySelectorAll(`[data-leader-img="${leaderId}"]`).forEach((img) => {
+    img.src = src;
+    img.classList.remove('hidden');
+  });
+  document.querySelectorAll(`[data-leader-fallback="${leaderId}"]`).forEach((fb) => {
+    fb.classList.add('hidden');
+  });
+};
+
+window.triggerLeaderPhotoUpload = function (leaderId) {
+  _activeLeaderUploadId = leaderId;
+  let input = document.getElementById('leader-photo-input') || document.getElementById('home-leader-photo-input');
+  if (!input) {
+    input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'leader-photo-input';
+    input.accept = 'image/*';
+    input.className = 'hidden';
+    input.onchange = window.handleLeaderPhotoSelected;
+    document.body.appendChild(input);
+  }
+  input.click();
+};
+
+window.handleLeaderPhotoSelected = function (event) {
+  const input = event.target;
+  const file = input && input.files && input.files[0];
+  const leaderId = _activeLeaderUploadId;
+  if (input) input.value = '';
+  if (!file || !leaderId) return;
+
+  showLeaderUploadToast('⏳ Memproses & menyimpan potret rasmi...');
+
+  const reader = new FileReader();
+  reader.onerror = () => showLeaderUploadToast('❌ Gagal membaca fail gambar yang dipilih.', true);
+  reader.onload = () => {
+    const img = new Image();
+    img.onerror = () => showLeaderUploadToast('❌ Format gambar tidak disokong.', true);
+    img.onload = async () => {
+      const maxW = 900;
+      const maxH = 1125;
+      let targetW = img.naturalWidth || img.width;
+      let targetH = img.naturalHeight || img.height;
+      const ratio = Math.min(maxW / targetW, maxH / targetH, 1);
+      targetW = Math.max(1, Math.round(targetW * ratio));
+      targetH = Math.max(1, Math.round(targetH * ratio));
+
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#0F172A';
+      ctx.fillRect(0, 0, targetW, targetH);
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+      window.refreshLeaderPhotoDom(leaderId, dataUrl);
+
+      try {
+        const res = await fetch('/api/upload-leader-photo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: leaderId, dataUrl })
+        });
+        if (res.ok) {
+          const result = await res.json();
+          if (result && result.status === 'ok') {
+            try {
+              localStorage.removeItem('permas_leader_photo_' + leaderId);
+            } catch (e) {}
+            window.refreshLeaderPhotoDom(leaderId, `${result.path}?_t=${Date.now()}`);
+            showLeaderUploadToast(`✅ Gambar disimpan ke ${result.path} & akan auto-sync ke GitHub!`);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      try {
+        localStorage.setItem('permas_leader_photo_' + leaderId, dataUrl);
+      } catch (e) {}
+      showLeaderUploadToast(`💾 Pratonton disimpan di pelayar (buka melalui localhost:3000 untuk simpan ke assets/ahli/${leaderId}.jpg).`);
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+window.renderLeaderPortraitCard = function (l, options = {}) {
+  const compact = Boolean(options.compact);
+  let badgeClass = 'badge-tertinggi';
+  let sectionLabel = 'Majlis Tertinggi';
+  if (l.section === 'pembangunan') {
+    badgeClass = 'badge-pembangunan';
+    sectionLabel = 'Pembangunan & Pemerkasaan';
+  } else if (l.section === 'kebajikan') {
+    badgeClass = 'badge-kebajikan';
+    sectionLabel = 'Kebajikan Mahasiswa';
+  } else if (l.section === 'komunikasi') {
+    badgeClass = 'badge-komunikasi';
+    sectionLabel = 'Komunikasi & Korporat';
+  }
+
+  const isSpecial = l.featuredBadge || l.featured;
+  const borderCard = isSpecial
+    ? 'border-amber-400/50 ring-1 ring-amber-400/30 shadow-lg shadow-amber-950/20'
+    : 'border-slate-800 hover:border-amber-400/40';
+  const photoSrc = getLeaderPhotoSrc(l);
+  const safeName = escLeaderHtml(l.name);
+  const safePos = escLeaderHtml(l.position);
+  const safeInst = escLeaderHtml(l.institution);
+  const safeQuote = escLeaderHtml(l.quote);
+  const safeEmail = escLeaderHtml((l.social && l.social.email) || 'info@permasnasional.org.my');
+  const frameHeight = compact ? 'h-56' : 'h-64';
+
+  return `
+    <div class="pro-card rounded-2xl border ${borderCard} bg-slate-900/95 flex flex-col justify-between overflow-hidden transition-all group" data-tilt-3d>
+      <div>
+        <div class="relative ${frameHeight} overflow-hidden bg-gradient-to-b from-slate-900 via-red-950/60 to-slate-950 border-b border-slate-800">
+          <img id="leader-img-${l.id}" data-leader-img="${l.id}" src="${photoSrc}" alt="${safeName}"
+            class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            onerror="handleLeaderImgError('${l.id}')">
+
+          <div id="leader-fallback-${l.id}" data-leader-fallback="${l.id}"
+            class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gradient-to-b from-slate-900 via-red-950/50 to-slate-950">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-700 to-amber-500 p-0.5 shadow-lg mb-2.5">
+              <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-amber-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 font-black font-heading text-[10px] tracking-wider uppercase">
+              ${escLeaderHtml(l.roleCode)}
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono mt-1.5 opacity-80">assets/ahli/${l.id}.jpg</span>
+          </div>
+
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/35 pointer-events-none"></div>
+
+          <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10 pointer-events-none">
+            <span class="leader-badge-pill ${badgeClass} shadow-sm">${sectionLabel}</span>
+            <span class="text-[10px] font-black font-mono px-2 py-0.5 rounded-md bg-slate-950/85 border border-slate-700 text-amber-300 tracking-wider backdrop-blur-sm">
+              ${escLeaderHtml(l.shortUni)}
+            </span>
+          </div>
+
+          <button type="button" onclick="event.preventDefault(); event.stopPropagation(); triggerLeaderPhotoUpload('${l.id}')"
+            class="absolute bottom-3 right-3 z-10 px-2.5 py-1.5 rounded-lg bg-slate-950/85 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/50 text-amber-300 text-[11px] font-bold shadow-lg backdrop-blur-sm transition inline-flex items-center gap-1.5">
+            <span>📷</span>
+            <span>Letak Gambar</span>
+          </button>
+        </div>
+
+        <div class="${compact ? 'p-4' : 'p-5'} space-y-2">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-amber-300 block line-clamp-1">
+            ${safePos}
+          </span>
+          <h4 class="font-extrabold ${compact ? 'text-sm' : 'text-[15px]'} text-white group-hover:text-amber-300 transition leading-snug">
+            ${safeName}
+          </h4>
+          <p class="text-xs text-slate-400 font-medium line-clamp-1">
+            ${safeInst}
+          </p>
+          ${compact ? '' : `
+            <p class="text-xs text-slate-300 leading-relaxed italic border-l-2 border-red-700/70 pl-2.5 py-0.5 mt-2 line-clamp-3">
+              &ldquo;${safeQuote}&rdquo;
+            </p>
+          `}
+        </div>
+      </div>
+
+      <div class="${compact ? 'px-4 pb-4 pt-2.5' : 'px-5 pb-4 pt-3'} border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <span class="text-[11px] font-semibold text-slate-400">PERMAS 24/26</span>
+        <a href="mailto:${safeEmail}" class="text-red-400 hover:text-amber-300 font-bold hover:underline inline-flex items-center gap-1 transition">
+          <span>Hubungi</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+    </div>
+  `;
+};
+
+

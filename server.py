@@ -462,6 +462,42 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         super().do_GET()
 
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == '/api/upload-leader-photo':
+            try:
+                length = int(self.headers.get('Content-Length', '0'))
+                raw = self.rfile.read(length).decode('utf-8')
+                data = json.loads(raw)
+                leader_id = str(data.get('id', '')).strip()
+                data_url = str(data.get('dataUrl', '')).strip()
+                if not re.fullmatch(r'[a-z0-9-]+', leader_id) or ',' not in data_url:
+                    raise ValueError('Invalid leader id or image data')
+                b64_part = data_url.split(',', 1)[1]
+                img_bytes = base64.b64decode(b64_part)
+                ahli_dir = os.path.join(ROOT_DIR, 'assets', 'ahli')
+                os.makedirs(ahli_dir, exist_ok=True)
+                rel_path = f'assets/ahli/{leader_id}.jpg'
+                out_path = os.path.join(ahli_dir, f'{leader_id}.jpg')
+                with open(out_path, 'wb') as f:
+                    f.write(img_bytes)
+                resp = {'status': 'ok', 'id': leader_id, 'path': rel_path}
+                body = json.dumps(resp).encode('utf-8')
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.send_header('Content-Length', str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+            except Exception as exc:
+                err = json.dumps({'status': 'error', 'message': str(exc)}).encode('utf-8')
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.send_header('Content-Length', str(len(err)))
+                self.end_headers()
+                self.wfile.write(err)
+            return
+        self.send_error(404)
+
     def log_message(self, format, *args):
         # Keep console logs clean
         pass
