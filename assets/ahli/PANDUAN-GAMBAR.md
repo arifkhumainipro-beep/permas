@@ -46,3 +46,4 @@ Simpan gambar potret setiap ahli di dalam folder `c:\Permas\assets\ahli\` menggu
 | `exco-multimedia-2.jpg` | Exco Multimedia dan Publisiti | Muhammad Adib Ubaidullah bin Azman (UPNM) |
 | `exco-multimedia-3.jpg` | Exco Multimedia dan Publisiti | Ahmad Khairul Amirin bin Adnan (UMPSA) |
 | `exco-korporat-luar.jpg` | Exco Komunikasi Korporat & Hubungan Luar | Muhamad Amirul Irfan bin Amir Hamzah (UniSZA) |
+
