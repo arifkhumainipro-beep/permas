@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senarai Universiti Awam & Peta Lokasi Kampus | PERMAS Nasional</title>
+  <meta name="description" content="Peta interaktif dan direktori lengkap 20 Universiti Awam (UA) di bawah naungan Persatuan Mahasiswa Selangor (PERMAS) Kebangsaan di seluruh Malaysia.">
+  <link rel="icon" type="image/png" href="assets/logo-transparent.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            selred: { 50: '#FEF2F2', 100: '#FEE2E2', 700: '#991B1B', 800: '#7F1D1D', 900: '#450A0A' },
+            selgold: { 50: '#FFFBEB', 100: '#FEF3C7', 500: '#F59E0B', 600: '#D97706', 700: '#B45309' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet.js Interactive Mapping Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Bespoke Executive Styles -->
+  <link rel="stylesheet" href="css/custom.css?v=12">
+  <style>
+    /* Custom Pin Transition */
+    .custom-ua-pin {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .custom-ua-pin:hover {
+      transform: scale(1.15) translateY(-4px);
+      z-index: 9999 !important;
+    }
+    /* Map Container Style */
+    #campus-map {
+      height: 520px;
+      width: 100%;
+      border-radius: 1.25rem;
+      z-index: 10;
+    }
+    @media (min-width: 640px) {
+      #campus-map {
+        height: 580px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- ========================================================
+       SELANGOR SOVEREIGN TOP ACCENT RIBBON
+  ======================================================== -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       MAIN EXECUTIVE NAVBAR (CLEAN UNDERLINE TABS)
+  ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px] gap-4">
+        
+        <!-- Brand Identity Lockup -->
+        <a href="index.html?v=8" class="flex items-center gap-3 shrink-0 py-1 group">
+          <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1 font-heading font-black text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+              <span>PERMAS</span>
+              <span class="text-red-700">NASIONAL</span>
+            </div>
+            <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-slate-500 leading-tight">
+              Persatuan Mahasiswa Selangor
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (Underline Tab System) -->
+        <nav class="hidden lg:flex items-center h-[72px]">
+          <a href="index.html?v=8" class="nav-tab-item">
+            Laman Utama
+          </a>
+          <a href="inisiatif.html?v=8" class="nav-tab-item">
+            Inisiatif Bantuan
+          </a>
+          <a href="kampus.html?v=8" class="nav-tab-item active">
+            Peta & 20 UA
+          </a>
+          <a href="takwim.html?v=8" class="nav-tab-item">
+            Takwim 2026
+          </a>
+          <a href="kepimpinan.html?v=8" class="nav-tab-item">
+            Kepimpinan
+          </a>
+          <a href="aduan.html?v=8" class="nav-tab-item">
+            Meja E-Aduan
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-2 shrink-0">
+          <a href="aduan.html?v=8" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+            <span>📢 Salur Aduan & SOS</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-1.5 text-left shadow-lg">
+      <a href="index.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Laman Utama</span>
+        <span class="text-xs text-slate-400">Utama</span>
+      </a>
+      <a href="inisiatif.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Inisiatif Bantuan Siswa</span>
+        <span class="text-xs text-slate-400">4 Skim</span>
+      </a>
+      <a href="aduan.html?v=8#sos-teras" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-600"></span>
+          Hab Bencana & SOS 24 Jam
+        </span>
+        <span class="text-xs text-red-600 font-bold">Kecemasan</span>
+      </a>
+      <a href="kampus.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-bold bg-red-50 text-red-700">
+        <span>Direktori 20 UA & Peta Lokasi</span>
+        <span class="text-xs">→ 20 Kampus</span>
+      </a>
+      <a href="kepimpinan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Barisan Kepimpinan PERMAS</span>
+        <span class="text-xs text-slate-400">2024–2026</span>
+      </a>
+      <a href="aduan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Meja Suara & E-Aduan</span>
+        <span class="text-xs text-slate-400">Aduan</span>
+      </a>
+      <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+        <a href="aduan.html?v=8#sos-teras" class="py-2.5 rounded-lg bg-red-700 text-white font-bold text-xs uppercase text-center shadow-xs">
+          🚨 Lapor SOS
+        </a>
+        <a href="aduan.html?v=8" class="py-2.5 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase text-center shadow-xs">
+          📢 E-Aduan
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       PAGE HERO BANNER & STATS STRIP
+  ======================================================== -->
+  <section class="bg-selangor-subhero py-12 sm:py-16 border-b border-slate-200 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-3xl space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-800 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+            Liputan Kebangsaan 20 Universiti Awam (UA)
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+            Senarai Institusi & <span class="text-red-700">Peta Lokasi UA.</span>
+          </h1>
+          <p class="text-base text-slate-600 leading-relaxed font-medium">
+            Direktori rasmi dan peta interaktif kedudukan <strong>20 Universiti Awam (UA)</strong> di bawah naungan PERMAS Nasional di seluruh Semenanjung, Sabah dan Sarawak untuk menghubungkan mahasiswa anak Selangor.
+          </p>
+        </div>
+
+        <!-- Quick Search Bar -->
+        <div class="relative w-full lg:w-96 shrink-0">
+          <input type="text" id="ipt-search" oninput="filterCampusList(this.value)" placeholder="Cari UA (cth: UKM, UM, UiTM, USM, UUM)..." 
+                 class="w-full pl-11 pr-4 py-3 rounded-2xl border-2 border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-red-600 shadow-sm bg-white transition">
+          <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+      <!-- Quick KPI Counters Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200/80">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+          <span class="text-2xl sm:text-3xl font-black font-heading text-red-700">20</span>
+          <p class="text-xs font-bold text-slate-800 mt-0.5">Universiti Awam (UA)</p>
+          <p class="text-[11px] text-slate-500">100% Kampus Utama Berdaftar</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+          <span class="text-2xl sm:text-3xl font-black font-heading text-slate-900">5</span>
+          <p class="text-xs font-bold text-slate-800 mt-0.5">Zon Wilayah Kebangsaan</p>
+          <p class="text-[11px] text-slate-500">Tengah, Utara, Selatan, Timur, Borneo</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+          <span class="text-2xl sm:text-3xl font-black font-heading text-amber-600">38</span>
+          <p class="text-xs font-bold text-slate-800 mt-0.5">Cawangan Bersekutu</p>
+          <p class="text-[11px] text-slate-500">Termasuk Kampus Satelit & IPTS</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+          <span class="text-2xl sm:text-3xl font-black font-heading text-emerald-700">35,000+</span>
+          <p class="text-xs font-bold text-slate-800 mt-0.5">Mahasiswa Selangor</p>
+          <p class="text-[11px] text-slate-500">Keahlian Aktif Sesi 2024–2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       INTERACTIVE MAP SECTION (ROYAL MALAYSIA ATLAS)
+  ======================================================== -->
+  <section class="py-12 bg-slate-100 border-b border-slate-200 relative overflow-hidden" id="peta-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Map Header & Region Nav Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 text-left">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 border border-red-200 text-red-800 text-[11px] font-bold uppercase tracking-wider mb-2">
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+            Atlas Vektor Rasmi Malaysia (DOSM)
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+            Peta Interaktif 20 Universiti Awam (UA) Malaysia
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">
+            Setiap zon diwarnakan mengikut wilayah. Klik mana-mana negeri atau pin universiti untuk melihat profil penuh cawangan PERMAS.
+          </p>
+        </div>
+
+        <!-- Quick Region View Pills -->
+        <div class="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xs">
+          <button onclick="panToRegion('all', this)" class="region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition">
+            🇲🇾 Semua Wilayah
+          </button>
+          <button onclick="panToRegion('tengah', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-red-50 transition">
+            Zon Tengah
+          </button>
+          <button onclick="panToRegion('utara', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">
+            Zon Utara
+          </button>
+          <button onclick="panToRegion('selatan', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-amber-700 hover:bg-amber-50 transition">
+            Zon Selatan
+          </button>
+          <button onclick="panToRegion('timur', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition">
+            Pantai Timur
+          </button>
+          <button onclick="panToRegion('borneo', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-purple-700 hover:bg-purple-50 transition">
+            Borneo
+          </button>
+        </div>
+      </div>
+
+      <!-- Map Display Container (Real Satellite / Google Earth Style) -->
+      <div class="relative rounded-3xl overflow-hidden border-4 border-white shadow-2xl ring-1 ring-slate-300 bg-slate-950">
+        
+        <!-- Top-Left Map Mode Switcher (Satelit vs Peta Jalan) & Quick Zoom -->
+        <div class="absolute top-4 left-14 z-20 flex flex-wrap items-center gap-2">
+          <!-- Satellite / Street Switcher -->
+          <div class="inline-flex items-center bg-slate-900/90 backdrop-blur-md p-1 rounded-xl border border-white/20 shadow-lg">
+            <button id="mode-sat-btn" onclick="switchMapMode('satellite')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs transition flex items-center gap-1.5">
+              <span>🛰️ Satelit (Google Earth)</span>
+            </button>
+            <button id="mode-street-btn" onclick="switchMapMode('street')" class="px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white hover:bg-white/10 transition flex items-center gap-1.5">
+              <span>🗺️ Peta Jalan & Topografi</span>
+            </button>
+          </div>
+
+          <button onclick="panToRegion('tengah')" class="bg-red-700/95 hover:bg-red-800 backdrop-blur-md text-white px-3 py-2 rounded-xl text-[11px] font-bold shadow-lg transition flex items-center gap-1.5 border border-red-400/40">
+            <span>🔍 Zoom Lembah Klang (6 UA)</span>
+          </button>
+        </div>
+
+        <!-- Leaflet Map Canvas -->
+        <div id="campus-map"></div>
+
+        <!-- Floating Zone Color Legend Overlay -->
+        <div class="absolute bottom-4 left-4 right-4 sm:right-auto z-20 bg-slate-950/90 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl text-xs text-left shadow-2xl flex flex-wrap items-center gap-x-4 gap-y-2 text-white">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3.5 h-3.5 rounded-md bg-red-600/60 border-2 border-amber-400 shadow-2xs"></span>
+            <span class="text-amber-300 font-extrabold text-[11px]">Selangor (Pusat PERMAS)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 ring-2 ring-white/50"></span>
+            <span class="text-slate-200 font-semibold text-[11px]">Utara (4)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white/50"></span>
+            <span class="text-slate-200 font-semibold text-[11px]">Pantai Timur (4)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-white/50"></span>
+            <span class="text-slate-200 font-semibold text-[11px]">Selatan (4)</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-500 ring-2 ring-white/50"></span>
+            <span class="text-slate-200 font-semibold text-[11px]">Borneo (2)</span>
+          </div>
+        </div>
+
+        <!-- Controls: Arc Toggle & Reset Zoom Button -->
+        <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
+          <button id="toggle-arcs-btn" onclick="toggleNetworkArcs()" class="bg-slate-900/90 backdrop-blur-md text-amber-300 hover:bg-slate-800 px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-amber-400/40">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>Laluan Jaringan</span>
+          </button>
+          <button onclick="panToRegion('all')" class="bg-white/95 text-slate-900 hover:bg-white px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-slate-200">
+            <svg class="w-3.5 h-3.5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+            <span>Paparan Penuh</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       DIRECTORY SECTION: 20 UA UNDER PERMAS NASIONAL
+  ======================================================== -->
+  <section class="py-14 bg-slate-50 border-b border-slate-200 flex-1 text-left" id="senarai-ua">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Controls Bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-red-700">Pangkalan Data Rasmi</span>
+          <h3 class="text-2xl font-black font-heading text-slate-900 mt-0.5">
+            Senarai 20 Universiti Awam (UA) di Bawah PERMAS
+          </h3>
+        </div>
+
+        <!-- View Mode Switcher & Counter -->
+        <div class="flex items-center gap-3">
+          <span id="filtered-count" class="text-xs font-bold text-slate-500 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            Menunjukkan: 20 UA
+          </span>
+          <div class="inline-flex rounded-xl bg-white p-1 border border-slate-200 shadow-2xs">
+            <button id="view-cards-btn" onclick="setViewMode('cards')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              <span>Kad Grid</span>
+            </button>
+            <button id="view-table-btn" onclick="setViewMode('table')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              <span>Jadual Eksekutif</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-2 mb-8">
+        <button onclick="filterZone('all', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs">
+          Semua Zon (20 UA)
+        </button>
+        <button onclick="filterZone('Zon Tengah', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+          Zon Tengah (6 UA)
+        </button>
+        <button onclick="filterZone('Zon Utara', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+          Zon Utara (4 UA)
+        </button>
+        <button onclick="filterZone('Zon Selatan', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+          Zon Selatan (4 UA)
+        </button>
+        <button onclick="filterZone('Zon Pantai Timur', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+          Zon Pantai Timur (4 UA)
+        </button>
+        <button onclick="filterZone('Borneo', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+          Borneo (2 UA)
+        </button>
+      </div>
+
+      <!-- 1. Grid Cards View -->
+      <div id="campus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- 2. Executive Table View (Hidden by default) -->
+      <div id="campus-table-container" class="hidden bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-900 text-white font-heading font-bold uppercase text-[11px] tracking-wider">
+              <tr>
+                <th class="py-3.5 px-4">Kod & Universiti</th>
+                <th class="py-3.5 px-4">Wilayah & Negeri</th>
+                <th class="py-3.5 px-4">Pengerusi Cawangan</th>
+                <th class="py-3.5 px-4">Anggaran Ahli</th>
+                <th class="py-3.5 px-4">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="campus-table-body" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       OFFICIAL INSTITUTIONAL FOOTER
+  ======================================================== -->
+  <footer class="bg-slate-900 text-white pt-16 pb-12 border-t-4 border-red-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800 text-left text-xs">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-12 w-auto object-contain">
+            <div>
+              <span class="font-heading font-extrabold text-lg text-white tracking-tight block">
+                PERMAS NASIONAL
+              </span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mt-0.5">
+                Persatuan Mahasiswa Selangor Kebangsaan
+              </span>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Badan induk berdaftar yang menyatukan seluruh persatuan dan mahasiswa anak Selangor di institusi pengajian tinggi awam dan swasta seluruh Malaysia sejak 1974.
+          </p>
+          <div class="pt-2 text-slate-400 space-y-1">
+            <p><strong class="text-white">Ibu Pejabat Sekretariat:</strong> Aras 4, Kompleks Belia & Sukan Negeri Selangor, Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.</p>
+            <p><strong class="text-white">Talian Rasmi:</strong> +60 (3) 5544 8900 • <strong>Hotline SOS:</strong> +60 12-345 6789</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Halaman Portal</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="index.html?v=8" class="hover:text-white transition">Laman Utama</a></li>
+            <li><a href="inisiatif.html?v=8" class="hover:text-white transition">Inisiatif Bantuan Siswa</a></li>
+            <li><a href="aduan.html?v=8#sos-teras" class="hover:text-white transition">Hab Bencana & SOS</a></li>
+            <li><a href="kampus.html?v=8" class="text-amber-400 font-bold">Direktori 20 UA</a></li>
+            <li><a href="kepimpinan.html?v=8" class="hover:text-white transition">Barisan Kepimpinan</a></li>
+            <li><a href="aduan.html?v=8" class="hover:text-white transition">Meja Suara & E-Aduan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Zon Wilayah UA</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><button onclick="panToRegion('tengah')" class="hover:text-white text-left">Zon Tengah (Selangor & KL)</button></li>
+            <li><button onclick="panToRegion('utara')" class="hover:text-white text-left">Zon Utara (Perak, P. Pinang, Kedah, Perlis)</button></li>
+            <li><button onclick="panToRegion('selatan')" class="hover:text-white text-left">Zon Selatan (N. Sembilan, Melaka, Johor)</button></li>
+            <li><button onclick="panToRegion('timur')" class="hover:text-white text-left">Zon Pantai Timur (Pahang, Terengganu, Kelantan)</button></li>
+            <li><button onclick="panToRegion('borneo')" class="hover:text-white text-left">Zon Borneo (Sarawak & Sabah)</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Pusat Sekretariat</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Kompleks Belia & Sukan Negeri Selangor,<br>
+            Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.<br><br>
+            Emel: <strong class="text-white">kampus@permasnasional.org.my</strong><br>
+            Instagram: <strong class="text-white">@permasnasionalofficial</strong>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; 2026 Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional). Hak Cipta Terpelihara.</p>
+        <p class="text-slate-400 font-medium">Selangor Maju Bersama • Mahasiswa Berintegriti</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Toast Box -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Shared Data & Scripts -->
+  <script src="js/malaysia_states.js"></script>
+  <script src="js/data.js?v=8"></script>
+  <script>
+    // Global Map State
+    let map = null;
+    let markersLayer = null;
+    let arcsLayer = null;
+    let geojsonLayer = null;
+    let satelliteTileLayer = null;
+    let hybridLabelsLayer = null;
+    let streetTileLayer = null;
+    let currentMapMode = 'satellite';
+    let markersMap = {};
+    let showArcs = true;
+    let currentFilteredList = [];
+    let activeZone = 'all';
+
+    // Regional View Presets (Constrained strictly to Malaysia)
+    const REGION_COORDINATES = {
+      all: { center: [4.2105, 108.9758], zoom: window.innerWidth < 640 ? 5.5 : 6.2 },
+      tengah: { center: [3.0800, 101.6500], zoom: 10.5 },
+      utara: { center: [5.4000, 100.6000], zoom: 8.5 },
+      selatan: { center: [2.1000, 102.8000], zoom: 8.5 },
+      timur: { center: [4.8000, 103.0000], zoom: 8 },
+      borneo: { center: [4.5000, 114.5000], zoom: 7 }
+    };
+
+    function initMap() {
+      const mapContainer = document.getElementById('campus-map');
+      if (!mapContainer) return;
+
+      const defaultView = REGION_COORDINATES.all;
+      
+      // Initialize Leaflet locked to Malaysia coordinates
+      map = L.map('campus-map', {
+        center: defaultView.center,
+        zoom: defaultView.zoom,
+        minZoom: 5,
+        maxZoom: 18,
+        maxBounds: [[-1.5, 97.0], [10.0, 122.0]],
+        maxBoundsViscosity: 0.9,
+        scrollWheelZoom: false,
+        attributionControl: false
+      });
+
+      // 1. REAL SATELLITE IMAGERY LAYER (Google Earth style - Esri World Imagery, 100% Free & No API Key)
+      satelliteTileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18
+      }).addTo(map);
+
+      // 2. HYBRID PLACE NAMES & BOUNDARIES OVERLAY (City names, highways, state labels on top of satellite)
+      hybridLabelsLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18,
+        opacity: 0.9
+      }).addTo(map);
+
+      // 3. STREET & TOPOGRAPHIC LAYER (Alternative mode - Esri World Street Map / OSM)
+      streetTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+      });
+
+      // 4. TRANSPARENT STATE BOUNDARY BORDERS (So real satellite terrain & roads remain 100% visible when zoomed in!)
+      if (window.MALAYSIA_GEOJSON) {
+        geojsonLayer = L.geoJSON(window.MALAYSIA_GEOJSON, {
+          style: function(feature) {
+            const s = (feature.properties.state || feature.properties.name || '').toLowerCase();
+            const isSelangor = s.includes('selangor');
+            if (isSelangor) {
+              return {
+                fillColor: '#EF4444',
+                fillOpacity: 0.18, // Subtle crimson tint so real satellite cities/roads shine through!
+                color: '#FBBF24',  // Glowing Gold Border around Selangor
+                weight: 2.5,
+                opacity: 0.95
+              };
+            } else {
+              return {
+                fillColor: '#FFFFFF',
+                fillOpacity: 0.02, // Almost completely transparent so satellite imagery is crystal clear
+                color: 'rgba(255, 255, 255, 0.35)',
+                weight: 1,
+                opacity: 0.6
+              };
+            }
+          },
+          onEachFeature: function(feature, layer) {
+            const rawName = feature.properties.state || feature.properties.name || '';
+            const isSel = rawName.toLowerCase().includes('selangor');
+            
+            const uas = PERMAS_DATA.campusBranches.filter(c => 
+              c.state.toLowerCase().includes(rawName.toLowerCase()) ||
+              (rawName.includes('Kuala Lumpur') && c.state.includes('Kuala Lumpur'))
+            );
+
+            const tooltipHtml = `
+              <div class="text-left font-sans">
+                <span class="font-extrabold ${isSel ? 'text-amber-300 font-heading text-sm' : 'text-white text-xs'} block">
+                  ${rawName.toUpperCase()} ${isSel ? '★ (Pusat Induk PERMAS)' : ''}
+                </span>
+                <span class="text-[11px] text-slate-300 block mt-0.5 font-medium">
+                  ${uas.length > 0 ? `${uas.length} Universiti Awam: ${uas.map(u => u.shortUni).join(', ')}` : 'Rangkaian Mahasiswa Selangor'}
+                </span>
+              </div>
+            `;
+            layer.bindTooltip(tooltipHtml, {
+              sticky: true,
+              className: 'custom-state-tooltip'
+            });
+
+            layer.on({
+              mouseover: function(e) {
+                const target = e.target;
+                target.setStyle({
+                  fillColor: isSel ? '#EF4444' : '#FBBF24',
+                  fillOpacity: isSel ? 0.28 : 0.12,
+                  color: '#FBBF24',
+                  weight: 2.5
+                });
+              },
+              mouseout: function(e) {
+                geojsonLayer.resetStyle(e.target);
+              },
+              click: function(e) {
+                map.fitBounds(e.target.getBounds(), { padding: [50, 50], maxZoom: 10 });
+              }
+            });
+          }
+        }).addTo(map);
+      }
+
+      // Layer groups for network arcs & markers
+      arcsLayer = L.layerGroup().addTo(map);
+      markersLayer = L.layerGroup().addTo(map);
+
+      // Re-render pins dynamically when zooming so pins snap to exact campus buildings at high zoom!
+      map.on('zoomend', function() {
+        renderMapMarkers(currentFilteredList.length > 0 ? currentFilteredList : PERMAS_DATA.campusBranches);
+      });
+
+      // Render graphic arcs & pins
+      renderNetworkArcs();
+      renderMapMarkers(PERMAS_DATA.campusBranches);
+    }
+
+    function switchMapMode(mode) {
+      if (!map) return;
+      currentMapMode = mode;
+      const satBtn = document.getElementById('mode-sat-btn');
+      const streetBtn = document.getElementById('mode-street-btn');
+
+      if (mode === 'satellite') {
+        if (map.hasLayer(streetTileLayer)) map.removeLayer(streetTileLayer);
+        if (!map.hasLayer(satelliteTileLayer)) satelliteTileLayer.addTo(map);
+        if (!map.hasLayer(hybridLabelsLayer)) hybridLabelsLayer.addTo(map);
+        if (satBtn) satBtn.className = 'px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs transition flex items-center gap-1.5';
+        if (streetBtn) streetBtn.className = 'px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white hover:bg-white/10 transition flex items-center gap-1.5';
+      } else {
+        if (map.hasLayer(satelliteTileLayer)) map.removeLayer(satelliteTileLayer);
+        if (map.hasLayer(hybridLabelsLayer)) map.removeLayer(hybridLabelsLayer);
+        if (!map.hasLayer(streetTileLayer)) streetTileLayer.addTo(map);
+        if (streetBtn) streetBtn.className = 'px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs transition flex items-center gap-1.5';
+        if (satBtn) satBtn.className = 'px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white hover:bg-white/10 transition flex items-center gap-1.5';
+      }
+      renderNetworkArcs();
+    }
+
+    // Generate parabolic curved arcs radiating from Selangor (Shah Alam)
+    function renderNetworkArcs() {
+      if (!arcsLayer) return;
+      arcsLayer.clearLayers();
+      if (!showArcs) return;
+
+      const selangorOrigin = [3.0738, 101.5183]; // Shah Alam HQ
+
+      PERMAS_DATA.campusBranches.forEach(c => {
+        if (!c.lat || !c.lng) return;
+        // Don't draw arc to Selangor itself
+        if (c.id === 'uitm' || (Math.abs(c.lat - selangorOrigin[0]) < 0.2 && Math.abs(c.lng - selangorOrigin[1]) < 0.2)) {
+          return;
+        }
+
+        const arcPoints = generateCurvedPath(selangorOrigin, [c.lat, c.lng]);
+        const isBorneo = c.lng > 108.0;
+        const arcColor = currentMapMode === 'satellite' ? '#FBBF24' : (isBorneo ? '#7C3AED' : '#DC2626');
+        const arcLine = L.polyline(arcPoints, {
+          color: arcColor,
+          weight: isBorneo ? 2.2 : 1.8,
+          opacity: 0.85,
+          className: 'malaysia-arc-line'
+        });
+        arcsLayer.addLayer(arcLine);
+      });
+    }
+
+    function generateCurvedPath(p1, p2) {
+      const points = [];
+      const isBorneo = p2[1] > 108.0;
+      // Curvature factor: higher for trans-oceanic flight to Borneo
+      const curvature = isBorneo ? 0.35 : 0.18;
+      
+      const midLat = (p1[0] + p2[0]) / 2 + Math.abs(p2[1] - p1[1]) * curvature * 0.12;
+      const midLng = (p1[1] + p2[1]) / 2 + (p1[0] - p2[0]) * curvature * 0.12;
+
+      for (let t = 0; t <= 1; t += 0.04) {
+        const lat = Math.pow(1 - t, 2) * p1[0] + 2 * (1 - t) * t * midLat + Math.pow(t, 2) * p2[0];
+        const lng = Math.pow(1 - t, 2) * p1[1] + 2 * (1 - t) * t * midLng + Math.pow(t, 2) * p2[1];
+        points.push([lat, lng]);
+      }
+      return points;
+    }
+
+    function toggleNetworkArcs() {
+      showArcs = !showArcs;
+      renderNetworkArcs();
+      const btn = document.getElementById('toggle-arcs-btn');
+      if (btn) {
+        if (showArcs) {
+          btn.className = 'bg-white/95 backdrop-blur-md text-red-700 hover:bg-red-50 px-3 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5 border border-red-200';
+          btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span><span>Laluan Jaringan</span>`;
+        } else {
+          btn.className = 'bg-white/95 backdrop-blur-md text-slate-500 hover:bg-slate-100 px-3 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5 border border-slate-200';
+          btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-400"></span><span>Laluan: Padam</span>`;
+        }
+      }
+    }
+
+    // Visual de-clustering offsets at national zoom so nearby universities don't overlap
+    const VISUAL_PIN_OFFSETS = {
+      'uitm':   [ 0.05, -0.32],
+      'uia':    [ 0.36,  0.02],
+      'um':     [ 0.14, -0.06],
+      'upnm':   [ 0.02,  0.28],
+      'upm':    [-0.14, -0.14],
+      'ukm':    [-0.22,  0.22],
+      'usim':   [-0.42,  0.06],
+      'unisza': [ 0.22, -0.18],
+      'umt':    [-0.18,  0.24],
+      'unimap': [ 0.20, -0.22],
+      'uum':    [-0.12,  0.22]
+    };
+
+    const ZONE_PIN_COLORS = {
+      'Zon Tengah':       { dot: 'bg-red-600',     border: 'border-red-600',     text: 'text-red-800',     pillBg: 'bg-white' },
+      'Zon Utara':        { dot: 'bg-blue-600',    border: 'border-blue-600',    text: 'text-blue-900',    pillBg: 'bg-white' },
+      'Zon Pantai Timur': { dot: 'bg-emerald-600', border: 'border-emerald-600', text: 'text-emerald-900', pillBg: 'bg-white' },
+      'Zon Selatan':      { dot: 'bg-amber-600',   border: 'border-amber-600',   text: 'text-amber-900',   pillBg: 'bg-white' },
+      'Borneo':           { dot: 'bg-purple-600',  border: 'border-purple-600',  text: 'text-purple-900',  pillBg: 'bg-white' }
+    };
+
+    function renderMapMarkers(list) {
+      if (!markersLayer) return;
+      markersLayer.clearLayers();
+      markersMap = {};
+
+      // Add Central Selangor Pulsing Radar Beacon
+      const selangorBeaconIcon = L.divIcon({
+        className: 'selangor-beacon-marker',
+        html: `
+          <div class="selangor-beacon pointer-events-none">
+            <div class="selangor-beacon-ring"></div>
+            <div class="w-4 h-4 rounded-full bg-amber-400 border-2 border-red-900 shadow-lg"></div>
+          </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
+      L.marker([3.0738, 101.5183], { icon: selangorBeaconIcon, interactive: false }).addTo(markersLayer);
+
+      const currentZoom = map ? map.getZoom() : 6;
+      const useOffset = currentZoom < 9; // Only spread out pins at wide national zoom; snap to exact campus GPS when zoomed in!
+
+      list.forEach(c => {
+        if (!c.lat || !c.lng) return;
+
+        const zStyle = ZONE_PIN_COLORS[c.zone] || ZONE_PIN_COLORS['Zon Tengah'];
+        const offset = useOffset ? (VISUAL_PIN_OFFSETS[c.id] || [0, 0]) : [0, 0];
+        const displayLat = c.lat + offset[0];
+        const displayLng = c.lng + offset[1];
+
+        // If offset is applied at national zoom, draw a subtle leader line connecting true campus location to the floating badge
+        if (offset[0] !== 0 || offset[1] !== 0) {
+          const leaderLine = L.polyline([[c.lat, c.lng], [displayLat, displayLng]], {
+            color: '#FBBF24',
+            weight: 1.5,
+            opacity: 0.85
+          });
+          markersLayer.addLayer(leaderLine);
+
+          const anchorDot = L.circleMarker([c.lat, c.lng], {
+            radius: 3.5,
+            fillColor: '#EF4444',
+            color: '#FFFFFF',
+            weight: 1.5,
+            fillOpacity: 1
+          });
+          markersLayer.addLayer(anchorDot);
+        }
+
+        const customIcon = L.divIcon({
+          className: 'custom-ua-pin',
+          html: `
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${zStyle.pillBg} border-2 ${zStyle.border} shadow-lg cursor-pointer whitespace-nowrap hover:scale-110 transition-transform">
+              <span class="w-2 h-2 rounded-full ${zStyle.dot} shrink-0"></span>
+              <span class="font-heading font-black text-[11px] ${zStyle.text} tracking-tight leading-none">${c.shortUni}</span>
+            </div>
+          `,
+          iconSize: [68, 26],
+          iconAnchor: [34, 13],
+          popupAnchor: [0, -14]
+        });
+
+        const popupContent = `
+          <div class="text-left font-sans p-1 min-w-[240px] max-w-[280px]">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100 gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-50 text-red-700 border border-red-200">
+                ${c.zone}
+              </span>
+              <span class="text-[10px] font-semibold text-slate-500">${c.state}</span>
+            </div>
+            <div class="pt-2">
+              <h4 class="font-heading font-extrabold text-sm text-slate-900 leading-snug">${c.university}</h4>
+              <p class="text-xs font-bold text-red-700 mt-0.5">${c.code}</p>
+              <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>${c.location}</span>
+              </p>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-100 bg-slate-50 -mx-1 p-2 rounded-lg text-xs space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-500">Anggaran Siswa:</span>
+                <strong class="text-slate-900 font-bold">${c.membersCount.toLocaleString()} orang</strong>
+              </div>
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-500">Pengerusi:</span>
+                <strong class="text-slate-900 font-bold truncate max-w-[130px]">${c.president}</strong>
+              </div>
+            </div>
+            <div class="mt-2.5 flex gap-2">
+              <button onclick="showToast('Talian cawangan ${c.code}: ${c.contact}', 'info')" class="flex-1 py-1.5 px-2 rounded-lg bg-red-700 hover:bg-red-800 text-white text-[11px] font-bold text-center transition">
+                Hubungi
+              </button>
+              <button onclick="scrollToCampusCard('${c.id}')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold text-center transition">
+                Lihat Butiran
+              </button>
+            </div>
+          </div>
+        `;
+
+        const marker = L.marker([displayLat, displayLng], { icon: customIcon }).bindPopup(popupContent);
+        markersLayer.addLayer(marker);
+        markersMap[c.id] = marker;
+      });
+    }
+
+    function panToRegion(regionKey, btnEl) {
+      if (!map) return;
+      const target = REGION_COORDINATES[regionKey] || REGION_COORDINATES.all;
+      map.flyTo(target.center, target.zoom, { duration: 1.2 });
+
+      document.querySelectorAll('.region-pill').forEach(btn => {
+        btn.className = 'region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-slate-100 transition';
+      });
+      const activeBtn = btnEl || (typeof event !== 'undefined' && event ? event.currentTarget : null);
+      if (activeBtn && activeBtn.classList && activeBtn.classList.contains('region-pill')) {
+        activeBtn.className = 'region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition';
+      }
+    }
+
+    function focusCampusOnMap(campusId) {
+      const c = PERMAS_DATA.campusBranches.find(item => item.id === campusId);
+      if (!c || !map) return;
+
+      // Scroll smoothly to map section
+      const mapEl = document.getElementById('peta-section');
+      if (mapEl) {
+        mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      // Fly directly to actual satellite campus buildings and open popup
+      setTimeout(() => {
+        map.flyTo([c.lat, c.lng], 15, { duration: 1.4 });
+        setTimeout(() => {
+          if (markersMap[campusId]) {
+            markersMap[campusId].openPopup();
+          }
+        }, 1500);
+      }, 300);
+    }
+
+    function scrollToCampusCard(campusId) {
+      const card = document.getElementById('card-' + campusId);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('ring-4', 'ring-red-600', 'ring-offset-2');
+        setTimeout(() => {
+          card.classList.remove('ring-4', 'ring-red-600', 'ring-offset-2');
+        }, 3000);
+      }
+    }
+
+    function renderCampuses(list) {
+      currentFilteredList = list;
+      const gridContainer = document.getElementById('campus-grid');
+      const tableBody = document.getElementById('campus-table-body');
+      const countEl = document.getElementById('filtered-count');
+
+      if (countEl) {
+        countEl.innerText = `Menunjukkan: ${list.length} Institusi`;
+      }
+
+      // 1. Render Cards
+      if (gridContainer) {
+        if (list.length === 0) {
+          gridContainer.innerHTML = `
+            <div class="col-span-full py-12 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">
+              <p class="font-bold text-sm text-slate-700">Tiada kampus ditemui</p>
+              <p class="text-xs mt-1">Cuba cari dengan kata kunci lain atau pilih tab 'Semua Zon'.</p>
+            </div>
+          `;
+        } else {
+          gridContainer.innerHTML = list.map(c => {
+            const shortName = c.shortUni || c.code.replace('PERMAS ', '');
+            return `
+              <div id="card-${c.id}" class="pro-card p-6 flex flex-col justify-between text-left space-y-4 rounded-2xl bg-white border border-slate-200 hover:border-red-300 transition-all shadow-xs group">
+                <div class="space-y-3.5">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700">
+                      ${c.zone}
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      ${c.status}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-3 pt-1">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-red-900 to-slate-900 text-white flex items-center justify-center font-black font-heading text-xs tracking-wider shrink-0 shadow-sm">
+                      ${shortName}
+                    </div>
+                    <div>
+                      <h4 class="text-base font-extrabold text-slate-900 group-hover:text-red-700 transition leading-snug">${c.university}</h4>
+                      <p class="text-xs text-red-700 font-bold">${c.code}</p>
+                    </div>
+                  </div>
+
+                  <p class="text-xs text-slate-500 flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>${c.location}</span>
+                  </p>
+
+                  <p class="text-xs text-slate-600 italic bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                    "${c.tagline || 'Wadah Kepimpinan Mahasiswa Selangor'}"
+                  </p>
+
+                  <div class="pt-1 text-xs text-slate-600 space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="text-slate-500">Pengerusi:</span>
+                      <strong class="text-slate-900 font-bold truncate max-w-[150px]">${c.president}</strong>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-slate-500">Anggaran Siswa:</span>
+                      <strong class="text-slate-900 font-bold">${c.membersCount.toLocaleString()} orang</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                  <button onclick="focusCampusOnMap('${c.id}')" class="text-xs font-bold text-slate-700 hover:text-red-700 inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">
+                    <svg class="w-3.5 h-3.5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                    <span>Fokus Peta</span>
+                  </button>
+                  <button onclick="showToast('Talian rasmi cawangan ${c.code}: ${c.contact}', 'info')" class="text-xs font-bold text-red-700 hover:text-red-800 hover:underline inline-flex items-center gap-1">
+                    <span>Hubungi</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // 2. Render Table View
+      if (tableBody) {
+        tableBody.innerHTML = list.map(c => `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-red-100 text-red-800 font-bold font-mono text-[10px] flex items-center justify-center shrink-0">
+                  ${c.shortUni}
+                </span>
+                <div>
+                  <span class="font-bold text-slate-900 block">${c.university}</span>
+                  <span class="text-[11px] text-red-700 font-semibold">${c.code}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="font-semibold text-slate-900 block">${c.zone}</span>
+              <span class="text-[11px] text-slate-500">${c.state}</span>
+            </td>
+            <td class="py-3.5 px-4 font-semibold text-slate-900">${c.president}</td>
+            <td class="py-3.5 px-4 font-mono font-bold text-slate-900">${c.membersCount.toLocaleString()}</td>
+            <td class="py-3.5 px-4">
+              <button onclick="focusCampusOnMap('${c.id}')" class="px-2.5 py-1 rounded bg-slate-900 text-white text-[11px] font-bold hover:bg-red-700 transition">
+                Papar Peta
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Also update map pins
+      renderMapMarkers(list);
+    }
+
+    function filterCampusList(query) {
+      query = query.toLowerCase().trim();
+      let filtered = PERMAS_DATA.campusBranches;
+      if (activeZone !== 'all') {
+        filtered = filtered.filter(c => c.zone === activeZone);
+      }
+      if (query) {
+        filtered = filtered.filter(c => 
+          c.code.toLowerCase().includes(query) ||
+          c.name.toLowerCase().includes(query) ||
+          c.university.toLowerCase().includes(query) ||
+          c.location.toLowerCase().includes(query) ||
+          c.shortUni.toLowerCase().includes(query)
+        );
+      }
+      renderCampuses(filtered);
+    }
+
+    function filterZone(zone, btn) {
+      activeZone = zone;
+      document.querySelectorAll('.zone-filter-btn').forEach(b => {
+        b.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs';
+      });
+      if (btn) {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs';
+      }
+
+      const searchVal = document.getElementById('ipt-search').value;
+      filterCampusList(searchVal);
+
+      // Also pan map to that region
+      if (zone === 'Zon Tengah') panToRegion('tengah');
+      else if (zone === 'Zon Utara') panToRegion('utara');
+      else if (zone === 'Zon Selatan') panToRegion('selatan');
+      else if (zone === 'Zon Pantai Timur') panToRegion('timur');
+      else if (zone === 'Borneo') panToRegion('borneo');
+      else panToRegion('all');
+    }
+
+    function setViewMode(mode) {
+      const cardsBtn = document.getElementById('view-cards-btn');
+      const tableBtn = document.getElementById('view-table-btn');
+      const cardsView = document.getElementById('campus-grid');
+      const tableView = document.getElementById('campus-table-container');
+
+      if (mode === 'cards') {
+        cardsBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5';
+        tableBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+        cardsView.classList.remove('hidden');
+        tableView.classList.add('hidden');
+      } else {
+        tableBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white transition flex items-center gap-1.5';
+        cardsBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+        cardsView.classList.add('hidden');
+        tableView.classList.remove('hidden');
+      }
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-nav').classList.toggle('hidden');
+    }
+
+    function showToast(msg, type = 'info') {
+      const box = document.getElementById('toast-box');
+      if (!box) return;
+      const toast = document.createElement('div');
+      const border = type === 'error' ? 'border-l-4 border-red-600' : type === 'success' ? 'border-l-4 border-emerald-500' : 'border-l-4 border-amber-500';
+      toast.className = `p-4 rounded-xl bg-slate-900 text-white text-xs font-semibold flex items-center gap-2 transform transition-all duration-300 opacity-0 translate-y-3 shadow-2xl ${border}`;
+      toast.innerHTML = `<span>${msg}</span>`;
+      box.appendChild(toast);
+      setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-3'), 30);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      renderCampuses(PERMAS_DATA.campusBranches);
+    });
+  </script>
+  <script src="js/ui-motion.js?v=12"></script>
+</body>
+</html>

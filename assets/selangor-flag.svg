@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="100%" height="100%">
+  <!-- Selangor Flag: 4 quarters: Top-Left Red with white crescent & 5-point star, Top-Right Yellow, Bottom-Left Yellow, Bottom-Right Red -->
+  <rect x="0" y="0" width="300" height="150" fill="#DA291C" />
+  <rect x="300" y="0" width="300" height="150" fill="#FFCD00" />
+  <rect x="0" y="150" width="300" height="150" fill="#FFCD00" />
+  <rect x="300" y="150" width="300" height="150" fill="#DA291C" />
+
+  <!-- Crescent and 5-pointed star in top left red canton -->
+  <!-- Crescent -->
+  <path d="M 140,35 A 45,45 0 0,0 80,75 A 45,45 0 0,0 140,115 A 36,36 0 0,1 110,75 A 36,36 0 0,1 140,35 Z" fill="#FFFFFF" />
+  <!-- Star -->
+  <polygon points="160,55 165,68 178,68 167,76 171,88 160,80 149,88 153,76 142,68 155,68" fill="#FFFFFF" />
+</svg>
+

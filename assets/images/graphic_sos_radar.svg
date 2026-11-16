@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="gRedSos" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="#FEF2F2"/>
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="none" stroke="#FEE2E2" stroke-width="2"/>
+  <!-- Radar circles -->
+  <circle cx="60" cy="60" r="32" stroke="#FCA5A5" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="60" cy="60" r="22" stroke="#F87171" stroke-width="1.5"/>
+  <circle cx="60" cy="60" r="10" fill="url(#gRedSos)"/>
+  <!-- Pulse beacon -->
+  <circle cx="60" cy="60" r="4" fill="#FFFFFF"/>
+  <!-- Cross / Shield -->
+  <path d="M60 28L78 35V54C78 68 60 78 60 78C60 78 42 68 42 54V35L60 28Z" fill="url(#gRedSos)" opacity="0.9"/>
+  <path d="M60 42V56M53 49H67" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

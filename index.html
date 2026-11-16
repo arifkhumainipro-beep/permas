@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Rasmi PERMAS Nasional | Persatuan Mahasiswa Selangor Kebangsaan</title>
+  <meta name="description" content="Portal Rasmi Persatuan Mahasiswa Selangor (PERMAS) Kebangsaan - Badan induk kepimpinan, advokasi kebajikan, dan pembangunan mahasiswa anak Selangor di seluruh Malaysia sejak 1974.">
+  <link rel="icon" type="image/png" href="assets/logo-transparent.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#991B1B',
+              redDark: '#7F1D1D',
+              redLight: '#FEF2F2',
+              gold: '#D97706',
+              goldLight: '#FEF3C7',
+              dark: '#0F172A',
+              slate: '#1E293B',
+              border: '#E2E8F0',
+              bgLight: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            heading: ['"Outfit"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bespoke Executive CSS -->
+  <link rel="stylesheet" href="css/custom.css?v=13">
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-red-800 selection:text-white">
+
+  <!-- Top Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       MAIN EXECUTIVE NAVBAR (7 MODULAR UNDERLINE TABS)
+  ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px] gap-2">
+        
+        <!-- Brand Identity Lockup -->
+        <a href="index.html?v=8" class="flex items-center gap-2.5 shrink-0 py-1 group">
+          <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1 font-heading font-black text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+              <span>PERMAS</span>
+              <span class="text-red-700">NASIONAL</span>
+            </div>
+            <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-slate-500 leading-tight">
+              Persatuan Mahasiswa Selangor
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Tabs (6 Clean Options) -->
+        <nav class="hidden lg:flex items-center h-[72px]">
+          <a href="index.html?v=8" class="nav-tab-item active">
+            Laman Utama
+          </a>
+          <a href="inisiatif.html?v=8" class="nav-tab-item">
+            Inisiatif Bantuan
+          </a>
+          <a href="kampus.html?v=8" class="nav-tab-item">
+            Peta & 20 UA
+          </a>
+          <a href="takwim.html?v=8" class="nav-tab-item">
+            Takwim 2026
+          </a>
+          <a href="kepimpinan.html?v=8" class="nav-tab-item">
+            Kepimpinan
+          </a>
+          <a href="aduan.html?v=8" class="nav-tab-item">
+            Meja E-Aduan
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-2 shrink-0">
+          <a href="aduan.html?v=8" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+            <span>📢 Salur Aduan & SOS</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-1.5 text-left shadow-lg">
+      <a href="index.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-bold bg-red-50 text-red-700">Laman Utama</a>
+      <a href="inisiatif.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Info Inisiatif Bantuan (4 Skim)</a>
+      <a href="kampus.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Direktori 20 UA & Peta Lokasi</a>
+      <a href="takwim.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Takwim Program & Aktiviti 2026</a>
+      <a href="kepimpinan.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Barisan Kepimpinan PERMAS</a>
+      <a href="aduan.html?v=8" class="block py-2.5 px-3.5 rounded-lg text-sm font-bold text-red-700 bg-red-50">📢 Meja E-Aduan & Bantuan SOS 24 Jam</a>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       LIVE ANNOUNCEMENT & HEBAHAN TERKINI BAR
+  ======================================================== -->
+  <div class="bg-slate-900 text-white border-b border-slate-800 py-2.5 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2.5 overflow-hidden">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-600 text-white font-extrabold text-[10px] uppercase tracking-wider shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+          Hebahan Terkini
+        </span>
+        <p id="live-ticker-text" class="text-slate-200 font-medium truncate">
+          <strong class="text-amber-300">Berita Mahasiswa Selangor:</strong> Memuatkan berita tempatan terkini mengenai mahasiswa &amp; biasiswa Negeri Selangor...
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <a id="live-ticker-link" href="#berita-terkini" class="text-amber-300 hover:text-amber-200 font-bold underline underline-offset-4">
+          Baca Berita →
+        </a>
+        <span class="text-slate-600 hidden sm:inline">|</span>
+        <a href="inisiatif.html?v=12" class="text-emerald-300 hover:text-white font-bold hidden md:inline">
+          Info Bantuan
+        </a>
+        <span class="text-slate-600 hidden sm:inline">|</span>
+        <a href="aduan.html?v=12" class="text-red-300 hover:text-white font-bold hidden sm:inline">
+          📢 Salur Aduan / SOS
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       HERO BANNER WITH MULTI-LAYERED GRAPHIC COMPOSITE
+  ======================================================== -->
+  <section class="relative overflow-hidden bg-hero-mesh py-14 sm:py-20 border-b border-slate-200">
+    <!-- Interactive Particle Network Canvas -->
+    <canvas id="hero-particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+    <!-- Decorative Ambient Glow Orbs -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        
+        <!-- Left Column: Institutional Value Proposition & Quick Lookup -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white border border-red-200 shadow-xs">
+            <img src="assets/selangor-jata.svg" alt="Jata Selangor" class="w-4 h-4 object-contain">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-red-800">
+              Badan Induk Rasmi Mahasiswa Negeri Selangor
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-mono font-bold">EST. 1974</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-slate-900 leading-[1.1] font-heading tracking-tight">
+            Memartabatkan Suara, Kebajikan & Masa Depan 
+            <span class="relative inline-block text-red-700">
+              Mahasiswa Selangor.
+              <!-- Graphic Gold Underline Swoosh SVG -->
+              <svg class="absolute -bottom-2 left-0 w-full h-3 text-amber-500/80 pointer-events-none" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none">
+                <path d="M2 9.5C75 2.5 185 1.5 298 8.5" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl">
+            Menyatukan lebih <strong class="text-slate-900">28,450+ mahasiswa anak Selangor</strong> di 20 Universiti Awam (UA) dan 38 cawangan kampus seluruh Malaysia. Siaga 24 jam menjaga kebajikan, menyalurkan dermasiswa, dan membina jaringan kepimpinan nasional.
+          </p>
+
+          <!-- Direct Action Buttons for Info, News & E-Aduan -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#berita-terkini" class="btn-primary-red py-3.5 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg flex items-center gap-2">
+              <span>📰 Berita & Warta Terkini</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+            <a href="aduan.html?v=8" class="px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition shadow-md flex items-center gap-2">
+              <span>📢 Salur Aduan Siswa</span>
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <a href="inisiatif.html?v=8" class="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs sm:text-sm font-bold transition shadow-2xs flex items-center gap-1.5">
+              <span>ℹ️ Info Bantuan</span>
+            </a>
+          </div>
+
+          <!-- Partner Trust Bar with Vector Icons -->
+          <div class="pt-5 border-t border-slate-200/80">
+            <p class="text-[11px] uppercase font-bold text-slate-400 tracking-wider mb-2.5">
+              Jalinan Strategik Agensi Kerajaan Negeri Selangor:
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+              <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
+                <div class="leading-tight">
+                  <strong class="text-slate-900 block text-[11px]">Pejabat SUK</strong>
+                  <span class="text-[10px] text-slate-500">Negeri Selangor</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                <div class="leading-tight">
+                  <strong class="text-slate-900 block text-[11px]">Yayasan Selangor</strong>
+                  <span class="text-[10px] text-slate-500">Biasiswa & Pinjaman</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
+                <div class="leading-tight">
+                  <strong class="text-slate-900 block text-[11px]">Zakat Selangor</strong>
+                  <span class="text-[10px] text-slate-500">Dermasiswa Fisabilillah</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                <div class="leading-tight">
+                  <strong class="text-slate-900 block text-[11px]">MBI Selangor</strong>
+                  <span class="text-[10px] text-slate-500">Rangkaian GLC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Multi-Layered Graphic Showcase -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-lg">
+            
+            <!-- Rotating Vector Orbital Rings Graphic -->
+            <svg class="hidden sm:block absolute -inset-8 w-[calc(100%+4rem)] h-[calc(100%+4rem)] pointer-events-none z-0 opacity-55" viewBox="0 0 400 400" fill="none">
+              <circle cx="200" cy="200" r="186" stroke="#991B1B" stroke-opacity="0.18" stroke-width="1.5" stroke-dasharray="10 10" class="animate-spin-slow" style="transform-origin: 200px 200px;" />
+              <circle cx="200" cy="200" r="160" stroke="#D97706" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="5 12" class="animate-spin-reverse-slow" style="transform-origin: 200px 200px;" />
+            </svg>
+
+            <!-- Floating Graphic Pill 1: Top Right (Impact Dana) -->
+            <div class="absolute -top-5 -right-2 sm:-right-4 z-20 bg-white/95 backdrop-blur-md border border-slate-200 shadow-xl rounded-2xl p-3 flex items-center gap-3 animate-float">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+                <img src="assets/images/graphic_scholarship.svg" alt="" class="w-6 h-6 object-contain">
+              </div>
+              <div class="text-left pr-1">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Dana Kebajikan</span>
+                <span class="text-sm font-black font-heading text-slate-900">RM 3.8 Juta+</span>
+              </div>
+            </div>
+
+            <!-- Floating Graphic Pill 2: Bottom Left (Radar SOS) -->
+            <div class="absolute bottom-20 -left-3 sm:-left-5 z-20 bg-slate-900/95 backdrop-blur-md border border-red-500/40 shadow-xl rounded-2xl p-3 flex items-center gap-3 animate-float-delayed text-white">
+              <div class="w-10 h-10 rounded-xl bg-red-950 border border-red-800 flex items-center justify-center p-1.5 shrink-0">
+                <img src="assets/images/graphic_sos_radar.svg" alt="SOS Radar" class="w-full h-full object-contain">
+              </div>
+              <div class="text-left pr-1">
+                <span class="text-[9px] font-bold text-red-300 uppercase tracking-wider flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+                  Siaga Bencana
+                </span>
+                <span class="text-xs font-extrabold font-heading text-white">Bilik Gerakan 24/7</span>
+              </div>
+            </div>
+
+            <!-- Main Framed Photo Showcase (Iconic Selangor Landmark) -->
+            <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-900 relative group">
+              <img src="assets/images/selangor_shah_alam_night.jpg" alt="Masjid Sultan Salahuddin Abdul Aziz Shah, Shah Alam" class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/30 to-transparent"></div>
+
+              <div class="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wide">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  SHAH ALAM &bull; DARUL EHSAN
+                </span>
+              </div>
+
+              <div class="absolute bottom-5 left-6 right-6 z-10 text-left text-white flex items-end justify-between gap-3">
+                <div>
+                  <p class="text-[10px] font-bold uppercase tracking-wider text-amber-300">Ibu Negeri Selangor &bull; Pusat Pentadbiran PERMAS</p>
+                  <h4 class="text-base sm:text-lg font-extrabold font-heading text-white">PERMAS Proaktif, Selangor Progresif</h4>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-white/15 backdrop-blur-md text-[10px] font-mono text-white border border-white/20 shrink-0">
+                  20 UA / 38 IPT
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       KEY STATISTICAL METRICS WITH GRAPHIC SPARKLINES
+  ======================================================== -->
+  <section class="py-12 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        
+        <!-- Metric 1 -->
+        <div class="bento-card p-6 relative group">
+          <!-- Subtle Graphic Wave Background -->
+          <svg class="absolute bottom-0 right-0 w-36 h-16 text-red-500/10 pointer-events-none" viewBox="0 0 200 80" fill="currentColor">
+            <path d="M0 80 L0 50 Q40 20 80 45 T160 25 T200 10 L200 80 Z"/>
+          </svg>
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-11 h-11 rounded-2xl bg-red-50 border border-red-100 text-red-700 flex items-center justify-center font-bold shadow-2xs">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              +14% Tahunan
+            </span>
+          </div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading" data-count="28450" data-suffix="+">28,450+</p>
+          <p class="text-xs font-bold text-slate-700 mt-1 uppercase tracking-wide">Mahasiswa Berdaftar</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Anak Selangor di IPTA & IPTS</p>
+          <div class="mt-3 h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full rounded-full bg-gradient-to-r from-red-700 to-amber-500 animated-bar-fill" data-bar-width="88%"></div>
+          </div>
+        </div>
+
+        <!-- Metric 2 -->
+        <div class="bento-card p-6 relative group">
+          <svg class="absolute bottom-0 right-0 w-36 h-16 text-amber-500/10 pointer-events-none" viewBox="0 0 200 80" fill="currentColor">
+            <path d="M0 80 L0 60 Q50 30 100 40 T200 15 L200 80 Z"/>
+          </svg>
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center font-bold shadow-2xs">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+              5 Zon Wilayah
+            </span>
+          </div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading" data-count="38" data-prefix="20 UA / " data-suffix=" IPT">20 UA / 38 IPT</p>
+          <p class="text-xs font-bold text-slate-700 mt-1 uppercase tracking-wide">Rangkaian Cawangan</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Sekretariat aktif seluruh negara</p>
+          <div class="mt-3 h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full rounded-full bg-gradient-to-r from-amber-500 to-red-600 animated-bar-fill" data-bar-width="95%"></div>
+          </div>
+        </div>
+
+        <!-- Metric 3 -->
+        <div class="bento-card p-6 relative group">
+          <svg class="absolute bottom-0 right-0 w-36 h-16 text-emerald-500/10 pointer-events-none" viewBox="0 0 200 80" fill="currentColor">
+            <path d="M0 80 L0 55 Q60 25 110 35 T200 5 L200 80 Z"/>
+          </svg>
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center font-bold shadow-2xs">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-red-50 text-red-800 border border-red-200">
+              Audit Telus
+            </span>
+          </div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading" data-count="3.8" data-prefix="RM " data-suffix="M+" data-decimals="1">RM 3.8M+</p>
+          <p class="text-xs font-bold text-slate-700 mt-1 uppercase tracking-wide">Dana Bantuan Disalur</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Dermasiswa, komputer riba & ihsan</p>
+          <div class="mt-3 h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full rounded-full bg-gradient-to-r from-emerald-600 to-teal-400 animated-bar-fill" data-bar-width="92%"></div>
+          </div>
+        </div>
+
+        <!-- Metric 4 -->
+        <div class="bento-card p-6 relative group">
+          <svg class="absolute bottom-0 right-0 w-36 h-16 text-blue-500/10 pointer-events-none" viewBox="0 0 200 80" fill="currentColor">
+            <path d="M0 80 L0 45 Q50 35 120 20 T200 10 L200 80 Z"/>
+          </svg>
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 text-blue-700 flex items-center justify-center font-bold shadow-2xs">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
+              94.2% Graduan
+            </span>
+          </div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading" data-count="1200" data-suffix="+">1,200+</p>
+          <p class="text-xs font-bold text-slate-700 mt-1 uppercase tracking-wide">Penempatan SISPRO</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Internship bergaji GLC Selangor</p>
+          <div class="mt-3 h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-500 animated-bar-fill" data-bar-width="94%"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       INFOGRAFIK & VISUALISASI DATA IMPAK SELANGOR (INTERAKTIF)
+  ======================================================== -->
+  <section id="infografik-impak" class="py-14 sm:py-16 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 text-left relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div>
+          <div class="executive-badge mb-2">Papan Pemuka Visual & Infografik</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 tracking-tight">
+            Visualisasi Impak Dana & <span class="text-red-700">Taburan Siswa 2026</span>
+          </h2>
+          <p class="text-sm text-slate-600 mt-1.5 max-w-2xl">
+            Paparan grafik interaktif agihan dana kebajikan anak Selangor serta taburan 28,450+ mahasiswa merentasi 5 zon wilayah seluruh Malaysia. Sentuh atau klik carta untuk butiran terperinci.
+          </p>
+        </div>
+        <a href="inisiatif.html?v=10" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs shrink-0">
+          <span>📊 Teroka Skim Bantuan</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+
+        <!-- Left Card: Interactive SVG Donut Chart (Agihan Dana) -->
+        <div class="lg:col-span-6 bento-card p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <div>
+                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-red-700 block">Infografik Kewangan Siswa</span>
+                <h3 class="text-lg sm:text-xl font-extrabold font-heading text-slate-900">
+                  Pecahan Agihan Dana & Kebajikan (RM 3.8 Juta+)
+                </h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold uppercase shrink-0">
+                Audit 2026
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+              <!-- SVG Donut Graphic -->
+              <div class="sm:col-span-5 flex items-center justify-center relative">
+                <svg class="w-48 h-48 -rotate-90 drop-shadow-sm" viewBox="0 0 180 180" aria-label="Carta Donut Agihan Dana PERMAS">
+                  <circle cx="90" cy="90" r="64" fill="none" stroke="#F1F5F9" stroke-width="20" />
+                  <!-- Slice 0: 45% Dermasiswa -->
+                  <circle id="donut-seg-0" onmouseenter="highlightDonutSlice(0)" onclick="highlightDonutSlice(0)" class="donut-segment active" cx="90" cy="90" r="64" fill="none" stroke="#991B1B" stroke-width="20" stroke-dasharray="180.95 402.12" stroke-dashoffset="0" />
+                  <!-- Slice 1: 25% Laptop B40 -->
+                  <circle id="donut-seg-1" onmouseenter="highlightDonutSlice(1)" onclick="highlightDonutSlice(1)" class="donut-segment" cx="90" cy="90" r="64" fill="none" stroke="#D97706" stroke-width="20" stroke-dasharray="100.53 402.12" stroke-dashoffset="-180.95" />
+                  <!-- Slice 2: 18% Kecemasan SOS -->
+                  <circle id="donut-seg-2" onmouseenter="highlightDonutSlice(2)" onclick="highlightDonutSlice(2)" class="donut-segment" cx="90" cy="90" r="64" fill="none" stroke="#059669" stroke-width="20" stroke-dasharray="72.38 402.12" stroke-dashoffset="-281.48" />
+                  <!-- Slice 3: 12% Tiket Kasih -->
+                  <circle id="donut-seg-3" onmouseenter="highlightDonutSlice(3)" onclick="highlightDonutSlice(3)" class="donut-segment" cx="90" cy="90" r="64" fill="none" stroke="#2563EB" stroke-width="20" stroke-dasharray="48.26 402.12" stroke-dashoffset="-353.86" />
+                </svg>
+
+                <!-- Center Dynamic Readout -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-8">
+                  <span id="donut-center-percent" class="text-2xl font-black font-heading text-red-700 leading-none">45%</span>
+                  <span id="donut-center-value" class="text-xs font-extrabold text-slate-900 mt-1">RM 1.71J</span>
+                  <span id="donut-center-label" class="text-[10px] font-semibold text-slate-500 leading-tight mt-0.5">Dermasiswa IPT</span>
+                </div>
+              </div>
+
+              <!-- Interactive Legend -->
+              <div class="sm:col-span-7 space-y-2.5">
+                <button type="button" id="donut-leg-0" onmouseenter="highlightDonutSlice(0)" onclick="highlightDonutSlice(0)" class="donut-legend w-full text-left p-2.5 rounded-xl border border-red-200 bg-red-50/70 transition flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-3 h-3 rounded-full bg-red-800 shrink-0"></span>
+                    <span class="text-xs font-bold text-slate-900 truncate">Dermasiswa Pengajian Tinggi</span>
+                  </div>
+                  <span class="text-xs font-mono font-extrabold text-red-800 shrink-0">45% &bull; RM 1.71J</span>
+                </button>
+
+                <button type="button" id="donut-leg-1" onmouseenter="highlightDonutSlice(1)" onclick="highlightDonutSlice(1)" class="donut-legend w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-amber-300 hover:bg-amber-50/50 transition flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-3 h-3 rounded-full bg-amber-600 shrink-0"></span>
+                    <span class="text-xs font-bold text-slate-800 truncate">Skim Komputer Riba B40</span>
+                  </div>
+                  <span class="text-xs font-mono font-extrabold text-amber-700 shrink-0">25% &bull; RM 950K</span>
+                </button>
+
+                <button type="button" id="donut-leg-2" onmouseenter="highlightDonutSlice(2)" onclick="highlightDonutSlice(2)" class="donut-legend w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-3 h-3 rounded-full bg-emerald-600 shrink-0"></span>
+                    <span class="text-xs font-bold text-slate-800 truncate">Bantuan Kecemasan SOS &amp; Banjir</span>
+                  </div>
+                  <span class="text-xs font-mono font-extrabold text-emerald-700 shrink-0">18% &bull; RM 684K</span>
+                </button>
+
+                <button type="button" id="donut-leg-3" onmouseenter="highlightDonutSlice(3)" onclick="highlightDonutSlice(3)" class="donut-legend w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 transition flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="w-3 h-3 rounded-full bg-blue-600 shrink-0"></span>
+                    <span class="text-xs font-bold text-slate-800 truncate">Subsidi Tiket Kasih &amp; Bas</span>
+                  </div>
+                  <span class="text-xs font-mono font-extrabold text-blue-700 shrink-0">12% &bull; RM 456K</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+            <span>Sumber: Laporan Tahunan Biro Kebajikan PERMAS</span>
+            <span class="font-bold text-red-700">100% Terus Kepada Siswa</span>
+          </div>
+        </div>
+
+        <!-- Right Card: Animated Regional Bar Chart & Radar Network -->
+        <div class="lg:col-span-6 bento-card p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-6">
+              <div>
+                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-700 block">Pemetaan Demografi Kampus</span>
+                <h3 class="text-lg sm:text-xl font-extrabold font-heading text-slate-900">
+                  Taburan 28,450+ Mahasiswa Mengikut 5 Zon Wilayah
+                </h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-300 text-[10px] font-mono font-bold uppercase shrink-0">
+                20 UA / 38 IPT
+              </span>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Zon Tengah -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-red-700"></span>
+                    Zon Tengah (UM, UKM, UPM, UiTM, UIAM, UPNM)
+                  </span>
+                  <span class="font-mono font-bold text-red-700">12,400 siswa (44%)</span>
+                </div>
+                <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-red-700 to-red-500 animated-bar-fill" data-bar-width="88%"></div>
+                </div>
+              </div>
+
+              <!-- Zon Utara -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                    Zon Utara (USM, UUM, UPSI, UniMAP)
+                  </span>
+                  <span class="font-mono font-bold text-amber-700">5,690 siswa (20%)</span>
+                </div>
+                <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-amber-600 to-amber-400 animated-bar-fill" data-bar-width="40%"></div>
+                </div>
+              </div>
+
+              <!-- Zon Selatan -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    Zon Selatan (UTM, UTHM, UTeM, USIM)
+                  </span>
+                  <span class="font-mono font-bold text-emerald-700">4,550 siswa (16%)</span>
+                </div>
+                <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-400 animated-bar-fill" data-bar-width="32%"></div>
+                </div>
+              </div>
+
+              <!-- Zon Pantai Timur -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                    Zon Pantai Timur (UMPSA, UMT, UniSZA, UMK)
+                  </span>
+                  <span class="font-mono font-bold text-blue-700">3,410 siswa (12%)</span>
+                </div>
+                <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-blue-600 to-sky-400 animated-bar-fill" data-bar-width="24%"></div>
+                </div>
+              </div>
+
+              <!-- Zon Borneo -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="font-bold text-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-violet-600"></span>
+                    Zon Sabah &amp; Sarawak (UMS, UNIMAS)
+                  </span>
+                  <span class="font-mono font-bold text-violet-700">2,400 siswa (8%)</span>
+                </div>
+                <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-purple-400 animated-bar-fill" data-bar-width="16%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Live Network Visual Footer -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+            <div class="flex items-center gap-2 text-slate-600">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Sekretariat PERMAS aktif menyelaras kebajikan di 5 zon.</span>
+            </div>
+            <a href="kampus.html?v=10" class="font-bold text-red-700 hover:underline">
+              Lihat Peta Satelit &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       INFO, PENGUMUMAN & BERITA TERKINI (AUTO-UPDATING LIVE NEWS HUB)
+  ======================================================== -->
+  <section id="berita-terkini" class="py-16 sm:py-20 bg-white border-b border-slate-200 text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
+        <div>
+          <div class="executive-badge mb-2">Berita Tempatan &amp; Suapan Langsung Mahasiswa</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900">
+            Berita Mahasiswa Selangor &amp; <span class="text-red-700">IPT Malaysia</span>
+          </h2>
+          <p class="text-sm text-slate-600 mt-1.5 max-w-2xl">
+            Himpunan automatik berita tempatan terkini mengenai mahasiswa anak Selangor, biasiswa pendidikan negeri, serta perkembangan pengajian tinggi Malaysia daripada media arus perdana tempatan.
+          </p>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="filterNews('all')" id="news-tab-all" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition">
+            Semua Berita
+          </button>
+          <button onclick="filterNews('selangor')" id="news-tab-selangor" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Mahasiswa Selangor
+          </button>
+          <button onclick="filterNews('bantuan')" id="news-tab-bantuan" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Bantuan &amp; Biasiswa
+          </button>
+          <button onclick="filterNews('aktiviti')" id="news-tab-aktiviti" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Kampus &amp; Komuniti
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Auto-Update Status Banner -->
+      <div class="mb-8 p-3.5 sm:px-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2.5 text-xs">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-extrabold uppercase tracking-wider text-[10px]">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            Auto-Update Aktif
+          </span>
+          <span class="font-semibold text-slate-700">
+            Sumber: Sinar Harian, Berita Harian, Utusan, Kosmo, MalaysiaGazette, Newswav &amp; eCentral
+          </span>
+          <span class="text-slate-400 hidden md:inline">&bull;</span>
+          <span class="text-[11px] font-mono text-slate-500">
+            Kemaskini: <strong id="news-last-updated" class="text-slate-800">Memuatkan...</strong> &bull; Setiap 5 minit
+          </span>
+        </div>
+        <button type="button" id="news-refresh-btn" onclick="refreshLiveNews(true)" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-red-50 text-slate-800 hover:text-red-700 border border-slate-300 hover:border-red-300 text-xs font-bold transition shadow-2xs shrink-0">
+          <svg id="news-refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span id="news-refresh-label">Kemas Kini Sekarang</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Live News Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="news-cards-grid">
+        <div class="md:col-span-2 lg:col-span-2 bento-card p-8 animate-pulse">
+          <div class="h-4 w-32 bg-slate-200 rounded mb-4"></div>
+          <div class="h-7 w-3/4 bg-slate-200 rounded mb-3"></div>
+          <div class="h-4 w-full bg-slate-100 rounded mb-2"></div>
+          <div class="h-4 w-2/3 bg-slate-100 rounded"></div>
+        </div>
+        <div class="bento-card p-8 animate-pulse">
+          <div class="h-4 w-24 bg-slate-200 rounded mb-4"></div>
+          <div class="h-6 w-5/6 bg-slate-200 rounded mb-3"></div>
+          <div class="h-4 w-full bg-slate-100 rounded"></div>
+        </div>
+      </div>
+
+      <!-- Show More / Collapse Button -->
+      <div id="news-show-more-wrap" class="hidden mt-8 flex justify-center">
+        <button type="button" id="news-show-more-btn" onclick="toggleShowAllNews()" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-red-800 text-white text-xs font-bold tracking-wide transition shadow-md flex items-center gap-2">
+          <span>📰 Paparkan Semua Berita Tempatan</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       VISUAL BENTO GRID: 6 MODUL PERKHIDMATAN UTAMA
+  ======================================================== -->
+  <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div class="max-w-2xl">
+          <div class="executive-badge mb-2.5">Pusat Maklumat & Perkhidmatan Siswa</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 tracking-tight">
+            Info Rasmi, Direktori & <span class="text-red-700">Saluran Aduan.</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 mt-1.5 font-medium">
+            Akses terus maklumat skim bantuan pendidikan negeri, peta rangkaian 20 UA, takwim program tahunan, serta saluran rasmi aduan kebajikan mahasiswa.
+          </p>
+        </div>
+        <a href="aduan.html?v=8" class="inline-flex items-center gap-2 text-xs font-bold text-red-700 hover:text-red-800 bg-red-50 px-4 py-2.5 rounded-xl border border-red-200 shrink-0 transition">
+          <span>📢 Salur Aduan & Suara Siswa</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+      <!-- 6 Graphic Bento Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        
+        <!-- BENTO 1: INISIATIF BANTUAN (WITH CUSTOM SVG GRAPHICS) -->
+        <a href="inisiatif.html?v=8" class="bento-card flex flex-col justify-between group">
+          <div>
+            <!-- Graphic Banner Header -->
+            <div class="h-40 bg-gradient-to-br from-red-50 via-amber-50/70 to-white border-b border-slate-100 p-5 relative overflow-hidden flex items-center justify-between">
+              <div class="space-y-1.5 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-700 text-white shadow-2xs">
+                  4 Skim Utama
+                </span>
+                <p class="text-xs font-bold text-slate-700 pt-1">Tajaan Sehingga</p>
+                <p class="text-2xl font-black font-heading text-red-700">RM 5,000 / Thn</p>
+              </div>
+              <!-- Composite SVG Graphic Icons -->
+              <div class="flex items-center gap-2 z-10">
+                <div class="w-16 h-16 rounded-2xl bg-white shadow-md border border-slate-200/80 p-2.5 group-hover:-translate-y-1 transition-transform">
+                  <img src="assets/images/graphic_scholarship.svg" alt="Dermasiswa" class="w-full h-full object-contain">
+                </div>
+                <div class="w-14 h-14 rounded-2xl bg-white shadow-md border border-slate-200/80 p-2 group-hover:translate-y-1 transition-transform">
+                  <img src="assets/images/graphic_laptop.svg" alt="Laptop" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-slate-900 group-hover:text-red-700 transition">
+                Inisiatif Bantuan & Dermasiswa
+              </h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Info penuh syarat & dokumen Dermasiswa Pengajian Tinggi, Skim Komputer Riba Percuma B40, Subsidi Tiket Kasih, dan Latihan Industri Bergaji (SISPRO).
+              </p>
+              <!-- Mini Feature Tags -->
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-semibold">Dermasiswa Yuran</span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-semibold">Komputer Riba B40</span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-semibold">Tiket Kasih</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700 bg-slate-50/50">
+            <span>Buka Laman Inisiatif Bantuan</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+        <!-- BENTO 2: HAB BENCANA & SOS 24 JAM (DARK GRAPHIC RADAR CARD) -->
+        <a href="aduan.html?v=8#sos-teras" class="bento-card-dark text-white flex flex-col justify-between group">
+          <div>
+            <!-- Radar Visual Header -->
+            <div class="h-40 bg-tech-grid border-b border-white/10 p-5 relative overflow-hidden flex items-center justify-between">
+              <div class="space-y-1.5 z-10">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white shadow-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                  Talian Hayat 24 Jam
+                </span>
+                <p class="text-xs text-red-200 font-semibold pt-1">Respon Pantas Krisis</p>
+                <p class="text-xl font-black font-heading text-amber-300">Banjir & Sifar Lapar</p>
+              </div>
+
+              <div class="w-20 h-20 rounded-2xl bg-red-950/90 border border-red-500/40 p-3 shadow-2xl group-hover:scale-105 transition-transform z-10">
+                <img src="assets/images/graphic_sos_radar.svg" alt="SOS Radar" class="w-full h-full object-contain">
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-white group-hover:text-amber-300 transition">
+                Hab Bencana & SOS Mahasiswa
+              </h3>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                Talian kecemasan bencana banjir rumah sewa, bantuan makanan Sifar Lapar, tiket pulang kecemasan kematian waris, dan klinik guaman.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-0.5 rounded-md bg-white/10 text-red-200 text-[10px] font-semibold">Skuad Banjir</span>
+                <span class="px-2 py-0.5 rounded-md bg-white/10 text-amber-200 text-[10px] font-semibold">Food Bank Siswa</span>
+                <span class="px-2 py-0.5 rounded-md bg-white/10 text-blue-200 text-[10px] font-semibold">Guaman Sewa</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-amber-300 bg-black/20">
+            <span>Salur Laporan Kecemasan SOS</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+        <!-- BENTO 3: PETA VEKTOR 20 UA MALAYSIA (ROYAL ATLAS GRAPHIC) -->
+        <a href="kampus.html?v=8" class="bento-card flex flex-col justify-between group">
+          <div>
+            <!-- Mini Vector Map Graphic Header (Bright Azure Atlas Style) -->
+            <div class="h-40 bg-gradient-to-br from-sky-100 via-sky-200/80 to-blue-200 border-b border-sky-200 p-5 relative overflow-hidden flex items-center justify-between text-slate-900">
+              <!-- Stylized Malaysia Landmass & Flight Arcs SVG -->
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 160" fill="none">
+                <line x1="0" y1="40" x2="400" y2="40" stroke="#0284C7" stroke-opacity="0.12" stroke-dasharray="3 3"/>
+                <line x1="0" y1="80" x2="400" y2="80" stroke="#0284C7" stroke-opacity="0.12" stroke-dasharray="3 3"/>
+                <line x1="0" y1="120" x2="400" y2="120" stroke="#0284C7" stroke-opacity="0.12" stroke-dasharray="3 3"/>
+                <line x1="180" y1="0" x2="180" y2="160" stroke="#0284C7" stroke-opacity="0.12" stroke-dasharray="3 3"/>
+                <path d="M55 25 L82 32 L105 58 L118 92 L135 128 L112 135 L85 105 L68 72 Z" fill="#FFFBEB" stroke="#64748B" stroke-width="1.5"/>
+                <path d="M80 82 L98 80 L102 98 L85 100 Z" fill="#B91C1C" stroke="#F59E0B" stroke-width="1.5"/>
+                <path d="M225 122 L265 105 L305 82 L335 45 L368 55 L355 88 L310 118 L255 135 Z" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+                <circle cx="92" cy="92" r="18" fill="#DC2626" fill-opacity="0.22"/>
+                <circle cx="92" cy="92" r="5" fill="#B91C1C" stroke="#FBBF24" stroke-width="2"/>
+                <path d="M92 92 Q70 50 68 38" stroke="#B91C1C" stroke-width="1.8" stroke-dasharray="3 3"/>
+                <path d="M92 92 Q115 55 105 62" stroke="#B91C1C" stroke-width="1.8" stroke-dasharray="3 3"/>
+                <path d="M92 92 Q118 112 126 125" stroke="#B91C1C" stroke-width="1.8" stroke-dasharray="3 3"/>
+                <path d="M92 92 Q185 35 265 112" stroke="#D97706" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M92 92 Q225 12 345 58" stroke="#D97706" stroke-width="2" stroke-dasharray="4 4"/>
+                <circle cx="68" cy="38" r="4" fill="#1D4ED8" stroke="#FFFFFF" stroke-width="1.5"/>
+                <circle cx="105" cy="62" r="4" fill="#047857" stroke="#FFFFFF" stroke-width="1.5"/>
+                <circle cx="126" cy="125" r="4" fill="#B45309" stroke="#FFFFFF" stroke-width="1.5"/>
+                <circle cx="265" cy="112" r="5" fill="#6D28D9" stroke="#FFFFFF" stroke-width="1.5"/>
+                <circle cx="345" cy="58" r="5" fill="#6D28D9" stroke="#FFFFFF" stroke-width="1.5"/>
+              </svg>
+
+              <div class="relative z-10 space-y-1 bg-white/90 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-white shadow-sm">
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-red-100 text-red-800 border border-red-200">
+                  Peta Satelit Sebenar
+                </span>
+                <p class="text-base font-black font-heading text-slate-900 pt-0.5">Peta 20 UA Malaysia</p>
+                <p class="text-[10px] font-semibold text-slate-600">5 Zon Wilayah • Mod Satelit & Jalan</p>
+              </div>
+
+              <div class="relative z-10 text-right">
+                <span class="px-3 py-1.5 rounded-xl bg-red-700 border-2 border-amber-300 text-white font-mono text-xs font-black shadow-lg">
+                  20 UA
+                </span>
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-slate-900 group-hover:text-red-700 transition">
+                Peta Satelit & Direktori 20 UA
+              </h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Teroka peta satelit Malaysia dengan lokasi sebenar 20 Universiti Awam, laluan jalinan siswa, dan direktori penuh Yang Dipertua (YDP) kampus.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-semibold">UM • UKM • UPM • UiTM</span>
+                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-semibold">USM • UTM • UNIMAS • UMS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700 bg-slate-50/50">
+            <span>Buka Peta & Direktori Kampus</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+        <!-- BENTO 4: TAKWIM & KALENDAR PROGRAM 2026 (PHOTO + CALENDAR GRAPHIC) -->
+        <a href="takwim.html?v=8" class="bento-card flex flex-col justify-between group">
+          <div>
+            <div class="h-40 bg-slate-900 relative overflow-hidden">
+              <img src="assets/images/campus_life.jpg" alt="Takwim 2026" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+
+              <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider">
+                  6 Acara Mega 2026
+                </span>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                  Info & Jadual
+                </span>
+              </div>
+
+              <!-- Mini Date Chips inside Photo -->
+              <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                <div class="bg-white/95 backdrop-blur-md text-slate-900 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm">
+                  <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                  <span>24 Mac: KMS 2026</span>
+                </div>
+                <div class="bg-white/95 backdrop-blur-md text-slate-900 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span>12 Jun: SUKMAS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-slate-900 group-hover:text-red-700 transition">
+                Takwim & Kalendar Aktiviti 2026
+              </h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Jadual rasmi Konvensyen Mahasiswa Selangor (KMS), Sukan SUKMAS, Hackathon AI, dan Misi Kembara Bakti sepanjang sesi 2026.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700 bg-slate-50/50">
+            <span>Buka Kalendar Acara 2026</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+        <!-- BENTO 5: BARISAN KEPIMPINAN PERMAS (SESI 2024-2026) -->
+        <a href="kepimpinan.html?v=8" class="bento-card flex flex-col justify-between group">
+          <div>
+            <!-- Dual Visual Header with Official Instagram Warta Preview -->
+            <div class="h-40 bg-slate-100 border-b border-slate-200 relative overflow-hidden grid grid-cols-2">
+              <div class="relative overflow-hidden">
+                <img src="assets/leadership/slide_1_announcement.jpg" alt="Warta Kepimpinan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-slate-900/20"></div>
+              </div>
+              <div class="p-4 bg-gradient-to-br from-slate-900 to-red-950 text-white flex flex-col justify-between">
+                <span class="text-[9px] font-mono uppercase tracking-wider text-amber-300 font-bold">Sesi 2024–2026</span>
+                <div>
+                  <p class="text-sm font-black font-heading leading-tight">22 Pimpinan MEK & MT</p>
+                  <p class="text-[10px] text-slate-300 mt-1">Majlis Eksekutif & Sekretariat Kebangsaan</p>
+                </div>
+                <span class="text-[9px] font-bold text-emerald-400">✓ 6 Slaid Warta Rasmi</span>
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-slate-900 group-hover:text-red-700 transition">
+                Barisan Kepimpinan PERMAS
+              </h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Kenali barisan Majlis Tertinggi, Exco Kebangsaan, dan warta pelantikan rasmi PERMAS Nasional bagi sesi kepimpinan 2024–2026.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700 bg-slate-50/50">
+            <span>Lihat Direktori Kepimpinan</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+        <!-- BENTO 6: MEJA SUARA & SALURAN E-ADUAN SISWA -->
+        <a href="aduan.html?v=8" class="bento-card flex flex-col justify-between group">
+          <div>
+            <div class="h-40 bg-gradient-to-br from-slate-900 via-slate-800 to-red-950 p-5 relative overflow-hidden flex flex-col justify-between text-white">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  Advokasi Hak Mahasiswa
+                </span>
+                <span class="text-xs font-mono text-emerald-300 font-bold">RAHSIA & SELAMAT</span>
+              </div>
+
+              <!-- 4 Complaint Category Chips -->
+              <div class="grid grid-cols-2 gap-2 text-[10px] font-bold">
+                <div class="bg-white/10 backdrop-blur-md rounded-lg px-2.5 py-2 border border-white/15 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-red-400"></span>
+                  <span>Isu Yuran & Kewangan</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-lg px-2.5 py-2 border border-white/15 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span>Kolej & Rumah Sewa</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-lg px-2.5 py-2 border border-white/15 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Kebajikan & Kesihatan</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-lg px-2.5 py-2 border border-white/15 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                  <span>Akademik & Kampus</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pb-4">
+              <h3 class="font-heading font-extrabold text-xl text-slate-900 group-hover:text-red-700 transition">
+                Meja Suara & E-Aduan Siswa
+              </h3>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Saluran rasmi untuk melaporkan isu kebajikan, masalah yuran pengajian, penginapan kolej/rumah sewa, atau cadangan penambahbaikan terus kepada Biro Advokasi PERMAS.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700 bg-slate-50/50">
+            <span>Isi Borang E-Aduan Sekarang</span>
+            <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       GALERI LENSA & SOROTAN BERGAMBAR PERMAS (INTERACTIVE LIGHTBOX)
+  ======================================================== -->
+  <section id="lensa-permas" class="py-16 sm:py-20 bg-white border-b border-slate-200 text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+          <div class="executive-badge mb-2">Arkib Visual & Dokumentasi Rasmi</div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 tracking-tight">
+            Galeri Lensa & <span class="text-red-700">Sorotan Bergambar PERMAS.</span>
+          </h2>
+          <p class="text-sm text-slate-600 mt-1.5 max-w-2xl">
+            Rakaman lensa aktiviti mahasiswa anak Selangor di seluruh kampus, misi kebajikan Skuad Prihatin, warta pelantikan rasmi, serta keindahan ibu negeri Selangor. Klik mana-mana gambar untuk paparan skrin penuh.
+          </p>
+        </div>
+
+        <!-- Gallery Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="filterGallery('all')" id="gal-tab-all" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition">
+            Semua Lensa (7)
+          </button>
+          <button onclick="filterGallery('aktiviti')" id="gal-tab-aktiviti" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Aktiviti & Kebajikan
+          </button>
+          <button onclick="filterGallery('warta')" id="gal-tab-warta" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Warta Kepimpinan
+          </button>
+          <button onclick="filterGallery('selangor')" id="gal-tab-selangor" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+            Panorama Selangor
+          </button>
+        </div>
+      </div>
+
+      <!-- Bento Photo Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="gallery-grid">
+        
+        <!-- Photo 0 (Large 2-col Span) -->
+        <div data-gal="selangor" onclick="openLightbox(0)" class="gal-item sm:col-span-2 relative h-64 sm:h-72 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/images/selangor_shah_alam_night.jpg" alt="Masjid Sultan Salahuddin Abdul Aziz Shah" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-amber-400 text-slate-950 font-extrabold text-[10px] uppercase tracking-wider">
+            Ibu Negeri Selangor
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[11px] font-mono text-amber-300">Shah Alam, Selangor Darul Ehsan</p>
+            <h4 class="font-heading font-bold text-base sm:text-lg leading-snug">Panorama Malam Masjid Sultan Salahuddin Abdul Aziz Shah (Masjid Biru)</h4>
+          </div>
+        </div>
+
+        <!-- Photo 1 -->
+        <div data-gal="aktiviti" onclick="openLightbox(1)" class="gal-item relative h-64 sm:h-72 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/images/campus_life.jpg" alt="Konvensyen Mahasiswa Selangor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-red-700 text-white font-bold text-[10px] uppercase tracking-wider">
+            Persidangan
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-slate-300">Mac 2026 • SACC Shah Alam</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Sidang Konvensyen Mahasiswa Selangor (KMS 2026)</h4>
+          </div>
+        </div>
+
+        <!-- Photo 2 -->
+        <div data-gal="aktiviti" onclick="openLightbox(2)" class="gal-item relative h-64 sm:h-72 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/images/study_group.jpg" alt="Misi Kebajikan Skuad Prihatin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-emerald-700 text-white font-bold text-[10px] uppercase tracking-wider">
+            Skuad Prihatin
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-slate-300">Feb 2026 • Hulu Langat</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Koordinasi Bantuan Kebajikan & Sukarelawan Kampus</h4>
+          </div>
+        </div>
+
+        <!-- Photo 3 -->
+        <div data-gal="warta" onclick="openLightbox(3)" class="gal-item relative h-64 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/leadership/slide_1_announcement.jpg" alt="Warta Kepimpinan PERMAS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-red-800 text-amber-300 font-bold text-[10px] uppercase tracking-wider">
+            Warta Rasmi
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-amber-300">Sesi 2024–2026</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Warta Pelantikan Barisan Kepimpinan PERMAS Nasional</h4>
+          </div>
+        </div>
+
+        <!-- Photo 4 -->
+        <div data-gal="warta" onclick="openLightbox(4)" class="gal-item relative h-64 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/leadership/slide_4_majlis_tertinggi.jpg" alt="Majlis Tertinggi PERMAS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-slate-900/90 text-amber-300 border border-amber-400/30 font-bold text-[10px] uppercase tracking-wider">
+            Majlis Tertinggi
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-slate-300">Sekretariat Induk</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Saf Kepimpinan Majlis Tertinggi PERMAS Kebangsaan</h4>
+          </div>
+        </div>
+
+        <!-- Photo 5 -->
+        <div data-gal="aktiviti" onclick="openLightbox(5)" class="gal-item relative h-64 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/images/graduation.jpg" alt="Graduan Anak Selangor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-blue-700 text-white font-bold text-[10px] uppercase tracking-wider">
+            Kerjaya & SISPRO
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-slate-300">45 GLC Negeri Selangor</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Karnival Kerjaya & Penempatan Graduan Anak Selangor</h4>
+          </div>
+        </div>
+
+        <!-- Photo 6 -->
+        <div data-gal="selangor" onclick="openLightbox(6)" class="gal-item relative h-64 rounded-3xl overflow-hidden bg-slate-900 group cursor-pointer border border-slate-200 shadow-sm">
+          <img src="assets/images/selangor_masjid_biru.jpg" alt="Tasik Shah Alam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent"></div>
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-md bg-amber-400 text-slate-950 font-extrabold text-[10px] uppercase tracking-wider">
+            Panorama Siang
+          </span>
+          <span class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            🔍
+          </span>
+          <div class="absolute bottom-4 left-4 right-4 text-white">
+            <p class="text-[10px] font-mono text-amber-300">Taman Tasik Shah Alam</p>
+            <h4 class="font-heading font-bold text-sm leading-snug">Mercu Kebanggaan Pendidikan & Pentadbiran Selangor</h4>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       DEDICATED E-ADUAN & ADVOKASI CALLOUT SECTION
+  ======================================================== -->
+  <section class="py-16 bg-selangor-night text-white border-b border-slate-800 text-left relative overflow-hidden">
+    <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-red-600/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 border border-red-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Saluran Rasmi Advokasi & Hak Mahasiswa
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white leading-tight">
+            Mempunyai Masalah Kebajikan, Yuran atau Penginapan di Kampus?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+            Biro Kebajikan & Advokasi PERMAS Nasional menyediakan <strong class="text-white">Meja Suara & E-Aduan</strong> untuk membantu mahasiswa anak Selangor menyuarakan permasalahan secara terus dan sulit kepada pihak pengurusan universiti serta agensi Kerajaan Negeri Selangor.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <a href="aduan.html?v=8#borang-aduan" class="btn-primary-red py-3.5 px-7 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-lg flex items-center gap-2">
+              <span>📢 Buat Aduan Rasmi Sekarang</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <a href="aduan.html?v=8#sos-teras" class="px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs sm:text-sm font-bold transition flex items-center gap-2">
+              <span>🚨 Kecemasan / Bencana (SOS 24 Jam)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <a href="aduan.html?v=8&kategori=Isu%20Yuran%20%26%20Biasiswa%20%2F%20Dermasiswa#borang-aduan" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition space-y-1.5 group">
+            <span class="text-xs font-mono font-bold text-amber-400">01 • KEWANGAN</span>
+            <h4 class="font-bold text-sm text-white group-hover:text-amber-300 transition">Isu Yuran & Biasiswa</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Kelewatan dermasiswa, tunggakan yuran pendaftaran, atau bantuan sara hidup.</p>
+          </a>
+          <a href="aduan.html?v=8&kategori=Penipuan%20%2F%20Penahanan%20Deposit%20Rumah%20Sewa#borang-aduan" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition space-y-1.5 group">
+            <span class="text-xs font-mono font-bold text-emerald-400">02 • PENGINAPAN</span>
+            <h4 class="font-bold text-sm text-white group-hover:text-emerald-300 transition">Kolej & Rumah Sewa</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Tiada penempatan kolej kediaman, isu kontrak sewa luar, atau keselamatan premis.</p>
+          </a>
+          <a href="aduan.html?v=8&kategori=Kecemasan%20Banjir%20%2F%20Bencana%20Rumah%20Sewa%20(SOS)#borang-aduan" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition space-y-1.5 group">
+            <span class="text-xs font-mono font-bold text-red-400">03 • KEBAJIKAN</span>
+            <h4 class="font-bold text-sm text-white group-hover:text-red-300 transition">Kesihatan & Kecemasan</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Bantuan kos rawatan hospital, kemalangan, atau musibah keluarga di kampung.</p>
+          </a>
+          <a href="aduan.html?v=8&kategori=Tatatertib%20%2F%20Hak%20Akademik%20Pelajar#borang-aduan" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition space-y-1.5 group">
+            <span class="text-xs font-mono font-bold text-blue-400">04 • AKADEMIK</span>
+            <h4 class="font-bold text-sm text-white group-hover:text-blue-300 transition">Fasiliti & Hak Siswa</h4>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Cadangan penambahbaikan fasiliti pembelajaran dan kebajikan cawangan UA.</p>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       OFFICIAL INSTITUTIONAL FOOTER
+  ======================================================== -->
+  <footer class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-red-800 text-left text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-slate-800">
+        
+        <!-- Col 1 -->
+        <div class="lg:col-span-2 space-y-3">
+          <div class="flex items-center gap-3">
+            <img src="assets/logo-transparent.png" alt="PERMAS" class="h-10 w-auto object-contain">
+            <div>
+              <span class="font-heading font-black text-white text-base block">PERMAS NASIONAL</span>
+              <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Persatuan Mahasiswa Selangor Kebangsaan</span>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Badan induk rasmi yang menyatukan seluruh persatuan mahasiswa anak Selangor di institusi pengajian tinggi awam dan swasta seluruh Malaysia sejak 1974.
+          </p>
+          <div class="pt-1 text-slate-400 text-[11px] space-y-1">
+            <p><strong class="text-slate-200">Ibu Pejabat:</strong> Aras 4, Kompleks Belia & Sukan Negeri Selangor, Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.</p>
+            <p><strong class="text-slate-200">Saluran Rasmi:</strong> sekretariat@permasnasional.org.my • <a href="https://www.instagram.com/permasnasionalofficial/" target="_blank" class="text-amber-300 hover:underline">@permasnasionalofficial</a></p>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigasi Modul -->
+        <div class="space-y-2.5">
+          <h4 class="font-heading font-bold text-white uppercase text-xs tracking-wider">Halaman Rasmi</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><a href="index.html?v=8" class="hover:text-white transition">Laman Utama & Berita</a></li>
+            <li><a href="inisiatif.html?v=8" class="hover:text-white transition">Info Inisiatif Bantuan</a></li>
+            <li><a href="aduan.html?v=8#sos-teras" class="hover:text-white transition text-red-400 font-bold">🚨 Hab SOS 24/7</a></li>
+            <li><a href="kampus.html?v=8" class="hover:text-white transition">Direktori 20 UA & Peta</a></li>
+            <li><a href="takwim.html?v=8" class="hover:text-white transition">Takwim Acara 2026</a></li>
+            <li><a href="kepimpinan.html?v=8" class="hover:text-white transition">Barisan Kepimpinan</a></li>
+            <li><a href="aduan.html?v=8" class="hover:text-amber-300 transition font-semibold">📢 Meja Suara & E-Aduan</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Portal Luar -->
+        <div class="space-y-2.5">
+          <h4 class="font-heading font-bold text-white uppercase text-xs tracking-wider">Pautan Rasmi Negeri</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><a href="https://www.selangor.gov.my" target="_blank" class="hover:text-white transition">Portal Kerajaan Negeri Selangor</a></li>
+            <li><a href="https://www.yayasanselangor.org.my" target="_blank" class="hover:text-white transition">Yayasan Selangor</a></li>
+            <li><a href="https://www.zakatselangor.com.my" target="_blank" class="hover:text-white transition">Lembaga Zakat Selangor</a></li>
+            <li><a href="https://www.mbiselangor.com" target="_blank" class="hover:text-white transition">Menteri Besar Selangor (MBI)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Pematuhan -->
+        <div class="space-y-2.5">
+          <h4 class="font-heading font-bold text-white uppercase text-xs tracking-wider">Tadbir Urus & PDPA</h4>
+          <p class="text-slate-400 leading-relaxed text-[11px]">
+            Pengurusan data mahasiswa dikawal selia mengikut Akta Perlindungan Data Peribadi 2010 (PDPA) dan Perlembagaan PERMAS Kebangsaan.
+          </p>
+          <div class="pt-1 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="text-slate-300 font-mono text-[10px]">BADAN INDUK BERDAFTAR SEJAK 1974</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <p>© 2026 Persatuan Mahasiswa Selangor (PERMAS) Kebangsaan. Hak Cipta Terpelihara.</p>
+        <p class="text-slate-400">Selangor Maju Bersama • Mahasiswa Berintegriti</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       MODAL BACA ARTIKEL PENUH (WARTA BERITA PERMAS)
+  ======================================================== -->
+  <div id="news-article-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl text-left">
+      <div class="p-6 sm:p-8 space-y-5">
+        <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
+          <div class="space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="modal-news-badge" class="px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-red-700 text-white">Mahasiswa Selangor</span>
+              <span id="modal-news-source" class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">📰 Sumber: Media Tempatan</span>
+              <span id="modal-news-date" class="text-xs font-mono text-slate-500">13 Nov 2026</span>
+            </div>
+            <h3 id="modal-news-title" class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 leading-snug"></h3>
+          </div>
+          <button onclick="closeNewsArticle()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition shrink-0" aria-label="Tutup">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div id="modal-news-body" class="space-y-3.5 text-sm text-slate-700 leading-relaxed"></div>
+
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <a id="modal-news-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary-red py-2.5 px-5 text-xs font-bold rounded-xl shadow-xs">
+              🔗 Baca Artikel Penuh di Portal Asal ↗
+            </a>
+            <a id="modal-news-wa" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5">
+              <span>💬 Kongsi Info (WhatsApp)</span>
+            </a>
+          </div>
+          <button onclick="closeNewsArticle()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+            Tutup Artikel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL LIGHTBOX GALERI LENSA PERMAS (SKRIN PENUH)
+  ======================================================== -->
+  <div id="gallery-lightbox-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md">
+    <div class="max-w-4xl w-full relative flex flex-col items-center">
+      
+      <!-- Top Bar -->
+      <div class="w-full flex items-center justify-between text-white mb-3 px-2">
+        <div class="flex items-center gap-2.5">
+          <span id="lb-badge" class="px-2.5 py-1 rounded-md bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider">Lensa PERMAS</span>
+          <span id="lb-counter" class="text-xs font-mono text-slate-400">1 / 7</span>
+        </div>
+        <button onclick="closeLightbox()" class="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition">
+          <span>Tutup (ESC)</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Main Image Frame with Prev/Next Controls -->
+      <div class="relative w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/15 shadow-2xl flex items-center justify-center min-h-[320px] max-h-[72vh]">
+        <img id="lb-image" src="" alt="Galeri PERMAS" class="max-h-[72vh] w-auto object-contain">
+        
+        <button onclick="stepLightbox(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-950/80 hover:bg-red-700 text-white border border-white/20 flex items-center justify-center transition shadow-lg" aria-label="Sebelum">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="stepLightbox(1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-950/80 hover:bg-red-700 text-white border border-white/20 flex items-center justify-center transition shadow-lg" aria-label="Seterusnya">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Caption Bar -->
+      <div class="w-full mt-4 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 text-left text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <p id="lb-meta" class="text-[11px] font-mono text-amber-300"></p>
+          <h4 id="lb-title" class="text-base sm:text-lg font-extrabold font-heading text-white mt-0.5"></h4>
+          <p id="lb-desc" class="text-xs text-slate-300 mt-1 leading-relaxed"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js?v=8"></script>
+  <script>
+    let LIVE_NEWS_ARTICLES = [];
+    let activeNewsCategory = 'all';
+    let showAllNews = false;
+
+    function escHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function filterNews(category) {
+      activeNewsCategory = category;
+      showAllNews = false;
+      document.querySelectorAll('.news-filter-btn').forEach(btn => {
+        btn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+      });
+      const activeBtn = document.getElementById('news-tab-' + category);
+      if (activeBtn) {
+        activeBtn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition';
+      }
+      renderLiveNewsGrid();
+    }
+
+    function toggleShowAllNews() {
+      showAllNews = !showAllNews;
+      renderLiveNewsGrid();
+    }
+
+    function updateNewsFilterCounts() {
+      const counts = {
+        all: LIVE_NEWS_ARTICLES.length,
+        selangor: LIVE_NEWS_ARTICLES.filter(a => a.isSelangor || (a.categories || []).includes('selangor')).length,
+        bantuan: LIVE_NEWS_ARTICLES.filter(a => a.isBantuan || (a.categories || []).includes('bantuan')).length,
+        aktiviti: LIVE_NEWS_ARTICLES.filter(a => (a.categories || []).includes('aktiviti')).length
+      };
+      const labels = {
+        all: `Semua Berita (${counts.all})`,
+        selangor: `Mahasiswa Selangor (${counts.selangor})`,
+        bantuan: `Bantuan & Biasiswa (${counts.bantuan})`,
+        aktiviti: `Kampus & Komuniti (${counts.aktiviti})`
+      };
+      Object.keys(labels).forEach(k => {
+        const el = document.getElementById('news-tab-' + k);
+        if (el) el.textContent = labels[k];
+      });
+    }
+
+    function updateLiveTicker() {
+      const tickerText = document.getElementById('live-ticker-text');
+      const tickerLink = document.getElementById('live-ticker-link');
+      if (!tickerText || !LIVE_NEWS_ARTICLES.length) return;
+      const topNews = LIVE_NEWS_ARTICLES[0];
+      tickerText.innerHTML = `<strong class="text-amber-300">${escHtml(topNews.badge)} (${escHtml(topNews.source)}):</strong> ${escHtml(topNews.title)}`;
+      if (tickerLink) {
+        tickerLink.href = '#berita-terkini';
+        tickerLink.onclick = (e) => {
+          e.preventDefault();
+          openNewsArticle(0);
+        };
+      }
+    }
+
+    function renderLiveNewsGrid() {
+      const grid = document.getElementById('news-cards-grid');
+      const showMoreWrap = document.getElementById('news-show-more-wrap');
+      const showMoreBtn = document.getElementById('news-show-more-btn');
+      if (!grid) return;
+
+      const filtered = LIVE_NEWS_ARTICLES.map((art, rawIdx) => ({ art, rawIdx })).filter(({ art }) => {
+        if (activeNewsCategory === 'all') return true;
+        if (activeNewsCategory === 'selangor') return art.isSelangor || (art.categories || []).includes('selangor');
+        if (activeNewsCategory === 'bantuan') return art.isBantuan || (art.categories || []).includes('bantuan');
+        if (activeNewsCategory === 'aktiviti') return (art.categories || []).includes('aktiviti');
+        return true;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `
+          <div class="col-span-full bento-card p-10 text-center">
+            <p class="text-base font-bold text-slate-900">Tiada berita dalam kategori ini buat masa ini.</p>
+            <p class="text-xs text-slate-500 mt-1">Klik &ldquo;Kemas Kini Sekarang&rdquo; atau pilih tab Semua Berita.</p>
+          </div>
+        `;
+        if (showMoreWrap) showMoreWrap.classList.add('hidden');
+        return;
+      }
+
+      const visibleLimit = showAllNews ? filtered.length : 6;
+      const visibleItems = filtered.slice(0, visibleLimit);
+
+      grid.innerHTML = visibleItems.map(({ art, rawIdx }, posIdx) => {
+        if (posIdx === 0) {
+          return `
+            <div onclick="openNewsArticle(${rawIdx})" class="news-item-card md:col-span-2 lg:col-span-2 bento-card overflow-hidden grid grid-cols-1 md:grid-cols-12 group cursor-pointer border-2 border-red-700/20">
+              <div class="md:col-span-6 relative min-h-[240px] md:min-h-full overflow-hidden bg-slate-900">
+                <img src="${escHtml(art.image)}" alt="${escHtml(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/20 to-transparent"></div>
+                <div class="absolute top-3.5 left-3.5 flex flex-wrap items-center gap-2">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-950 bg-amber-400 px-2.5 py-1 rounded-md shadow-xs">
+                    ★ Sorotan Terkini
+                  </span>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-white ${art.isSelangor ? 'bg-red-700/95' : 'bg-blue-700/95'} px-2.5 py-1 rounded-md shadow-xs">
+                    ${escHtml(art.badge)}
+                  </span>
+                </div>
+                <span class="absolute bottom-3.5 left-3.5 text-xs font-mono text-amber-300 font-bold">${escHtml(art.dateShort)} &bull; ${escHtml(art.source)}</span>
+              </div>
+              <div class="md:col-span-6 p-6 sm:p-7 flex flex-col justify-between bg-gradient-to-br from-white via-white to-red-50/30">
+                <div class="space-y-3">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-red-700 block">📰 ${escHtml(art.source)} &bull; Suapan Langsung</span>
+                  <h3 class="font-heading font-extrabold text-xl sm:text-2xl text-slate-900 group-hover:text-red-700 transition leading-snug">
+                    ${escHtml(art.title)}
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    ${escHtml(art.summary)}
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    ${art.isSelangor ? '<span class="px-2.5 py-1 rounded-md bg-red-50 text-red-800 border border-red-200 text-[10px] font-bold">Selangor Darul Ehsan</span>' : ''}
+                    ${art.isBantuan ? '<span class="px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-bold">Bantuan / Biasiswa</span>' : ''}
+                  </div>
+                </div>
+                <div class="pt-4 mt-4 border-t border-slate-200/80 text-xs font-bold text-red-700 flex items-center justify-between">
+                  <span>Klik untuk baca ringkasan &amp; pautan asal</span>
+                  <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-700 text-white group-hover:bg-red-800 transition">
+                    Baca Penuh →
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        const badgeBg = art.isSelangor ? 'bg-red-700/95' : (art.isBantuan ? 'bg-amber-600/95' : 'bg-emerald-700/95');
+        const linkColor = art.isSelangor ? 'text-red-700 group-hover:text-red-700' : (art.isBantuan ? 'text-amber-700 group-hover:text-amber-700' : 'text-emerald-700 group-hover:text-emerald-700');
+
+        return `
+          <div onclick="openNewsArticle(${rawIdx})" class="news-item-card bento-card flex flex-col justify-between group cursor-pointer">
+            <div>
+              <div class="relative h-48 overflow-hidden bg-slate-900">
+                <img src="${escHtml(art.image)}" alt="${escHtml(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent"></div>
+                <span class="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider text-white ${badgeBg} px-2.5 py-1 rounded-md shadow-xs">
+                  ${escHtml(art.badge)}
+                </span>
+                <span class="absolute top-3 right-3 text-[10px] font-bold text-slate-100 bg-slate-950/75 backdrop-blur-xs px-2 py-1 rounded-md border border-white/15">
+                  ${escHtml(art.source)}
+                </span>
+                <span class="absolute bottom-3 left-3 text-[11px] font-mono text-amber-300 font-bold">${escHtml(art.dateShort)}</span>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold text-base text-slate-900 transition leading-snug group-hover:text-red-700">
+                  ${escHtml(art.title)}
+                </h3>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed line-clamp-3">
+                  ${escHtml(art.summary)}
+                </p>
+              </div>
+            </div>
+            <div class="px-6 py-3.5 border-t border-slate-100 text-xs font-bold ${linkColor} flex items-center justify-between bg-slate-50/50">
+              <span>${escHtml(art.source)}</span>
+              <span class="group-hover:translate-x-1 transition-transform">Baca Penuh →</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (showMoreWrap && showMoreBtn) {
+        if (filtered.length > 6) {
+          showMoreWrap.classList.remove('hidden');
+          showMoreBtn.innerHTML = showAllNews
+            ? `<span>⬆️ Papar 6 Berita Teratas Sahaja</span>`
+            : `<span>📰 Paparkan Semua Berita Tempatan (${filtered.length} Artikel)</span>`;
+        } else {
+          showMoreWrap.classList.add('hidden');
+        }
+      }
+
+      if (typeof window.init3DCardTiltAndSpotlight === 'function') {
+        window.init3DCardTiltAndSpotlight();
+      }
+    }
+
+    async function refreshLiveNews(forceRefresh = false) {
+      const icon = document.getElementById('news-refresh-icon');
+      const label = document.getElementById('news-refresh-label');
+      const updatedEl = document.getElementById('news-last-updated');
+
+      if (icon) icon.classList.add('animate-spin');
+      if (label && forceRefresh) label.textContent = 'Menyegerakkan...';
+
+      let data = null;
+      const endpoint = forceRefresh ? '/api/live-news?refresh=1&_t=' + Date.now() : '/api/live-news?_t=' + Date.now();
+      try {
+        const res = await fetch(endpoint, { cache: 'no-store' });
+        if (res.ok) data = await res.json();
+      } catch (e) {}
+
+      if (!data || !Array.isArray(data.articles) || !data.articles.length) {
+        try {
+          const fallbackRes = await fetch('js/live-news-cache.json?_t=' + Date.now(), { cache: 'no-store' });
+          if (fallbackRes.ok) data = await fallbackRes.json();
+        } catch (e) {}
+      }
+
+      if (data && Array.isArray(data.articles) && data.articles.length) {
+        LIVE_NEWS_ARTICLES = data.articles;
+        if (updatedEl) {
+          updatedEl.textContent = data.updatedLabel || new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit' });
+        }
+        updateNewsFilterCounts();
+        updateLiveTicker();
+        renderLiveNewsGrid();
+      } else if (updatedEl) {
+        updatedEl.textContent = 'Gagal menyambung suapan berita';
+      }
+
+      if (icon) icon.classList.remove('animate-spin');
+      if (label) label.textContent = 'Kemas Kini Sekarang';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      refreshLiveNews(false);
+      // Auto-poll fresh student news every 5 minutes
+      setInterval(() => refreshLiveNews(false), 300000);
+    });
+
+    const GALLERY_ITEMS = [
+      {
+        src: 'assets/images/selangor_shah_alam_night.jpg',
+        badge: 'Ibu Negeri Selangor',
+        meta: 'Shah Alam, Selangor Darul Ehsan',
+        title: 'Panorama Malam Masjid Sultan Salahuddin Abdul Aziz Shah (Masjid Biru)',
+        desc: 'Mercu tanda utama ibu negeri Selangor di Shah Alam yang turut menjadi hab pentadbiran Sekretariat Induk PERMAS Kebangsaan.'
+      },
+      {
+        src: 'assets/images/campus_life.jpg',
+        badge: 'Persidangan Kemuncak',
+        meta: 'Mac 2026 • SACC Shah Alam',
+        title: 'Sidang Konvensyen Mahasiswa Selangor (KMS 2026)',
+        desc: 'Perhimpunan perwakilan mahasiswa anak Selangor daripada 20 Universiti Awam dan IPTS bagi membahaskan usul pendidikan dan kebajikan siswa.'
+      },
+      {
+        src: 'assets/images/study_group.jpg',
+        badge: 'Skuad Prihatin',
+        meta: 'Februari 2026 • Hulu Langat & Kuala Selangor',
+        title: 'Koordinasi Bantuan Kebajikan & Sukarelawan Kampus',
+        desc: 'Gerak kerja Biro Kebajikan & Skuad Prihatin PERMAS dalam menyalurkan bantuan makanan Sifar Lapar serta operasi pasca banjir.'
+      },
+      {
+        src: 'assets/leadership/slide_1_announcement.jpg',
+        badge: 'Warta Rasmi',
+        meta: 'Sesi Kepimpinan 2024–2026',
+        title: 'Warta Pelantikan Barisan Kepimpinan PERMAS Nasional',
+        desc: 'Hebahan rasmi pelantikan Majlis Tertinggi dan Exco Kebangsaan PERMAS bagi sesi 2024–2026.'
+      },
+      {
+        src: 'assets/leadership/slide_4_majlis_tertinggi.jpg',
+        badge: 'Majlis Tertinggi',
+        meta: 'Sekretariat Kebangsaan PERMAS',
+        title: 'Saf Kepimpinan Majlis Tertinggi PERMAS Kebangsaan',
+        desc: 'Barisan peneraju utama yang menyelaraskan hubungan strategik antara 38 cawangan IPT bersama Kerajaan Negeri Selangor.'
+      },
+      {
+        src: 'assets/images/graduation.jpg',
+        badge: 'Kerjaya & SISPRO',
+        meta: '45 Syarikat GLC Negeri Selangor',
+        title: 'Karnival Kerjaya & Penempatan Graduan Anak Selangor',
+        desc: 'Inisiatif kebolehpasaran graduan dan penempatan latihan industri bergaji (SISPRO) bersama rangkaian syarikat berkaitan kerajaan negeri.'
+      },
+      {
+        src: 'assets/images/selangor_masjid_biru.jpg',
+        badge: 'Panorama Siang',
+        meta: 'Taman Tasik Shah Alam, Selangor',
+        title: 'Mercu Kebanggaan Pendidikan & Pentadbiran Selangor',
+        desc: 'Pemandangan waktu siang Masjid Negeri Selangor dan Taman Tasik Shah Alam.'
+      }
+    ];
+
+    let currentLbIndex = 0;
+
+    function openLightbox(idx) {
+      currentLbIndex = idx;
+      updateLightboxView();
+      document.getElementById('gallery-lightbox-modal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('gallery-lightbox-modal').classList.add('hidden');
+    }
+
+    function stepLightbox(dir) {
+      currentLbIndex = (currentLbIndex + dir + GALLERY_ITEMS.length) % GALLERY_ITEMS.length;
+      updateLightboxView();
+    }
+
+    function updateLightboxView() {
+      const item = GALLERY_ITEMS[currentLbIndex];
+      if (!item) return;
+      document.getElementById('lb-image').src = item.src;
+      document.getElementById('lb-badge').textContent = item.badge;
+      document.getElementById('lb-counter').textContent = `${currentLbIndex + 1} / ${GALLERY_ITEMS.length}`;
+      document.getElementById('lb-meta').textContent = item.meta;
+      document.getElementById('lb-title').textContent = item.title;
+      document.getElementById('lb-desc').textContent = item.desc;
+    }
+
+    function filterGallery(cat) {
+      document.querySelectorAll('.gal-filter-btn').forEach(btn => {
+        btn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+      });
+      const activeBtn = document.getElementById('gal-tab-' + cat);
+      if (activeBtn) {
+        activeBtn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition';
+      }
+      document.querySelectorAll('.gal-item').forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-gal') === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('gallery-lightbox-modal');
+      if (!lb || lb.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') stepLightbox(1);
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+    });
+
+    function openNewsArticle(index) {
+      const item = LIVE_NEWS_ARTICLES[index];
+      if (!item) return;
+      document.getElementById('modal-news-badge').textContent = item.badge || 'Berita Tempatan';
+      const sourceEl = document.getElementById('modal-news-source');
+      if (sourceEl) sourceEl.textContent = `📰 Sumber: ${item.source || 'Media Tempatan'}`;
+      document.getElementById('modal-news-date').textContent = item.dateFull || item.dateShort || '';
+      document.getElementById('modal-news-title').textContent = item.title;
+      document.getElementById('modal-news-body').innerHTML = item.bodyHtml || `<p>${escHtml(item.summary)}</p>`;
+      const linkEl = document.getElementById('modal-news-link');
+      linkEl.href = item.link || '#';
+      linkEl.textContent = `🔗 Baca Artikel Penuh di ${item.source || 'Portal Asal'} ↗`;
+      const waText = encodeURIComponent(`*BERITA MAHASISWA (${item.source})*\n${item.title} (${item.dateShort})\n\nPautan asal: ${item.link}`);
+      document.getElementById('modal-news-wa').href = `https://wa.me/?text=${waText}`;
+      document.getElementById('news-article-modal').classList.remove('hidden');
+    }
+
+    function closeNewsArticle() {
+      document.getElementById('news-article-modal').classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-nav').classList.toggle('hidden');
+    }
+
+    const DONUT_DATA = [
+      { pct: '45%', val: 'RM 1.71J', label: 'Dermasiswa IPT', colorClass: 'text-red-700', borderClass: 'border-red-200 bg-red-50/70' },
+      { pct: '25%', val: 'RM 950K', label: 'Laptop Siswa B40', colorClass: 'text-amber-600', borderClass: 'border-amber-200 bg-amber-50/70' },
+      { pct: '18%', val: 'RM 684K', label: 'Kecemasan & SOS', colorClass: 'text-emerald-600', borderClass: 'border-emerald-200 bg-emerald-50/70' },
+      { pct: '12%', val: 'RM 456K', label: 'Tiket Kasih & Bas', colorClass: 'text-blue-600', borderClass: 'border-blue-200 bg-blue-50/70' }
+    ];
+
+    function highlightDonutSlice(idx) {
+      const data = DONUT_DATA[idx];
+      if (!data) return;
+
+      const pctEl = document.getElementById('donut-center-percent');
+      const valEl = document.getElementById('donut-center-value');
+      const lblEl = document.getElementById('donut-center-label');
+      if (pctEl) {
+        pctEl.textContent = data.pct;
+        pctEl.className = `text-2xl font-black font-heading leading-none ${data.colorClass}`;
+      }
+      if (valEl) valEl.textContent = data.val;
+      if (lblEl) lblEl.textContent = data.label;
+
+      for (let i = 0; i < DONUT_DATA.length; i++) {
+        const seg = document.getElementById('donut-seg-' + i);
+        const leg = document.getElementById('donut-leg-' + i);
+        if (seg) {
+          seg.classList.toggle('active', i === idx);
+          seg.style.opacity = i === idx ? '1' : '0.45';
+        }
+        if (leg) {
+          leg.className = `donut-legend w-full text-left p-2.5 rounded-xl border transition flex items-center justify-between gap-2 ${
+            i === idx ? DONUT_DATA[i].borderClass + ' shadow-xs' : 'border-slate-200 hover:bg-slate-50'
+          }`;
+        }
+      }
+    }
+  </script>
+  <script src="js/ui-motion.js?v=13"></script>
+</body>
+</html>

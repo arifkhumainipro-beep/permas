@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="gEmerald" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="#ECFDF5"/>
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="none" stroke="#D1FAE5" stroke-width="2"/>
+  <!-- Briefcase & Growth Chart -->
+  <rect x="32" y="46" width="56" height="38" rx="8" fill="url(#gEmerald)"/>
+  <!-- Handle -->
+  <path d="M48 46V41C48 38.7909 49.7909 37 52 37H68C70.2091 37 72 38.7909 72 41V46" stroke="#047857" stroke-width="3" stroke-linecap="round"/>
+  <!-- Lock badge -->
+  <rect x="55" y="60" width="10" height="8" rx="2" fill="#FBBF24"/>
+  <path d="M32 58H88" stroke="#10B981" stroke-width="2" stroke-dasharray="2 2"/>
+</svg>

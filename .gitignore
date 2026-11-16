@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+flood_transparent.py
+assets/reference_template.png
+assets/slices/
+assets/insta_leadership_post/
+assets/insta_slide_*.jpg
+assets/insta_leadership_1.jpg

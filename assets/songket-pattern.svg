@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none">
+  <!-- Subtle Songket / Pucuk Rebung Motif Pattern for Selangor Identity -->
+  <path d="M60 0L120 60L60 120L0 60Z" stroke="#DA291C" stroke-width="1.2" stroke-opacity="0.12" fill="none"/>
+  <path d="M60 15L105 60L60 105L15 60Z" stroke="#FFCD00" stroke-width="1" stroke-opacity="0.15" fill="none"/>
+  <path d="M60 30L90 60L60 90L30 60Z" stroke="#DA291C" stroke-width="0.8" stroke-opacity="0.1" fill="none"/>
+  <!-- Central Star Motif -->
+  <circle cx="60" cy="60" r="3" fill="#DA291C" fill-opacity="0.2"/>
+</svg>
+

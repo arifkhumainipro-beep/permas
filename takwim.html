@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takwim & Kalendar Aktiviti Mahasiswa Selangor 2026 | PERMAS Nasional</title>
+  <meta name="description" content="Jadual rasmi persidangan kemuncak, kejohanan sukan antara zon, hackathon AI belia, dan kem kembara kebajikan PERMAS Nasional sepanjang sesi 2026.">
+  <link rel="icon" type="image/png" href="assets/logo-transparent.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#991B1B',
+              redDark: '#7F1D1D',
+              redLight: '#FEF2F2',
+              gold: '#D97706',
+              goldLight: '#FEF3C7',
+              dark: '#0F172A',
+              slate: '#1E293B',
+              border: '#E2E8F0',
+              bgLight: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            heading: ['"Outfit"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bespoke Executive CSS -->
+  <link rel="stylesheet" href="css/custom.css?v=12">
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-red-800 selection:text-white">
+
+  <!-- Top Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- Main Executive Navbar (7 Clean Tabs) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px] gap-2">
+        
+        <!-- Brand Identity Lockup -->
+        <a href="index.html?v=8" class="flex items-center gap-2.5 shrink-0 py-1 group">
+          <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1 font-heading font-black text-lg tracking-tight text-slate-900 leading-tight">
+              <span>PERMAS</span>
+              <span class="text-red-700">NASIONAL</span>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 leading-tight">
+              Persatuan Mahasiswa Selangor
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden lg:flex items-center h-[72px]">
+          <a href="index.html?v=8" class="nav-tab-item">
+            Laman Utama
+          </a>
+          <a href="inisiatif.html?v=8" class="nav-tab-item">
+            Inisiatif Bantuan
+          </a>
+          <a href="kampus.html?v=8" class="nav-tab-item">
+            Peta & 20 UA
+          </a>
+          <a href="takwim.html?v=8" class="nav-tab-item active">
+            Takwim 2026
+          </a>
+          <a href="kepimpinan.html?v=8" class="nav-tab-item">
+            Kepimpinan
+          </a>
+          <a href="aduan.html?v=8" class="nav-tab-item">
+            Meja E-Aduan
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-2 shrink-0">
+          <a href="aduan.html?v=8" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+            <span>📢 Salur Aduan & SOS</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-1.5 text-left shadow-lg">
+      <a href="index.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Laman Utama</a>
+      <a href="inisiatif.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Inisiatif Bantuan Siswa</a>
+      <a href="aduan.html?v=8#sos-teras" class="block py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 text-red-600 font-bold">🚨 Hab Bencana & SOS 24 Jam</a>
+      <a href="kampus.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Direktori 20 UA & Peta Lokasi</a>
+      <a href="takwim.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-bold bg-red-50 text-red-700">Takwim Program & Aktiviti 2026</a>
+      <a href="kepimpinan.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Barisan Kepimpinan PERMAS</a>
+      <a href="aduan.html?v=8" class="block py-2 px-3 rounded-lg text-sm font-bold text-amber-800 bg-amber-50">📢 Meja Suara & Saluran E-Aduan</a>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="bg-selangor-subhero py-12 sm:py-16 border-b border-slate-200 text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          Agenda Tahunan Rasmi Sesi 2026
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+          Takwim Program & <span class="text-red-700">Aktiviti Mahasiswa.</span>
+        </h1>
+        <p class="text-base text-slate-600 leading-relaxed font-medium">
+          Jadual rasmi persidangan kemuncak, kejohanan sukan antara zon kontinjen, hackathon kecerdasan buatan (AI), kem kembara kebajikan, dan sesi dialog belia mahasiswa anak Selangor sepanjang tahun 2026.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="mt-8 pt-6 border-t border-slate-200 flex items-center gap-2 overflow-x-auto pb-2">
+        <button onclick="filterCalendarEvents('all', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition">
+          Semua Acara (6)
+        </button>
+        <button onclick="filterCalendarEvents('kemuncak', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+          Sidang Kemuncak
+        </button>
+        <button onclick="filterCalendarEvents('sukan', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+          Sukan & SUKMAS
+        </button>
+        <button onclick="filterCalendarEvents('inovasi', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+          Inovasi & AI
+        </button>
+        <button onclick="filterCalendarEvents('kebajikan', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+          Khidmat Komuniti
+        </button>
+        <button onclick="filterCalendarEvents('kepimpinan', this)" class="calendar-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+          Akademi Kepimpinan
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selangor Ribbon -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- Events Grid Section -->
+  <section class="py-12 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div id="calendar-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- Info Callout Banner -->
+      <div class="mt-12 p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-700 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 text-base">Ingin menghantar kontinjen cawangan IPT anda?</h4>
+            <p class="text-xs text-slate-500 mt-0.5">Urusetia PERMAS Nasional menyediakan tajaan pengangkutan bas dan penginapan kolej untuk perwakilan berdaftar.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="https://t.me/permasnasional" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs inline-flex items-center gap-2 transition">
+            <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.536-.195 1.006.128.832.941z"/></svg>
+            <span>Saluran Telegram Rasmi</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       OFFICIAL INSTITUTIONAL FOOTER (UNIFIED 5-COLUMN)
+  ======================================================== -->
+  <footer class="bg-slate-900 text-white pt-16 pb-12 border-t-4 border-red-800 text-left text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-12 w-auto object-contain">
+            <div>
+              <span class="font-heading font-extrabold text-lg text-white tracking-tight block">
+                PERMAS NASIONAL
+              </span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mt-0.5">
+                Persatuan Mahasiswa Selangor Kebangsaan
+              </span>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Badan induk berdaftar yang menyatukan seluruh persatuan dan mahasiswa anak Selangor di institusi pengajian tinggi awam dan swasta seluruh Malaysia sejak 1974.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Halaman Portal</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="index.html?v=8" class="hover:text-white transition">Laman Utama & Berita</a></li>
+            <li><a href="inisiatif.html?v=8" class="hover:text-white transition">Inisiatif Bantuan Siswa</a></li>
+            <li><a href="kampus.html?v=8" class="hover:text-white transition">Peta & Direktori 20 UA</a></li>
+            <li><a href="takwim.html?v=8" class="text-amber-400 font-bold">Takwim Acara 2026</a></li>
+            <li><a href="kepimpinan.html?v=8" class="hover:text-white transition">Barisan Kepimpinan</a></li>
+            <li><a href="aduan.html?v=8" class="hover:text-white transition">📢 Meja Suara & E-Aduan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Pautan Agensi</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="https://www.selangor.gov.my" target="_blank" class="hover:text-white transition">Portal Kerajaan Negeri Selangor</a></li>
+            <li><a href="https://www.yayasanselangor.org.my" target="_blank" class="hover:text-white transition">Yayasan Selangor</a></li>
+            <li><a href="https://www.zakatselangor.com.my" target="_blank" class="hover:text-white transition">Lembaga Zakat Selangor</a></li>
+            <li><a href="https://www.mbiselangor.com" target="_blank" class="hover:text-white transition">Menteri Besar Selangor (MBI)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Urusetia Program</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Kompleks Belia & Sukan Negeri Selangor,<br>
+            Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.<br><br>
+            Emel: <strong class="text-white">sekretariat@permasnasional.org.my</strong><br>
+            Instagram: <strong class="text-white">@permasnasionalofficial</strong>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; 2026 Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional). Hak Cipta Terpelihara.</p>
+        <p class="text-slate-400 font-medium">PERMAS Proaktif, Selangor Progresif</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Event Info Modal -->
+  <div id="event-rsvp-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative modal-fade-in space-y-4 max-h-[92vh] overflow-y-auto text-left">
+      <button onclick="closeEventRsvpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-50 text-red-700 border border-red-200">
+          <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+          Info Rasmi Program PERMAS 2026
+        </span>
+        <h3 id="rsvp-event-title" class="text-xl font-bold font-heading text-slate-900">
+          Konvensyen Mahasiswa Selangor (KMS 2026)
+        </h3>
+        <div id="rsvp-event-details"></div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeEventRsvpModal()" class="btn-primary-red py-2.5 px-6 text-xs font-bold">
+          Tutup Maklumat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js?v=8"></script>
+  <script src="js/app.js?v=8"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCalendarEvents('all');
+    });
+    function toggleMobileMenu() {
+      document.getElementById('mobile-nav').classList.toggle('hidden');
+    }
+  </script>
+  <script src="js/ui-motion.js?v=12"></script>
+</body>
+</html>
+

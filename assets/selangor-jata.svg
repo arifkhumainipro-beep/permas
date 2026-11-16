@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE066" />
+      <stop offset="50%" stop-color="#E5A914" />
+      <stop offset="100%" stop-color="#B8860B" />
+    </linearGradient>
+    <linearGradient id="selRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="70%" stop-color="#DA291C" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Crown / Mahkota Di-Raja Motif -->
+  <g transform="translate(130, 40) scale(0.7)">
+    <path d="M 100 20 L 130 90 L 70 90 Z" fill="url(#goldShine)" />
+    <path d="M 40 40 L 70 90 L 20 90 Z" fill="url(#goldShine)" />
+    <path d="M 160 40 L 180 90 L 130 90 Z" fill="url(#goldShine)" />
+    <rect x="20" y="85" width="160" height="20" rx="6" fill="url(#selRed)" stroke="url(#goldShine)" stroke-width="3" />
+    <circle cx="100" cy="95" r="5" fill="#FFFFFF" />
+    <circle cx="50" cy="95" r="4" fill="#FFFFFF" />
+    <circle cx="150" cy="95" r="4" fill="#FFFFFF" />
+  </g>
+
+  <!-- Crescent & Star -->
+  <g transform="translate(145, 120) scale(1.1)">
+    <path d="M 50,0 A 45,45 0 0,0 -10,40 A 45,45 0 0,0 50,80 A 36,36 0 0,1 20,40 A 36,36 0 0,1 50,0 Z" fill="url(#goldShine)" />
+    <polygon points="70,25 74,38 88,38 77,46 81,58 70,50 59,58 63,46 52,38 66,38" fill="url(#goldShine)" />
+  </g>
+
+  <!-- Dual Keris Motif (Crossed Keris) -->
+  <g stroke="url(#goldShine)" stroke-width="5" stroke-linecap="round">
+    <!-- Keris 1 -->
+    <line x1="120" y1="230" x2="280" y2="350" />
+    <path d="M 280,350 L 300,340 L 290,360 Z" fill="url(#goldShine)" />
+    <!-- Keris 2 -->
+    <line x1="280" y1="230" x2="120" y2="350" />
+    <path d="M 120,350 L 100,340 L 110,360 Z" fill="url(#goldShine)" />
+  </g>
+
+  <!-- Ribbon Base with Jawi / Selangor Lettering Motif -->
+  <path d="M 70,360 Q 200,340 330,360 L 320,390 Q 200,370 80,390 Z" fill="url(#selRed)" stroke="url(#goldShine)" stroke-width="2" />
+  <text x="200" y="380" font-family="'Outfit', sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">
+    SELANGOR DARUL EHSAN
+  </text>
+</svg>
+

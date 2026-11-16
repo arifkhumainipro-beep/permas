@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inisiatif Bantuan Siswa | PERMAS Nasional</title>
+  <meta name="description" content="Portal rasmi inisiatif kebajikan, dermasiswa pengajian tinggi, skim komputer riba B40, tiket kasih dan latihan industri SISPRO GLC Selangor.">
+  <link rel="icon" type="image/png" href="assets/logo-transparent.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            selred: { 50: '#FEF2F2', 100: '#FEE2E2', 700: '#991B1B', 800: '#7F1D1D', 900: '#450A0A' },
+            selgold: { 50: '#FFFBEB', 100: '#FEF3C7', 500: '#F59E0B', 600: '#D97706', 700: '#B45309' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bespoke Executive Styles -->
+  <link rel="stylesheet" href="css/custom.css?v=12">
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- ========================================================
+       SELANGOR SOVEREIGN TOP ACCENT RIBBON
+  ======================================================== -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       MAIN EXECUTIVE NAVBAR (CLEAN UNDERLINE TABS)
+  ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px] gap-4">
+        
+        <!-- Brand Identity Lockup -->
+        <a href="index.html?v=8" class="flex items-center gap-3 shrink-0 py-1 group">
+          <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1 font-heading font-black text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+              <span>PERMAS</span>
+              <span class="text-red-700">NASIONAL</span>
+            </div>
+            <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-slate-500 leading-tight">
+              Persatuan Mahasiswa Selangor
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (Underline Tab System) -->
+        <nav class="hidden lg:flex items-center h-[72px]">
+          <a href="index.html?v=8" class="nav-tab-item">
+            Laman Utama
+          </a>
+          <a href="inisiatif.html?v=8" class="nav-tab-item active">
+            Inisiatif Bantuan
+          </a>
+          <a href="kampus.html?v=8" class="nav-tab-item">
+            Peta & 20 UA
+          </a>
+          <a href="takwim.html?v=8" class="nav-tab-item">
+            Takwim 2026
+          </a>
+          <a href="kepimpinan.html?v=8" class="nav-tab-item">
+            Kepimpinan
+          </a>
+          <a href="aduan.html?v=8" class="nav-tab-item">
+            Meja E-Aduan
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-2 shrink-0">
+          <a href="aduan.html?v=8" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+            <span>📢 Salur Aduan & SOS</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-1.5 text-left shadow-lg">
+      <a href="index.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Laman Utama</span>
+        <span class="text-xs text-slate-400">Utama</span>
+      </a>
+      <a href="inisiatif.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-bold bg-red-50 text-red-700">
+        <span>Inisiatif Bantuan Siswa</span>
+        <span class="text-xs">→ 4 Skim</span>
+      </a>
+      <a href="aduan.html?v=8#sos-teras" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-600"></span>
+          Hab Bencana & SOS 24 Jam
+        </span>
+        <span class="text-xs text-red-600 font-bold">Kecemasan</span>
+      </a>
+      <a href="kampus.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Direktori 38 Cawangan IPT</span>
+        <span class="text-xs text-slate-400">38 Kampus</span>
+      </a>
+      <a href="kepimpinan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Barisan Kepimpinan PERMAS</span>
+        <span class="text-xs text-slate-400">2024–2026</span>
+      </a>
+      <a href="aduan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Meja Suara & E-Aduan</span>
+        <span class="text-xs text-slate-400">Aduan</span>
+      </a>
+      <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+        <a href="aduan.html?v=8#sos-teras" class="py-2.5 rounded-lg bg-red-700 text-white font-bold text-xs uppercase text-center shadow-xs">
+          🚨 Lapor SOS
+        </a>
+        <a href="aduan.html?v=8" class="py-2.5 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase text-center shadow-xs">
+          📢 E-Aduan
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       PAGE HERO BANNER
+  ======================================================== -->
+  <section class="bg-selangor-subhero py-14 sm:py-18 border-b border-slate-200 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
+      <div class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-800 text-xs font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-red-600"></span>
+          Portal Rasmi Inisiatif Mahasiswa Selangor
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+          Inisiatif Kebajikan & Skim Bantuan <span class="text-red-700">Mahasiswa.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+          Dikelolakan bersama Kerajaan Negeri Selangor, Yayasan Selangor, Lembaga Zakat Selangor, dan MBI Selangor bagi menjamin sifar keciciran pendidikan anak negeri di seluruh Malaysia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       4 INITIATIVES OVERVIEW CARDS
+  ======================================================== -->
+  <section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        
+        <!-- Scheme 1 -->
+        <div onclick="switchTab('dermasiswa'); scrollToTab();" class="pro-card p-6 rounded-2xl border border-slate-200 hover:border-red-400 cursor-pointer transition-all shadow-xs flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <img src="assets/images/graphic_scholarship.svg" alt="Dermasiswa" class="w-14 h-14 rounded-xl object-contain">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-50 text-red-700 border border-red-200">Biasiswa</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-slate-900 group-hover:text-red-700 transition">Dermasiswa Pengajian Tinggi</h3>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Tajaan yuran pengajian sehingga RM5,000 setahun untuk IPTA & IPTS terpilih.</p>
+            </div>
+          </div>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-red-700">
+            <span>Ketahui Lanjut</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        <!-- Scheme 2 -->
+        <div onclick="switchTab('laptop'); scrollToTab();" class="pro-card p-6 rounded-2xl border border-slate-200 hover:border-blue-400 cursor-pointer transition-all shadow-xs flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <img src="assets/images/graphic_laptop.svg" alt="Laptop" class="w-14 h-14 rounded-xl object-contain">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Peranti</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-slate-900 group-hover:text-blue-700 transition">Skim Komputer Riba Siswa</h3>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Pemberian komputer riba berprestasi tinggi percuma bagi keluarga berpendapatan B40.</p>
+            </div>
+          </div>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
+            <span>Ketahui Lanjut</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        <!-- Scheme 3 -->
+        <div onclick="switchTab('tiket'); scrollToTab();" class="pro-card p-6 rounded-2xl border border-slate-200 hover:border-amber-400 cursor-pointer transition-all shadow-xs flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <img src="assets/images/graphic_transit.svg" alt="Tiket Kasih" class="w-14 h-14 rounded-xl object-contain">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">Mobiliti</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-slate-900 group-hover:text-amber-700 transition">Tiket Kasih Siswa</h3>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Subsidi tambang 100% balik kampung cuti perayaan & bas percuma ke kampus.</p>
+            </div>
+          </div>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
+            <span>Ketahui Lanjut</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        <!-- Scheme 4 -->
+        <div onclick="switchTab('sispro'); scrollToTab();" class="pro-card p-6 rounded-2xl border border-slate-200 hover:border-emerald-400 cursor-pointer transition-all shadow-xs flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <img src="assets/images/graphic_glc.svg" alt="SISPRO" class="w-14 h-14 rounded-xl object-contain">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Kerjaya</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-slate-900 group-hover:text-emerald-700 transition">Latihan Industri SISPRO GLC</h3>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">Penempatan latihan industri bergaji RM1,200 - RM1,800 sebulan di konglomerat Selangor.</p>
+            </div>
+          </div>
+          <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+            <span>Ketahui Lanjut</span>
+            <span>→</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       INTERACTIVE TABBED DETAILS SECTION
+  ======================================================== -->
+  <section id="tab-section" class="py-16 bg-slate-50 border-b border-slate-200 flex-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Tab Header Buttons -->
+      <div class="flex items-center gap-2 border-b border-slate-200 overflow-x-auto pb-px mb-8">
+        <button onclick="switchTab('dermasiswa')" id="tab-btn-dermasiswa" class="tab-btn active">
+          Dermasiswa Pengajian Tinggi
+        </button>
+        <button onclick="switchTab('laptop')" id="tab-btn-laptop" class="tab-btn">
+          Skim Komputer Riba Siswa B40
+        </button>
+        <button onclick="switchTab('tiket')" id="tab-btn-tiket" class="tab-btn">
+          Tiket Kasih & Subsidi Mobiliti
+        </button>
+        <button onclick="switchTab('sispro')" id="tab-btn-sispro" class="tab-btn">
+          Latihan Industri Bergaji (SISPRO)
+        </button>
+      </div>
+
+      <!-- Tab Content Card -->
+      <div id="tab-content" class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 shadow-sm">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+      <!-- FAQ Accordion / Quick Assistance -->
+      <div class="mt-14 max-w-4xl mx-auto text-left space-y-4">
+        <h3 class="text-xl font-extrabold font-heading text-slate-900 mb-6">Soalan Lazim Mengenai Permohonan Bantuan</h3>
+        
+        <div class="p-5 rounded-xl bg-white border border-slate-200 space-y-2">
+          <h4 class="font-bold text-sm text-slate-900">1. Siapakah yang layak memohon inisiatif di bawah PERMAS Nasional?</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Semua mahasiswa warganegara Malaysia kelahiran Negeri Selangor (kod MyKad 10) atau ibu/bapa lahir di Selangor yang sedang menuntut sepenuh masa di institusi pengajian tinggi awam (IPTA) atau swasta (IPTS) yang berdaftar dengan MQA.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white border border-slate-200 space-y-2">
+          <h4 class="font-bold text-sm text-slate-900">2. Bagaimanakah cara mendapatkan pengesahan atau bantuan lanjut?</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Mahasiswa boleh berhubung terus dengan sekretariat cawangan PERMAS di Universiti Awam masing-masing atau mengemukakan pertanyaan dan aduan melalui ruangan Meja Suara & E-Aduan.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white border border-slate-200 space-y-2">
+          <h4 class="font-bold text-sm text-slate-900">3. Adakah saya boleh memohon lebih daripada satu skim bantuan?</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Boleh. Contohnya, mahasiswa yang menerima Skim Komputer Riba Siswa B40 masih layak memohon Tiket Kasih Mobiliti dan menyertai program residensi SISPRO GLC Selangor.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SOALAN LAZIM (FAQ ACCORDION INTERAKTIF)
+  ======================================================== -->
+  <section class="py-16 bg-slate-50 border-b border-slate-200 text-left">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="executive-badge mb-2">Panduan Rujukan Bantuan</div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900">
+          Soalan Lazim (FAQ) <span class="text-red-700">Bantuan & Dermasiswa</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Maklumat penting mengenai status anak kelahiran Selangor, syarat permohonan skim bantuan, dan geran aktiviti kampus.
+        </p>
+      </div>
+
+      <div id="faq-inisiatif-container" class="space-y-3"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       OFFICIAL INSTITUTIONAL FOOTER
+  ======================================================== -->
+  <footer class="bg-slate-900 text-white pt-16 pb-12 border-t-4 border-red-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800 text-left text-xs">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-12 w-auto object-contain">
+            <div>
+              <span class="font-heading font-extrabold text-lg text-white tracking-tight block">
+                PERMAS NASIONAL
+              </span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mt-0.5">
+                Persatuan Mahasiswa Selangor Kebangsaan
+              </span>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Badan induk berdaftar yang menyatukan seluruh persatuan dan mahasiswa anak Selangor di institusi pengajian tinggi awam dan swasta seluruh Malaysia sejak 1974.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Halaman Portal</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="index.html?v=8" class="hover:text-white transition">Laman Utama</a></li>
+            <li><a href="inisiatif.html?v=8" class="text-amber-400 font-bold">Inisiatif Bantuan Siswa</a></li>
+            <li><a href="aduan.html?v=8#sos-teras" class="hover:text-white transition">Hab Bencana & SOS</a></li>
+            <li><a href="kampus.html?v=8" class="hover:text-white transition">Direktori 38 IPT</a></li>
+            <li><a href="kepimpinan.html?v=8" class="hover:text-white transition">Barisan Kepimpinan</a></li>
+            <li><a href="aduan.html?v=8" class="hover:text-white transition">Meja Suara & E-Aduan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Rakan Strategik</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li>Kerajaan Negeri Selangor</li>
+            <li>Yayasan Selangor</li>
+            <li>Lembaga Zakat Selangor</li>
+            <li>Menteri Besar Selangor (Pemerbadanan)</li>
+            <li>Hal Ehwal Pelajar (HEP) IPT</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Hubungi Urusetia</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Kompleks Belia & Sukan Negeri Selangor,<br>
+            Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.<br><br>
+            Emel: <strong class="text-white">bantuan@permasnasional.org.my</strong><br>
+            Instagram: <strong class="text-white">@permasnasionalofficial</strong>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; 2026 Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional). Hak Cipta Terpelihara.</p>
+        <p class="text-slate-400 font-medium">PERMAS Proaktif, Selangor Progresif</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Toast Notification Box -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Shared Data & Scripts -->
+  <script src="js/data.js?v=8"></script>
+  <script>
+    const TAB_DATA = {
+      'dermasiswa': {
+        title: 'Dermasiswa Pengajian Tinggi Selangor',
+        subtitle: 'Tajaan Yuran Pengajian Sehingga RM5,000 Setahun',
+        graphic: 'assets/images/graphic_scholarship.svg',
+        badge: 'Tajaan Yuran RM5,000',
+        badgeColor: 'bg-red-50 text-red-700 border-red-200',
+        portalUrl: 'https://www.zakatselangor.com.my',
+        portalName: 'Portal Lembaga Zakat & Yayasan Selangor',
+        desc: 'Inisiatif khas bantuan kewangan bagi membantu mahasiswa semester 1 dan ke atas yang menuntut di universiti awam dan swasta tempatan yang diiktiraf MQA. Tajaan disalurkan secara bersama oleh Lembaga Zakat Selangor dan Yayasan Selangor.',
+        syarat: [
+          'Warganegara Malaysia dan anak kelahiran Negeri Selangor (atau ibu/bapa lahir di Selangor).',
+          'Telah bermastautin di Selangor melebihi 10 tahun bagi pemohon luar negeri.',
+          'Pendapatan isi rumah keluarga di bawah paras RM8,000 sebulan (Keutamaan B40).',
+          'Mengekalkan CGPA minimum 2.75 bagi setiap semester aktif.'
+        ],
+        documents: ['Salinan MyKad Pemohon & Ibu Bapa', 'Surat Tawaran Kemasukan IPT', 'Penyata Pendapatan / Pencen Waris', 'Salinan Keputusan Peperiksaan Terkini']
+      },
+      'laptop': {
+        title: 'Skim Komputer Riba Siswa Selangor',
+        subtitle: 'Bantuan Peranti Percuma Spesifikasi Tinggi untuk Pembelajaran Hibrid',
+        graphic: 'assets/images/graphic_laptop.svg',
+        badge: 'Peranti Percuma (B40)',
+        badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+        portalUrl: 'https://www.yayasanselangor.org.my',
+        portalName: 'Portal Rasmi Yayasan Selangor',
+        desc: 'Pemberian satu unit komputer riba baharu (pemproses Core i5 / AMD Ryzen 5, 16GB RAM, SSD 512GB) lengkap dengan beg sandang, tetikus, serta lesen perisian pembelajaran digital percuma.',
+        syarat: [
+          'Pelajar tahun pertama atau kedua peringkat Diploma atau Ijazah Sarjana Muda.',
+          'Daripada keluarga berpendapatan B40 (Pendapatan isi rumah di bawah RM4,850).',
+          'Menuntut sepenuh masa di mana-mana IPTA atau IPTS terpilih di Malaysia.'
+        ],
+        documents: ['Salinan MyKad Pemohon', 'Pengesahan Pendaftaran Semester Aktif', 'Penyata Gaji / Pengesahan Pendapatan JKKK / Penghulu']
+      },
+      'tiket': {
+        title: 'Tiket Kasih & Subsidi Mobiliti Siswa',
+        subtitle: 'Subsidi Tambang 50% - 100% Balik Kampung & Laluan Bas Percuma',
+        graphic: 'assets/images/graphic_transit.svg',
+        badge: 'Subsidi Tambang 100%',
+        badgeColor: 'bg-amber-50 text-amber-800 border-amber-200',
+        portalUrl: 'https://www.selangor.gov.my',
+        portalName: 'Portal Rasmi Kerajaan Negeri Selangor',
+        desc: 'Pemberian baucar tiket bas ekspres, ETS, dan penerbangan domestik (khusus bagi mahasiswa perantauan di Sabah dan Sarawak) sempena cuti perayaan Aidilfitri, Tahun Baru Cina dan cuti semester.',
+        syarat: [
+          'Mahasiswa anak Selangor yang menuntut di kampus luar Lembah Klang atau kepulauan Borneo.',
+          'Berdaftar secara sah sebagai ahli cawangan PERMAS di IPT berkenaan.'
+        ],
+        documents: ['Salinan Kad Matrik Pelajar', 'Resit Pembelian Tiket Penerbangan / Bas', 'Pengesahan Keahlian Cawangan PERMAS']
+      },
+      'sispro': {
+        title: 'Program Latihan Industri SISPRO (GLC Selangor)',
+        subtitle: 'Penempatan Praktikal Bergaji RM1,200 - RM1,800 Sebulan',
+        graphic: 'assets/images/graphic_glc.svg',
+        badge: 'Elaun RM1,800 / Bulan',
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        portalUrl: 'https://www.mbiselangor.com',
+        portalName: 'Portal Rasmi MBI Selangor',
+        desc: 'Program residensi kerjaya eksekutif bersama syarikat berkaitan kerajaan negeri (GLC Selangor) seperti MBI Selangor, PKNS, Air Selangor, KDEB Waste Management dan Worldwide Holdings.',
+        syarat: [
+          'Mahasiswa semester akhir peringkat Diploma atau Ijazah Sarjana Muda.',
+          'Memerlukan latihan industri wajib dalam struktur kurikulum kursus pengajian.',
+          'Peluang penyerapan kerja tetap bagi pelatih yang menunjukkan prestasi cemerlang.'
+        ],
+        documents: ['Resume / CV Terkini', 'Surat Sokongan Latihan Industri dari Universiti', 'Transkrip Akademik Terkini']
+      }
+    };
+
+    function switchTab(tabKey) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('tab-btn-' + tabKey);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = TAB_DATA[tabKey];
+      const contentBox = document.getElementById('tab-content');
+      if (!data || !contentBox) return;
+
+      contentBox.innerHTML = `
+        <div class="space-y-6 text-left">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+            <div class="flex items-start gap-4">
+              <img src="${data.graphic}" alt="${data.title}" class="w-16 h-16 rounded-2xl object-contain shrink-0 shadow-sm">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-[11px] font-bold text-red-700 uppercase tracking-wider">${data.subtitle}</span>
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${data.badgeColor}">
+                    ${data.badge}
+                  </span>
+                </div>
+                <h3 class="text-2xl font-extrabold font-heading text-slate-900">${data.title}</h3>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+              <a href="${data.portalUrl}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
+                <span>🌐 ${data.portalName}</span>
+                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              <a href="aduan.html?v=8" class="btn-primary-red py-2.5 px-5 text-xs font-bold shadow-sm hover:shadow-md">
+                Pertanyaan / Aduan Bantuan →
+              </a>
+            </div>
+          </div>
+
+          <p class="text-sm text-slate-600 leading-relaxed">${data.desc}</p>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-3">Panduan Rujukan Mahasiswa:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="flex items-center gap-2.5 bg-white p-2.5 rounded-lg border border-slate-200">
+                <span class="w-6 h-6 rounded-full bg-red-100 text-red-800 font-bold flex items-center justify-center text-xs shrink-0">1</span>
+                <span class="text-slate-700 font-semibold">Teliti Syarat Kelayakan Skim</span>
+              </div>
+              <div class="flex items-center gap-2.5 bg-white p-2.5 rounded-lg border border-slate-200">
+                <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-xs shrink-0">2</span>
+                <span class="text-slate-700 font-semibold">Lengkapkan Dokumen Sokongan</span>
+              </div>
+              <div class="flex items-center gap-2.5 bg-white p-2.5 rounded-lg border border-slate-200">
+                <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs shrink-0">3</span>
+                <span class="text-slate-700 font-semibold">Rujuk Wakil PERMAS Kampus / Agensi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
+            <div class="p-5 rounded-xl bg-white border border-slate-200 space-y-3 shadow-xs">
+              <div class="flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wide">
+                <svg class="w-4 h-4 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Syarat-Syarat Kelayakan:</span>
+              </div>
+              <ul class="text-xs text-slate-600 space-y-2">
+                ${data.syarat.map(s => `<li class="flex items-start gap-2"><span class="text-red-700 font-bold shrink-0 mt-0.5">•</span><span>${s}</span></li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-xl bg-white border border-slate-200 space-y-3 shadow-xs">
+              <div class="flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wide">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Dokumen Mandatori:</span>
+              </div>
+              <ul class="text-xs text-slate-600 space-y-2">
+                ${data.documents.map(d => `<li class="flex items-start gap-2"><span class="text-emerald-600 font-bold shrink-0 mt-0.5">✓</span><span>${d}</span></li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function scrollToTab() {
+      document.getElementById('tab-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-nav').classList.toggle('hidden');
+    }
+
+    function showToast(msg, type = 'info') {
+      const box = document.getElementById('toast-box');
+      if (!box) return;
+      const toast = document.createElement('div');
+      const border = type === 'error' ? 'border-l-4 border-red-600' : type === 'success' ? 'border-l-4 border-emerald-500' : 'border-l-4 border-amber-500';
+      toast.className = `p-4 rounded-xl bg-slate-900 text-white text-xs font-semibold flex items-center gap-2 transform transition-all duration-300 opacity-0 translate-y-3 shadow-2xl ${border}`;
+      toast.innerHTML = `<span>${msg}</span>`;
+      box.appendChild(toast);
+      setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-3'), 30);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+
+    function renderInisiatifFaq() {
+      const container = document.getElementById('faq-inisiatif-container');
+      if (!container || typeof PERMAS_DATA === 'undefined' || !PERMAS_DATA.faqs) return;
+      container.innerHTML = PERMAS_DATA.faqs.map((item, idx) => `
+        <div class="rounded-2xl border border-slate-200 bg-white overflow-hidden transition shadow-2xs">
+          <button type="button" onclick="toggleInisiatifFaq(${idx})" class="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition">
+            <span class="font-bold text-sm text-slate-900">${idx + 1}. ${item.q}</span>
+            <svg id="faq-ini-icon-${idx}" class="w-5 h-5 text-red-700 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div id="faq-ini-ans-${idx}" class="${idx === 0 ? '' : 'hidden'} px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/40">
+            ${item.a}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleInisiatifFaq(idx) {
+      const ans = document.getElementById('faq-ini-ans-' + idx);
+      const icon = document.getElementById('faq-ini-icon-' + idx);
+      if (!ans) return;
+      ans.classList.toggle('hidden');
+      if (icon) icon.classList.toggle('rotate-180');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('dermasiswa');
+      renderInisiatifFaq();
+    });
+  </script>
+  <script src="js/ui-motion.js?v=12"></script>
+</body>
+</html>
+

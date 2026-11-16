@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barisan Kepimpinan PERMAS Nasional Sesi 2024–2026</title>
+  <meta name="description" content="Saf kepimpinan rasmi Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional). Majlis Tertinggi dan barisan Exco peneraju kebajikan mahasiswa anak Selangor.">
+  <link rel="icon" type="image/png" href="assets/logo-transparent.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            selred: { 50: '#FEF2F2', 100: '#FEE2E2', 700: '#991B1B', 800: '#7F1D1D', 900: '#450A0A' },
+            selgold: { 50: '#FFFBEB', 100: '#FEF3C7', 500: '#F59E0B', 600: '#D97706', 700: '#B45309' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bespoke Executive Styles -->
+  <link rel="stylesheet" href="css/custom.css?v=12">
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- ========================================================
+       SELANGOR SOVEREIGN TOP ACCENT RIBBON
+  ======================================================== -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       MAIN EXECUTIVE NAVBAR (CLEAN UNDERLINE TABS)
+  ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px] gap-4">
+        
+        <!-- Brand Identity Lockup -->
+        <a href="index.html?v=8" class="flex items-center gap-3 shrink-0 py-1 group">
+          <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105">
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1 font-heading font-black text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+              <span>PERMAS</span>
+              <span class="text-red-700">NASIONAL</span>
+            </div>
+            <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-slate-500 leading-tight">
+              Persatuan Mahasiswa Selangor
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (Underline Tab System) -->
+        <nav class="hidden lg:flex items-center h-[72px]">
+          <a href="index.html?v=8" class="nav-tab-item">
+            Laman Utama
+          </a>
+          <a href="inisiatif.html?v=8" class="nav-tab-item">
+            Inisiatif Bantuan
+          </a>
+          <a href="kampus.html?v=8" class="nav-tab-item">
+            Peta & 20 UA
+          </a>
+          <a href="takwim.html?v=8" class="nav-tab-item">
+            Takwim 2026
+          </a>
+          <a href="kepimpinan.html?v=8" class="nav-tab-item active">
+            Kepimpinan
+          </a>
+          <a href="aduan.html?v=8" class="nav-tab-item">
+            Meja E-Aduan
+          </a>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="hidden sm:flex items-center gap-2 shrink-0">
+          <a href="aduan.html?v=8" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
+            <span>📢 Salur Aduan & SOS</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-1.5 text-left shadow-lg">
+      <a href="index.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Laman Utama</span>
+        <span class="text-xs text-slate-400">Utama</span>
+      </a>
+      <a href="inisiatif.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Inisiatif Bantuan Siswa</span>
+        <span class="text-xs text-slate-400">4 Skim</span>
+      </a>
+      <a href="aduan.html?v=8#sos-teras" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-600"></span>
+          Hab Bencana & SOS 24 Jam
+        </span>
+        <span class="text-xs text-red-600 font-bold">Kecemasan</span>
+      </a>
+      <a href="kampus.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Direktori 38 Cawangan IPT</span>
+        <span class="text-xs text-slate-400">38 Kampus</span>
+      </a>
+      <a href="kepimpinan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-bold bg-red-50 text-red-700">
+        <span>Barisan Kepimpinan PERMAS</span>
+        <span class="text-xs">→ 2024–2026</span>
+      </a>
+      <a href="aduan.html?v=8" class="flex items-center justify-between py-2.5 px-3.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        <span>Meja Suara & E-Aduan</span>
+        <span class="text-xs text-slate-400">Aduan</span>
+      </a>
+      <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+        <button onclick="toggleMobileMenu(); openWartaModal()" class="w-full py-2.5 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase text-center shadow-xs">
+          Lihat Warta Dokumen Pelantikan (6 Slaid)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       PAGE HERO BANNER
+  ======================================================== -->
+  <section class="bg-selangor-subhero py-14 sm:py-18 border-b border-slate-200 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="max-w-3xl space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-800 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+            Pelantikan Rasmi Sesi 2024–2026
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 tracking-tight leading-tight">
+            Barisan Kepimpinan <span class="text-red-700">PERMAS Nasional.</span>
+          </h1>
+          <p class="text-base text-slate-600 leading-relaxed font-medium">
+            &ldquo;PERMAS Proaktif, Selangor Progresif&rdquo; &mdash; Wadah perpaduan, advokasi hak asasi, dan pemerkasaan mahasiswa anak Selangor di peringkat nasional.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="openWartaModal()" class="btn-primary-red text-xs py-3 px-5 shadow-sm hover:shadow-md">
+            <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Warta Pelantikan (6 Slaid Rasmi)</span>
+          </button>
+          <a href="https://www.instagram.com/p/DeEC-QdkgUu/" target="_blank" rel="noopener noreferrer" class="btn-secondary-outline text-xs py-3 px-5 inline-flex items-center gap-2">
+            <svg class="w-4 h-4 text-pink-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram Rasmi</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selangor Dual Ribbon Accent -->
+  <div class="selangor-ribbon"></div>
+
+  <!-- ========================================================
+       4 NILAI TERAS K.I.T.A SISWA SELANGOR
+  ======================================================== -->
+  <section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+      <div class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+        <span>Nilai Teras Pegangan Organisasi</span>
+        <span class="h-px flex-1 bg-slate-200"></span>
+        <span class="font-bold text-red-700">K.I.T.A SISWA SELANGOR</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- K -->
+        <div class="pro-card p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between hover:border-red-300 transition-all shadow-2xs">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-2xl font-black font-heading text-red-700">K</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-red-50 text-red-800">Teras 01</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm">KEPIMPINAN</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Membentuk barisan pemimpin mahasiswa yang berwibawa, berintegriti dan mampu menjadi agen perubahan aktif dalam komuniti.
+            </p>
+          </div>
+        </div>
+
+        <!-- I -->
+        <div class="pro-card p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between hover:border-amber-300 transition-all shadow-2xs">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-2xl font-black font-heading text-amber-600">I</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-50 text-amber-800">Teras 02</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm">INOVASI</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Menggalakkan budaya berfikir kreatif dan inovatif bagi melahirkan idea, pendekatan dan inisiatif relevan cabaran masa hadapan.
+            </p>
+          </div>
+        </div>
+
+        <!-- T -->
+        <div class="pro-card p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between hover:border-blue-300 transition-all shadow-2xs">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-2xl font-black font-heading text-blue-700">T</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-50 text-blue-800">Teras 03</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm">TRANSFORMASI</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Membawa pembaharuan relevan dan berimpak dalam memperkukuh peranan PERMAS sebagai organisasi mahasiswa profesional peringkat nasional.
+            </p>
+          </div>
+        </div>
+
+        <!-- A -->
+        <div class="pro-card p-5 bg-white border border-slate-200 rounded-xl flex flex-col justify-between hover:border-emerald-300 transition-all shadow-2xs">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-2xl font-black font-heading text-emerald-700">A</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-800">Teras 04</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm">ASPIRASI</h4>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Menjadikan PERMAS Nasional sebagai platform utama yang mendengar, membawa dan merealisasikan suara serta keperluan mahasiswa Selangor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       PRESIDENTIAL SPOTLIGHT BANNER
+  ======================================================== -->
+  <section class="py-10 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+      <div class="rounded-3xl bg-gradient-to-r from-slate-950 via-slate-900 to-red-950 text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-slate-800 relative overflow-hidden">
+        <div class="absolute -right-16 -bottom-16 w-80 h-80 opacity-10 pointer-events-none">
+          <img src="assets/logo-transparent.png" alt="Selangor Crest" class="w-full h-full object-contain filter invert">
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-900/60 border border-red-700/60 text-amber-300 text-xs font-bold uppercase tracking-wider">
+              <span>Amanat Presiden PERMAS Nasional</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+              Ahmad Amirul Irfan bin Ahmad Saupi
+            </h3>
+            <p class="text-xs sm:text-sm text-red-200 font-semibold tracking-wide flex items-center gap-2">
+              <span>Presiden PERMAS Nasional</span>
+              <span>&bull;</span>
+              <span>Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)</span>
+            </p>
+            <blockquote class="text-sm sm:text-base text-slate-200 leading-relaxed italic border-l-2 border-amber-400 pl-4 py-1">
+              &ldquo;Pelantikan ini menjadi satu amanah dan tanggungjawab baharu dalam memperkukuh gerak kerja PERMAS Nasional serta memperjuangkan aspirasi mahasiswa Selangor di seluruh institusi pengajian tinggi. Barisan kepimpinan yang dilantik akan bersama-sama meneruskan agenda pembangunan mahasiswa, memperkasa jaringan anak Selangor serta membawa suara mahasiswa ke arah Selangor yang lebih progresif.&rdquo;
+            </blockquote>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-red-600 to-amber-500 p-0.5 shadow-lg mb-3">
+              <div class="w-full h-full bg-slate-900 rounded-2xl flex items-center justify-center">
+                <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="w-14 h-14 object-contain">
+              </div>
+            </div>
+            <h4 class="font-bold text-white text-sm">PEJABAT PRESIDEN</h4>
+            <p class="text-xs text-slate-400 mt-1">Persatuan Mahasiswa Selangor Nasional</p>
+            <div class="mt-4 pt-4 border-t border-white/10 w-full flex justify-center gap-3">
+              <a href="mailto:presiden@permasnasional.org.my" class="text-xs font-semibold text-amber-300 hover:underline">
+                presiden@permasnasional.org.my
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       PORTFOLIO FILTER TABS & LEADERSHIP GRID
+  ======================================================== -->
+  <section class="py-14 bg-slate-50 border-b border-slate-200 flex-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-8 text-left">
+        <div>
+          <h3 class="font-extrabold font-heading text-slate-900 text-xl">
+            Struktur Kabinet & Majlis Eksekutif
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Pilih bahagian untuk melihat perincian pimpinan mengikut seksyen portfolio</p>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 max-w-full">
+          <button onclick="filterLeadership('all', this)" class="leader-chip active">
+            Semua (22)
+          </button>
+          <button onclick="filterLeadership('tertinggi', this)" class="leader-chip">
+            Majlis Tertinggi (10)
+          </button>
+          <button onclick="filterLeadership('pembangunan', this)" class="leader-chip">
+            Pembangunan & Pemerkasaan (4)
+          </button>
+          <button onclick="filterLeadership('kebajikan', this)" class="leader-chip">
+            Kebajikan Mahasiswa (4)
+          </button>
+          <button onclick="filterLeadership('komunikasi', this)" class="leader-chip">
+            Komunikasi & Korporat (4)
+          </button>
+        </div>
+      </div>
+
+      <!-- DYNAMIC LEADERSHIP CARDS GRID -->
+      <div id="leadership-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       MODAL: WARTA & DOKUMEN KENYATAAN RASMI PELANTIKAN
+  ======================================================== -->
+  <div id="warta-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <div class="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden modal-fade-in flex flex-col max-h-[92vh]">
+      
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-3">
+          <img src="assets/logo-transparent.png" alt="PERMAS" class="w-8 h-8 object-contain">
+          <div class="text-left">
+            <h3 class="font-bold text-sm sm:text-base text-white">Warta Pelantikan Barisan Kepimpinan PERMAS Nasional</h3>
+            <p class="text-xs text-slate-400">Kenyataan Rasmi Siaran Media Instagram &bull; @permasnasionalofficial</p>
+          </div>
+        </div>
+        <button onclick="closeWartaModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-6 bg-slate-100 flex-1 overflow-y-auto flex flex-col items-center justify-center">
+        <div class="relative w-full max-w-2xl bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+          <img id="warta-active-slide" src="assets/leadership/slide_1_announcement.jpg" alt="Slaid Warta Rasmi" class="w-full h-auto object-contain max-h-[58vh] mx-auto">
+          
+          <button onclick="changeWartaSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-sm transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button onclick="changeWartaSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-sm transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="mt-4 text-center">
+          <p id="warta-slide-title" class="text-xs font-bold text-slate-800">Slaid 1: Kenyataan Rasmi Pelantikan</p>
+          <p class="text-[11px] text-slate-500 mt-0.5">Slaid <span id="warta-slide-num">1</span> daripada 6</p>
+        </div>
+
+        <div class="flex items-center gap-2 mt-4 overflow-x-auto p-1 max-w-full">
+          <button onclick="setWartaSlide(0)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-red-600 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_1_announcement.jpg" class="w-full h-full object-cover">
+          </button>
+          <button onclick="setWartaSlide(1)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-slate-400 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_2_nilai_teras.jpg" class="w-full h-full object-cover">
+          </button>
+          <button onclick="setWartaSlide(2)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-slate-400 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_3_kenyataan_presiden.jpg" class="w-full h-full object-cover">
+          </button>
+          <button onclick="setWartaSlide(3)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-slate-400 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_4_majlis_tertinggi.jpg" class="w-full h-full object-cover">
+          </button>
+          <button onclick="setWartaSlide(4)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-slate-400 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_5_pembangunan_kebajikan.jpg" class="w-full h-full object-cover">
+          </button>
+          <button onclick="setWartaSlide(5)" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-slate-400 shrink-0 focus:outline-none warta-thumb">
+            <img src="assets/leadership/slide_6_komunikasi_korporat.jpg" class="w-full h-full object-cover">
+          </button>
+        </div>
+      </div>
+
+      <div class="px-6 py-3.5 bg-white border-t border-slate-200 flex items-center justify-between shrink-0">
+        <a href="https://www.instagram.com/p/DeEC-QdkgUu/" target="_blank" rel="noopener noreferrer" class="text-xs text-red-700 font-semibold hover:underline inline-flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-pink-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Buka Kiriman Asal di Instagram @permasnasionalofficial
+        </a>
+        <button onclick="closeWartaModal()" class="btn-secondary-outline text-xs py-1.5 px-4">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       OFFICIAL INSTITUTIONAL FOOTER
+  ======================================================== -->
+  <footer class="bg-slate-900 text-white pt-16 pb-12 border-t-4 border-red-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800 text-left text-xs">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="assets/logo-transparent.png" alt="PERMAS Logo" class="h-12 w-auto object-contain">
+            <div>
+              <span class="font-heading font-extrabold text-lg text-white tracking-tight block">
+                PERMAS NASIONAL
+              </span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mt-0.5">
+                Persatuan Mahasiswa Selangor Kebangsaan
+              </span>
+            </div>
+          </div>
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Badan induk berdaftar yang menyatukan seluruh persatuan dan mahasiswa anak Selangor di institusi pengajian tinggi awam dan swasta seluruh Malaysia sejak 1974.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Halaman Portal</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li><a href="index.html?v=8" class="hover:text-white transition">Laman Utama</a></li>
+            <li><a href="inisiatif.html?v=8" class="hover:text-white transition">Inisiatif Bantuan Siswa</a></li>
+            <li><a href="aduan.html?v=8#sos-teras" class="hover:text-white transition">Hab Bencana & SOS</a></li>
+            <li><a href="kampus.html?v=8" class="hover:text-white transition">Direktori 38 IPT</a></li>
+            <li><a href="kepimpinan.html?v=8" class="text-amber-400 font-bold">Barisan Kepimpinan</a></li>
+            <li><a href="aduan.html?v=8" class="hover:text-white transition">Meja Suara & E-Aduan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Badan Kepimpinan</h4>
+          <ul class="space-y-2.5 text-slate-400">
+            <li>Majlis Tertinggi (MT)</li>
+            <li>Seksyen Pembangunan & Pemerkasaan</li>
+            <li>Seksyen Kebajikan Mahasiswa</li>
+            <li>Seksyen Komunikasi & Korporat</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider mb-4 font-heading text-sm">Urusetia Pentadbiran</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Kompleks Belia & Sukan Negeri Selangor,<br>
+            Seksyen 7, 40000 Shah Alam, Selangor Darul Ehsan.<br><br>
+            Emel: <strong class="text-white">kepimpinan@permasnasional.org.my</strong><br>
+            Instagram: <strong class="text-white">@permasnasionalofficial</strong>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; 2026 Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional). Hak Cipta Terpelihara.</p>
+        <p class="text-slate-400 font-medium">PERMAS Proaktif, Selangor Progresif</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Shared Data & Scripts -->
+  <script src="js/data.js?v=8"></script>
+  <script>
+    function renderLeadership(filter = 'all') {
+      const container = document.getElementById('leadership-grid');
+      if (!container || !PERMAS_DATA.leadership) return;
+
+      const filtered = filter === 'all' 
+        ? PERMAS_DATA.leadership 
+        : PERMAS_DATA.leadership.filter(l => l.section === filter);
+
+      container.innerHTML = filtered.map(l => {
+        let badgeClass = 'badge-tertinggi';
+        let sectionLabel = 'Majlis Tertinggi';
+        if (l.section === 'pembangunan') {
+          badgeClass = 'badge-pembangunan';
+          sectionLabel = 'Pembangunan & Pemerkasaan';
+        } else if (l.section === 'kebajikan') {
+          badgeClass = 'badge-kebajikan';
+          sectionLabel = 'Kebajikan Mahasiswa';
+        } else if (l.section === 'komunikasi') {
+          badgeClass = 'badge-komunikasi';
+          sectionLabel = 'Komunikasi & Korporat';
+        }
+
+        const isSpecial = l.featuredBadge || l.featured;
+        const borderCard = isSpecial 
+          ? 'border-amber-300 ring-1 ring-amber-200 bg-amber-50/20 shadow-md' 
+          : 'border-slate-200 bg-white hover:border-slate-300';
+
+        const roleAvatarBg = l.section === 'tertinggi' 
+          ? 'bg-red-900 text-white' 
+          : l.section === 'pembangunan' 
+          ? 'bg-blue-800 text-white' 
+          : l.section === 'kebajikan' 
+          ? 'bg-emerald-800 text-white' 
+          : 'bg-amber-800 text-white';
+
+        return `
+          <div class="pro-card p-5 rounded-xl border ${borderCard} flex flex-col justify-between transition-all group">
+            <div class="space-y-3.5">
+              <div class="flex items-start justify-between gap-2">
+                <span class="leader-badge-pill ${badgeClass}">
+                  ${sectionLabel}
+                </span>
+                <span class="text-[11px] font-black font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 tracking-wider">
+                  ${l.shortUni}
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3 pt-1">
+                <div class="w-11 h-11 rounded-xl ${roleAvatarBg} flex items-center justify-center font-black font-heading text-xs tracking-wider shrink-0 shadow-sm">
+                  ${l.roleCode.split(' ')[0]}
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-red-700 block line-clamp-1">
+                    ${l.position}
+                  </span>
+                  <h4 class="font-extrabold text-sm text-slate-900 group-hover:text-red-700 transition leading-snug">
+                    ${l.name}
+                  </h4>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-500 font-medium line-clamp-1">
+                ${l.institution}
+              </p>
+
+              <p class="text-xs text-slate-600 leading-relaxed italic border-l-2 border-slate-200 pl-2.5 py-0.5 line-clamp-3">
+                "${l.quote}"
+              </p>
+            </div>
+
+            <div class="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <span class="text-[11px] font-semibold text-slate-400">PERMAS 24/26</span>
+              <a href="mailto:${l.social?.email || 'info@permasnasional.org.my'}" class="text-red-700 hover:text-red-800 font-bold hover:underline inline-flex items-center gap-1">
+                <span>Hubungi</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterLeadership(section, btn) {
+      document.querySelectorAll('.leader-chip').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderLeadership(section);
+    }
+
+    const wartaSlides = [
+      { src: 'assets/leadership/slide_1_announcement.jpg', title: 'Slaid 1: Kenyataan Rasmi Pelantikan Barisan Kepimpinan' },
+      { src: 'assets/leadership/slide_2_nilai_teras.jpg', title: 'Slaid 2: Empat (4) Nilai Teras K.I.T.A Siswa Selangor' },
+      { src: 'assets/leadership/slide_3_kenyataan_presiden.jpg', title: 'Slaid 3: Penstrukturan Kabinet 4 Bidang & Kenyataan Presiden' },
+      { src: 'assets/leadership/slide_4_majlis_tertinggi.jpg', title: 'Slaid 4: Senarai Rasmi Majlis Tertinggi (MT)' },
+      { src: 'assets/leadership/slide_5_pembangunan_kebajikan.jpg', title: 'Slaid 5: Majlis Eksekutif Seksyen Pembangunan & Seksyen Kebajikan' },
+      { src: 'assets/leadership/slide_6_komunikasi_korporat.jpg', title: 'Slaid 6: Majlis Eksekutif Seksyen Komunikasi & Korporat' }
+    ];
+    let currentWartaIndex = 0;
+
+    function openWartaModal() {
+      document.getElementById('warta-modal').classList.remove('hidden');
+      setWartaSlide(0);
+    }
+
+    function closeWartaModal() {
+      document.getElementById('warta-modal').classList.add('hidden');
+    }
+
+    function setWartaSlide(idx) {
+      if (idx < 0) idx = 0;
+      if (idx >= wartaSlides.length) idx = wartaSlides.length - 1;
+      currentWartaIndex = idx;
+
+      const slide = wartaSlides[idx];
+      document.getElementById('warta-active-slide').src = slide.src;
+      document.getElementById('warta-slide-title').innerText = slide.title;
+      document.getElementById('warta-slide-num').innerText = idx + 1;
+
+      const thumbs = document.querySelectorAll('.warta-thumb');
+      thumbs.forEach((t, i) => {
+        if (i === idx) {
+          t.classList.remove('border-transparent');
+          t.classList.add('border-red-600', 'ring-2', 'ring-red-400');
+        } else {
+          t.classList.remove('border-red-600', 'ring-2', 'ring-red-400');
+          t.classList.add('border-transparent');
+        }
+      });
+    }
+
+    function changeWartaSlide(delta) {
+      let next = (currentWartaIndex + delta + wartaSlides.length) % wartaSlides.length;
+      setWartaSlide(next);
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-nav').classList.toggle('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLeadership('all');
+    });
+  </script>
+  <script src="js/ui-motion.js?v=12"></script>
+</body>
+</html>
+

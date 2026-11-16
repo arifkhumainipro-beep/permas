@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="#EFF6FF"/>
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="none" stroke="#DBEAFE" stroke-width="2"/>
+  <!-- Laptop Screen -->
+  <rect x="32" y="36" width="56" height="38" rx="6" fill="#1E293B"/>
+  <rect x="36" y="40" width="48" height="30" rx="3" fill="#3B82F6" opacity="0.25"/>
+  <!-- Code lines on screen -->
+  <line x1="42" y1="48" x2="64" y2="48" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="42" y1="54" x2="72" y2="54" stroke="#93C5FD" stroke-width="2" stroke-linecap="round"/>
+  <line x1="42" y1="60" x2="56" y2="60" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+  <!-- Base -->
+  <path d="M24 74H96C97.1046 74 98 74.8954 98 76L95 81C94.5 82 93 83 91 83H29C27 83 25.5 82 25 81L22 76C22 74.8954 22.8954 74 24 74Z" fill="#334155"/>
+  <rect x="52" y="74" width="16" height="2" rx="1" fill="#94A3B8"/>
+</svg>

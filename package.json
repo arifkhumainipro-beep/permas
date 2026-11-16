@@ -1,0 +1,20 @@
+{
+  "name": "permas-nasional-portal",
+  "version": "1.0.0",
+  "description": "Portal Rasmi Persatuan Mahasiswa Selangor (PERMAS) Kebangsaan",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "serve": "python -m http.server 3000"
+  },
+  "keywords": [
+    "permas",
+    "mahasiswa",
+    "selangor",
+    "portal",
+    "website"
+  ],
+  "author": "PERMAS Kebangsaan",
+  "license": "MIT"
+}
+
