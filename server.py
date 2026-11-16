@@ -15,6 +15,7 @@ import os
 import re
 import socketserver
 import ssl
+import subprocess
 import sys
 import threading
 import time
@@ -26,6 +27,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.join(ROOT_DIR, 'js', 'live-news-cache.json')
 PORT = 3000
 AUTO_REFRESH_SECONDS = 600  # 10 minutes server background refresh
+GIT_SYNC_INTERVAL_SECONDS = 15  # 15 seconds file watcher auto-sync to GitHub
 
 QUERIES = [
     'mahasiswa Selangor OR pelajar IPT Selangor OR bantuan IPT Selangor OR UNISEL OR Yayasan Selangor',
@@ -324,6 +326,104 @@ def background_news_updater():
         refresh_cache(force=True)
 
 
+GIT_SYNC_LOCK = threading.Lock()
+LAST_GIT_SYNC = {
+    'status': 'idle',
+    'lastSyncLabel': 'Belum disegerakkan',
+    'lastCommit': '',
+    'message': 'Pemantau auto-sync GitHub aktif (setiap 15 saat)',
+}
+
+
+def run_git(args, timeout=30):
+    return subprocess.run(
+        ['git', '-C', ROOT_DIR] + args,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        encoding='utf-8',
+        errors='replace',
+    )
+
+
+def sync_to_github(force_cache: bool = False):
+    with GIT_SYNC_LOCK:
+        if not os.path.isdir(os.path.join(ROOT_DIR, '.git')):
+            LAST_GIT_SYNC.update({'status': 'no-git', 'message': 'Tiada folder .git ditemui'})
+            return dict(LAST_GIT_SYNC)
+
+        st = run_git(['status', '--porcelain'])
+        if st.returncode != 0:
+            LAST_GIT_SYNC.update({'status': 'error', 'message': st.stderr.strip()})
+            return dict(LAST_GIT_SYNC)
+
+        lines = [ln.strip() for ln in st.stdout.splitlines() if ln.strip()]
+        if not lines:
+            return dict(LAST_GIT_SYNC)
+
+        changed_files = [ln[3:].strip().strip('"') for ln in lines if len(ln) > 3]
+        non_cache_files = [f for f in changed_files if f.replace('\\', '/') != 'js/live-news-cache.json']
+
+        # Skip background commit if only live-news-cache.json timestamp changed and not forced
+        if not non_cache_files and not force_cache:
+            return dict(LAST_GIT_SYNC)
+
+        # Brief debounce so multi-file edits settle before staging
+        if non_cache_files and not force_cache:
+            time.sleep(2)
+
+        run_git(['add', '-A'])
+        st_after = run_git(['status', '--porcelain'])
+        lines_after = [ln.strip() for ln in st_after.stdout.splitlines() if ln.strip()]
+        if not lines_after:
+            return dict(LAST_GIT_SYNC)
+
+        short_names = [os.path.basename(ln[3:].strip().strip('"')) for ln in lines_after[:4]]
+        commit_msg = f"auto-sync: kemas kini {', '.join(short_names)}"
+        cm = run_git(['commit', '-m', commit_msg])
+        if cm.returncode != 0 and 'nothing to commit' not in (cm.stdout + cm.stderr).lower():
+            LAST_GIT_SYNC.update({'status': 'error', 'message': cm.stderr.strip() or cm.stdout.strip()})
+            return dict(LAST_GIT_SYNC)
+
+        # Pull latest remote commits safely (in case GitHub Actions updated live-news-cache.json)
+        pl = run_git(['pull', '--rebase', '--autostash', 'origin', 'main'], timeout=45)
+        if pl.returncode != 0:
+            run_git(['rebase', '--abort'])
+            run_git(['fetch', 'origin', 'main'], timeout=30)
+            run_git(['merge', '-X', 'ours', 'origin/main', '-m', 'chore: merge remote origin/main'])
+
+        ps = run_git(['push', 'origin', 'main'], timeout=60)
+        now_label = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S MYT')
+        rev = run_git(['rev-parse', '--short', 'HEAD'])
+        short_sha = rev.stdout.strip() if rev.returncode == 0 else ''
+
+        if ps.returncode == 0:
+            LAST_GIT_SYNC.update({
+                'status': 'ok',
+                'lastSyncLabel': now_label,
+                'lastCommit': short_sha,
+                'message': commit_msg,
+            })
+            print(f'[PERMAS GitHub Auto-Sync] Pushed {short_sha} ({commit_msg}) at {now_label}')
+        else:
+            LAST_GIT_SYNC.update({
+                'status': 'error',
+                'lastSyncLabel': now_label,
+                'lastCommit': short_sha,
+                'message': ps.stderr.strip() or ps.stdout.strip(),
+            })
+        return dict(LAST_GIT_SYNC)
+
+
+def background_git_auto_sync():
+    while True:
+        try:
+            sync_to_github(force_cache=False)
+        except Exception as exc:
+            print(f'[PERMAS GitHub Auto-Sync] Error: {exc}', file=sys.stderr)
+        time.sleep(GIT_SYNC_INTERVAL_SECONDS)
+
+
 class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=ROOT_DIR, **kwargs)
@@ -347,6 +447,18 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(body)
             return
 
+        if parsed.path == '/api/git-sync':
+            qs = urllib.parse.parse_qs(parsed.query)
+            force_sync = qs.get('force', ['0'])[0] == '1'
+            payload = sync_to_github(force_cache=force_sync)
+            body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         super().do_GET()
 
     def log_message(self, format, *args):
@@ -362,6 +474,7 @@ class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 def main():
     parser = argparse.ArgumentParser(description='PERMAS Nasional News Aggregator & HTTP Server')
     parser.add_argument('--fetch-once', action='store_true', help='Fetch live RSS once into cache and exit')
+    parser.add_argument('--sync-once', action='store_true', help='Auto-commit and push pending changes to GitHub once and exit')
     args = parser.parse_args()
 
     if args.fetch_once:
@@ -372,11 +485,19 @@ def main():
             print(f"  - {art['dateShort']} {tag} | {art['source']} | {art['title']}")
         return
 
+    if args.sync_once:
+        res = sync_to_github(force_cache=True)
+        print(json.dumps(res, ensure_ascii=False))
+        return
+
     updater = threading.Thread(target=background_news_updater, daemon=True)
     updater.start()
 
+    git_sync_thread = threading.Thread(target=background_git_auto_sync, daemon=True)
+    git_sync_thread.start()
+
     server = ThreadingHTTPServer(('', PORT), PermasRequestHandler)
-    print(f'PERMAS Portal & Live News Server running at http://localhost:{PORT}')
+    print(f'PERMAS Portal, Live News & GitHub Auto-Sync Server running at http://localhost:{PORT}')
     try:
         server.serve_forever()
     except KeyboardInterrupt:
