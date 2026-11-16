@@ -1625,7 +1625,23 @@
       if (label) label.textContent = 'Kemas Kini Sekarang';
     }
 
+    function renderHomeMajlisTertinggi() {
+      const container = document.getElementById('home-mt-grid');
+      if (!container || typeof PERMAS_DATA === 'undefined' || !Array.isArray(PERMAS_DATA.leadership)) return;
+      if (typeof window.renderLeaderPortraitCard !== 'function') return;
+
+      const mtList = PERMAS_DATA.leadership.filter(l => l.section === 'tertinggi');
+      container.innerHTML = mtList
+        .map(l => window.renderLeaderPortraitCard(l, { compact: true }))
+        .join('');
+
+      if (typeof window.init3DCardTiltAndSpotlight === 'function') {
+        window.init3DCardTiltAndSpotlight();
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      renderHomeMajlisTertinggi();
       refreshLiveNews(false);
       // Auto-poll fresh student news every 5 minutes
       setInterval(() => refreshLiveNews(false), 300000);
@@ -1797,6 +1813,6 @@
       }
     }
   </script>
-  <script src="js/ui-motion.js?v=14"></script>
+  <script src="js/ui-motion.js?v=15"></script>
 </body>
 </html>
