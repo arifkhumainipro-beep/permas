@@ -6,6 +6,7 @@ maintains js/live-news-cache.json, and serves the portal on port 3000 with no-ca
 """
 
 import argparse
+import base64
 import datetime
 import email.utils
 import html
