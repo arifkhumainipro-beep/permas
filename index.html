@@ -1150,6 +1150,46 @@
   </section>
 
   <!-- ========================================================
+       SAH KEPIMPINAN MAJLIS TERTINGGI PERMAS NASIONAL (MT)
+  ======================================================== -->
+  <section id="majlis-tertinggi-showcase" class="py-16 bg-slate-950 border-b border-slate-800 text-left relative overflow-hidden">
+    <div class="absolute -left-24 top-0 w-96 h-96 bg-red-800/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div class="space-y-2.5 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/80 border border-red-800/60 text-amber-300 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Barisan Peneraju Utama • 10 Jawatan
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-tight">
+            Saf Kepimpinan Majlis Tertinggi <span class="text-amber-300">PERMAS Nasional</span> (Sesi 2024–2026)
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Slot potret rasmi bagi kesemua 10 ahli Majlis Tertinggi PERMAS Nasional di pelbagai Universiti Awam seluruh Malaysia.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="px-3.5 py-2 rounded-xl bg-amber-500/10 border border-amber-400/35 text-amber-300 text-xs font-bold inline-flex items-center gap-2">
+            <span>📷</span>
+            <span>Klik 'Letak Gambar' pada mana-mana kad untuk muat naik potret rasmi</span>
+          </span>
+          <a href="kepimpinan.html?v=15" class="btn-primary-red py-2.5 px-4 text-xs font-bold rounded-xl shadow-md inline-flex items-center gap-2">
+            <span>Direktori Penuh (22 Ahli)</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <input type="file" id="home-leader-photo-input" accept="image/*" class="hidden" onchange="handleLeaderPhotoSelected(event)">
+
+      <div id="home-mt-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <!-- Rendered via JS from PERMAS_DATA.leadership (section === 'tertinggi') -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
        DEDICATED E-ADUAN & ADVOKASI CALLOUT SECTION
   ======================================================== -->
   <section class="py-16 bg-selangor-night text-white border-b border-slate-800 text-left relative overflow-hidden">
