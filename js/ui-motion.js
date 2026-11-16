@@ -2,10 +2,11 @@
    PERMAS NASIONAL - UI MOTION, ANIMATED MENU & VISUAL GRAPHICS CONTROLLER (V11)
    ============================================================================ */
 
-// Apply saved Selangor Royal Dark Mode immediately to prevent light flash
-if (typeof localStorage !== 'undefined' && localStorage.getItem('permas_royal_theme') === 'dark') {
-  document.documentElement.classList.add('dark-mode');
-}
+// Permanent Selangor Dark Mode (Mod Gelap)
+document.documentElement.classList.add('dark-mode');
+try {
+  localStorage.setItem('permas_royal_theme', 'dark');
+} catch (e) {}
 
 document.addEventListener('DOMContentLoaded', () => {
   initRoyalDarkModeToggle();
@@ -18,31 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ---------------------------------------------------------------------------
-   0. SELANGOR ROYAL DARK MODE TOGGLE CONTROLLER (MOD GELAP DIRAJA)
+   0. SELANGOR PERMANENT DARK MODE (MOD GELAP KEKAL)
 --------------------------------------------------------------------------- */
 function initRoyalDarkModeToggle() {
+  document.documentElement.classList.add('dark-mode');
+
+  ['royal-theme-toggle', 'royal-theme-toggle-mobile', 'royal-theme-toast'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+
   const headerBar = document.querySelector('header .flex.items-center.justify-between');
-  if (headerBar && !document.getElementById('royal-theme-toggle')) {
-    const mobileBtn = headerBar.querySelector('button[onclick*="toggleMobileMenu"]');
+  if (headerBar) {
     const rightActions = headerBar.querySelector('div.hidden.sm\\:flex');
-
-    const controlsGroup = document.createElement('div');
-    controlsGroup.className = 'flex items-center gap-2 shrink-0';
-
-    const toggleBtn = document.createElement('button');
-    toggleBtn.id = 'royal-theme-toggle';
-    toggleBtn.type = 'button';
-    toggleBtn.setAttribute('aria-label', 'Tukar Mod Cerah / Mod Night');
-    toggleBtn.onclick = () => window.toggleRoyalDarkMode();
-
-    controlsGroup.appendChild(toggleBtn);
-
     if (rightActions) {
-      // Preserve desktop CTA inside the unified right controls group (compact sizing to prevent overflow)
-      const ctaItems = Array.from(rightActions.children);
-      const desktopCtaWrap = document.createElement('div');
-      desktopCtaWrap.className = 'hidden sm:flex items-center gap-2 shrink-0';
-      ctaItems.forEach((child) => {
+      rightActions.classList.add('shrink-0');
+      Array.from(rightActions.children).forEach((child) => {
         if (child.tagName === 'A') {
           child.classList.remove('px-4', 'py-2', 'text-xs');
           child.classList.add('px-3', 'py-2', 'text-[11px]');
@@ -54,78 +46,10 @@ function initRoyalDarkModeToggle() {
             }
           }
         }
-        desktopCtaWrap.appendChild(child);
       });
-      controlsGroup.appendChild(desktopCtaWrap);
-      rightActions.remove();
     }
-
-    if (mobileBtn) {
-      controlsGroup.appendChild(mobileBtn);
-    }
-
-    headerBar.appendChild(controlsGroup);
-  }
-
-  // Add mobile drawer dark mode toggle item as well
-  const mobileNav = document.getElementById('mobile-nav');
-  if (mobileNav && !document.getElementById('royal-theme-toggle-mobile')) {
-    const mobileToggle = document.createElement('button');
-    mobileToggle.id = 'royal-theme-toggle-mobile';
-    mobileToggle.type = 'button';
-    mobileToggle.className = 'w-full mt-2 py-2.5 px-3.5 rounded-xl text-sm font-bold border border-amber-300/60 bg-slate-900 text-amber-300 flex items-center justify-between transition';
-    mobileToggle.onclick = () => window.toggleRoyalDarkMode();
-    mobileNav.appendChild(mobileToggle);
-  }
-
-  if (!document.getElementById('royal-theme-toast')) {
-    const toast = document.createElement('div');
-    toast.id = 'royal-theme-toast';
-    document.body.appendChild(toast);
-  }
-
-  syncRoyalThemeButtons();
-}
-
-function syncRoyalThemeButtons() {
-  const isDark = document.documentElement.classList.contains('dark-mode');
-  const mainBtn = document.getElementById('royal-theme-toggle');
-  if (mainBtn) {
-    mainBtn.title = isDark ? 'Tukar ke Mod Cerah' : 'Tukar ke Mod Night';
-    mainBtn.innerHTML = isDark
-      ? `<span class="theme-icon-spin" aria-hidden="true">☀️</span><span class="hidden xl:inline">Mod Cerah</span>`
-      : `<span class="theme-icon-spin" aria-hidden="true">🌙</span><span class="hidden xl:inline">Mod Night</span>`;
-  }
-
-  const mobileBtn = document.getElementById('royal-theme-toggle-mobile');
-  if (mobileBtn) {
-    mobileBtn.innerHTML = isDark
-      ? `<span>☀️ Tukar ke Mod Cerah</span><span class="text-xs opacity-80">Aktif</span>`
-      : `<span>🌙 Aktifkan Mod Night</span><span class="text-xs opacity-80">Selangor Night</span>`;
   }
 }
-
-let royalToastTimer = null;
-window.toggleRoyalDarkMode = function () {
-  const isDarkNow = document.documentElement.classList.toggle('dark-mode');
-  try {
-    localStorage.setItem('permas_royal_theme', isDarkNow ? 'dark' : 'light');
-  } catch (e) {}
-
-  syncRoyalThemeButtons();
-
-  const toast = document.getElementById('royal-theme-toast');
-  if (toast) {
-    clearTimeout(royalToastTimer);
-    toast.innerHTML = isDarkNow
-      ? '🌙 <span class="text-amber-300">Mod Night</span> Diaktifkan'
-      : '☀️ <span class="text-amber-300">Mod Cerah</span> Diaktifkan';
-    toast.classList.add('show');
-    royalToastTimer = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2400);
-  }
-};
 
 /* ---------------------------------------------------------------------------
    1. SCROLL PROGRESS BAR & FLOATING HEADER
