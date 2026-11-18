@@ -1,8 +1,8 @@
 {
   "status": "ok",
   "mode": "live-rss",
-  "updatedAt": "2026-11-19T00:25:11.613346+08:00",
-  "updatedLabel": "19/11/2026 00:25 MYT",
+  "updatedAt": "2026-11-19T00:35:12.843590+08:00",
+  "updatedLabel": "19/11/2026 00:35 MYT",
   "nextRefreshMinutes": 5,
   "total": 24,
   "selangorCount": 14,
@@ -344,6 +344,26 @@
     },
     {
       "id": 16,
+      "title": "Senarai Biasiswa / Tajaan Pendidikan Rakyat Sabah 2026 – Cara Mohon & Syarat",
+      "source": "eCentral.my",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5MT1IzbXRNZUVXVHF3Zy1fUHdUSWNCbjdqNmVYTnR1ZDBhWElEVjVyWW9UX1VtM0dFcGVBVFVrbHJnNFMwLVlBUWQzZlRxaGgyQUVnN2ZLS05xWVpBNzI3N2prNGJRTHY4cldLbUJyRGY2cGFuTk5z?oc=5",
+      "dateShort": "11 Ogo 2026",
+      "dateFull": "11 Ogos 2026",
+      "timestamp": 1786431600,
+      "isoDate": "2026-08-11T15:00:00+08:00",
+      "isSelangor": false,
+      "isBantuan": true,
+      "category": "bantuan",
+      "categories": [
+        "bantuan"
+      ],
+      "badge": "Bantuan & Biasiswa",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Laporan terkini oleh eCentral.my (11 Ogos 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh eCentral.my (11 Ogos 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> eCentral.my &bull; Diterbitkan pada <strong>11 Ogos 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (eCentral.my):</strong> Senarai Biasiswa / Tajaan Pendidikan Rakyat Sabah 2026 – Cara Mohon &amp; Syarat eCentral.my</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi eCentral.my.</p>"
+    },
+    {
+      "id": 17,
       "title": "Tiga pelajar IPT maut, seorang parah kereta rempuh lori simen",
       "source": "Sinar Harian",
       "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOODVDNTVTZFZfWGJ4Qjg0WlFoVVRpeEJmRGlyOGgyVVdDWXhFQkRRNWxqT25mMmJid0tMNnRWekF5cnBLNGxYa0c2QXVJMEVJRHY2VG1ycV9WLTJDMElGeE5EcUdaMlFNYTEzN3dSSmkxaG5qVkl3UW9rSHpUUWg2cW9iSUlsRGtCTmEtZkt5Q0x1elEyNUk3Z1RFNEF0NWNFV0ZGd2U2TWEwZEtCdml1TUZ5dXAxVGE1ejVJYtIBXEFVX3lxTFA3UEZ6anF0blh1WEg1R0tPbHFsSTF1YmJBT2pEaElCZnlUVExQMllxQWNLZ0t2RncySmVBTVMxSzlRWFUtdC1FSXk2ajZxZ2R6akJvQmNsWXJ3QzJs?oc=5",
@@ -358,12 +378,12 @@
         "aktiviti"
       ],
       "badge": "Kampus Malaysia",
-      "image": "assets/images/campus_life.jpg",
+      "image": "assets/images/selangor_masjid_biru.jpg",
       "summary": "Sorotan berita tempatan daripada Sinar Harian (22 Mei 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Sinar Harian (22 Mei 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>22 Mei 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> Tiga pelajar IPT maut, seorang parah kereta rempuh lori simen | Sinar Harian Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
     },
     {
-      "id": 17,
+      "id": 18,
       "title": "Senarai Biasiswa Lepasan SPM 2025 / 2026 & Bantuan IPT",
       "source": "eCentral.my",
       "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9vVUJzMXA5T24tdkVPY0NTYWRENEQtX1BUcFZMWWI5M3NNd0c3cjNjZHZ2WWtFVHQzTkZSOGkyOE05YkhkNTdfTWdPelB4REZSdVpkLWJsWkExQQ?oc=5",
@@ -383,7 +403,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh eCentral.my (28 Mac 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> eCentral.my &bull; Diterbitkan pada <strong>28 Mac 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (eCentral.my):</strong> Senarai Biasiswa Lepasan SPM 2025 / 2026 &amp; Bantuan IPT eCentral.my</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi eCentral.my.</p>"
     },
     {
-      "id": 18,
+      "id": 19,
       "title": "HPIPT 2026 – Permohonan Hadiah Pengajian Institut Pengajian Tinggi",
       "source": "eCentral.my",
       "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE10S2JPRDFndDRYdDVRUmxXVkFKQV9Na3ppdzFYdTZfd3VvWklfTlZHcWRFcGZJMEl1UlRDSDczOHdyb0VTazhYVTRoZWJfdS1XTEdwOHFBMVpaRWZnNzFSQUVKY3BSekNIb3piOFF0c19OVHlJSUJINC1jTFNyVlU?oc=5",
@@ -398,12 +418,12 @@
         "bantuan"
       ],
       "badge": "Bantuan & Biasiswa",
-      "image": "assets/images/graduation.jpg",
+      "image": "assets/images/study_group.jpg",
       "summary": "Laporan terkini oleh eCentral.my (15 Mac 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh eCentral.my (15 Mac 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> eCentral.my &bull; Diterbitkan pada <strong>15 Mac 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (eCentral.my):</strong> HPIPT 2026 – Permohonan Hadiah Pengajian Institut Pengajian Tinggi eCentral.my</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi eCentral.my.</p>"
     },
     {
-      "id": 19,
+      "id": 20,
       "title": "Sasar 35,000 pelajar IPT Sabah dapat bantuan tiket penerbangan",
       "source": "Kosmo Online",
       "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOVjctNGxYNjFldEt1bUkzdDBVQTlJV1BKU29xM3JMWk9wbGV4eXdHRGZWT2xDMm9FeFBEakk3bFNzaXh4bHdRejFOeEp0S25Hb2w2bFBkNHdzQ29POFRKc1M5MFVsblJRSEl0c1h3bTljelZpQUxKZ3AwdnAzbkU0OW1NQTZObzFkbWxlTndwS2h5N3QwX3dTNEwwV012NEU?oc=5",
@@ -418,12 +438,12 @@
         "bantuan"
       ],
       "badge": "Bantuan & Biasiswa",
-      "image": "assets/images/campus_life.jpg",
+      "image": "assets/images/selangor_masjid_biru.jpg",
       "summary": "Laporan terkini oleh Kosmo Online (08 Mac 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh Kosmo Online (08 Mac 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Kosmo Online &bull; Diterbitkan pada <strong>08 Mac 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Kosmo Online):</strong> Sasar 35,000 pelajar IPT Sabah dapat bantuan tiket penerbangan Kosmo Online</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Kosmo Online.</p>"
     },
     {
-      "id": 20,
+      "id": 21,
       "title": "Bantuan Mahasiswa Anak Perak 2026 – Dibuka Mulai 2 Mac 2026",
       "source": "eCentral.my",
       "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9EM0NadHdCbnlBUWd3SzU2V1RUeS05NG5tWmFOZFZ1UmprUG9GMTB3a2ZhOXo2ZVdLY3E2VVdMSVc0RXNuLVo0bWdhSFR4eEJrVDNWdHc0bFJjcUtJRFE?oc=5",
@@ -438,12 +458,12 @@
         "bantuan"
       ],
       "badge": "Bantuan & Biasiswa",
-      "image": "assets/images/selangor_masjid_biru.jpg",
+      "image": "assets/images/campus_life.jpg",
       "summary": "Laporan terkini oleh eCentral.my (27 Februari 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh eCentral.my (27 Februari 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> eCentral.my &bull; Diterbitkan pada <strong>27 Februari 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (eCentral.my):</strong> Bantuan Mahasiswa Anak Perak 2026 – Dibuka Mulai 2 Mac 2026 eCentral.my</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi eCentral.my.</p>"
     },
     {
-      "id": 21,
+      "id": 22,
       "title": "Belanjawan 2026: Pendidikan percuma PTPTN kepada 5,800 anak keluarga miskin",
       "source": "Harian Metro",
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQbzVYRWRoamdOa1VRLVVBNlNmYTlwUFNHNldiTVRvRVZQZXBmLTlHSFpKRFJPV0pxSkRkaDJtcWdNSnljUV9GUFUzVkRMbU1hVFViOVNPblAwY1NaaHdma0RvRlN0aF9oZDZUNjVCV0ctcDMzTDNtb002Y0c1Mzc4OEt2dl9VTkdRZGp6ZThPVTFTTDN6dVRrd0JMRXptRTQ2S3hzQUVxOHF4SEM2X295d1YtZGZOaXZ5STR1ZlpR0gHDAUFVX3lxTFAxWlRmREdoeHJlS0RrdjNON3QzaGhuLVE1djYzVGxvTU1namROSWhBNklxdXRiYjhteVhWeWRqbEJtc2RNTTQ1N3hkTnlRWkh3SkVDdDR0UVlpMGNoTHRwMkJ1anFKMkM5LVhYWm9QMkhJRXhPS0VOTmpCLUhWLUhINHo1S0pwSzJNemNCSGNuZTV0VTFGdW92VlVQRVBrRFhiN2VaR05kVElXYmlXT2NselNId3dFdkhHRnlzdXhINENYaw?oc=5",
@@ -463,7 +483,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh Harian Metro (10 Oktober 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Harian Metro &bull; Diterbitkan pada <strong>10 Oktober 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Harian Metro):</strong> Belanjawan 2026: Pendidikan percuma PTPTN kepada 5,800 anak keluarga miskin Harian Metro</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Harian Metro.</p>"
     },
     {
-      "id": 22,
+      "id": 23,
       "title": "Bantuan Kewangan Khas Pelajar IPT Sarawak – Bayaran & Permohonan Baru",
       "source": "eCentral.my",
       "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9oOFMwTzFESFd6c2tUUW1XZXVUUnJ5NHBmam5GUVdJSFF5cGN2WC1hNUxwTE1rZEppM3l4RDVadVhuSTZMYjUzODhZSU9uWnlzaXg5al82d2JMOXdHYWtheDE0UFI?oc=5",
@@ -478,29 +498,9 @@
         "bantuan"
       ],
       "badge": "Bantuan & Biasiswa",
-      "image": "assets/images/selangor_masjid_biru.jpg",
+      "image": "assets/images/campus_life.jpg",
       "summary": "Laporan terkini oleh eCentral.my (29 April 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh eCentral.my (29 April 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> eCentral.my &bull; Diterbitkan pada <strong>29 April 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (eCentral.my):</strong> Bantuan Kewangan Khas Pelajar IPT Sarawak – Bayaran &amp; Permohonan Baru eCentral.my</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi eCentral.my.</p>"
-    },
-    {
-      "id": 23,
-      "title": "13 bas bawa 464 pelajar pulang ke kampus di seluruh negara",
-      "source": "Sinar Harian",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNUzhFeloxWlFuMnBNY2lCaXZFM2hQN2ozcXEtVnlzQ1FXal9uYk9TdmV5djZBU19Pc2pqRHVuTTRkNjluVmtMczRFd2xtMkwzSExLaE1QbnVWUl9qRFpoYkRFLU5vb05NbmZPMjRIN2dTb25oa3BXamczQ1g0QlJycW05V1h2a3ZQa1lCeWt3NlhMVDUtS0xuVkpFU1VJZDJHQzU0LTVJSHNYU1JSUmhoNko2LUpJNEsxeW5kdXZBMNIBXEFVX3lxTE1EY2hiZldoRnVsZGhTVEotRlZ3NkxRdlNqeHJvRWN6dEhzVHp2UG1oV2dIRHQtVVpOODQ3cnNreUk0YUt0bTFPMElRT2tOcWc0b3R5YWVVZkExZGp5?oc=5",
-      "dateShort": "04 Apr 2025",
-      "dateFull": "04 April 2025",
-      "timestamp": 1743750000,
-      "isoDate": "2025-04-04T15:00:00+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Sorotan berita tempatan daripada Sinar Harian (04 April 2025) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Sinar Harian (04 April 2025) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>04 April 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> 13 bas bawa 464 pelajar pulang ke kampus di seluruh negara | Sinar Harian Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
     }
   ]
 }
