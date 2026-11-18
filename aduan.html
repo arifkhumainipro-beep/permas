@@ -583,35 +583,397 @@
   <div id="toast-box" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
   <!-- Shared Data & Scripts -->
-  <script src="js/data.js?v=8"></script>
+  <script src="js/data.js?v=17"></script>
   <script>
-    function handleComplaintSubmit(e) {
+    window._lastAiReportText = '';
+
+    function analyzeComplaintCategory(kategori) {
+      const k = (kategori || '').toLowerCase();
+      if (k.includes('banjir') || k.includes('bencana') || k.includes('sos')) {
+        return {
+          priority: 'KRITIKAL (Respon < 2 Jam)',
+          bureau: 'Skuad Prihatin & Bilik Gerakan SOS 24/7 (Seksyen Kebajikan)',
+          steps: [
+            '1. Hubungi pengadu melalui WhatsApp dalam tempoh 30 minit bagi pengesahan lokasi GPS & keselamatan.',
+            '2. Aktifkan penyelaras PERMAS zon / cawangan IPT terdekat untuk penyaluran bantuan kecemasan segera.',
+            '3. Selaraskan sokongan logistik & pemindahan sementara bersama pejabat HEP universiti.'
+          ],
+          contextClause: 'Kes ini melibatkan situasi kecemasan keselamatan atau bencana tempat tinggal yang memerlukan mobilisasi segera tanpa penangguhan birokrasi.'
+        };
+      }
+      if (k.includes('makanan') || k.includes('food bank')) {
+        return {
+          priority: 'KRITIKAL (Respon < 4 Jam)',
+          bureau: 'Unit Bank Makanan Sifar Lapar & Biro Kebajikan Mahasiswa',
+          steps: [
+            '1. Semak stok hab makanan PERMAS di kampus / kawasan penginapan pelajar terlibat.',
+            '2. Salurkan pek makanan kecemasan atau baucar sara hidup sementara pada hari yang sama.',
+            '3. Nilai keperluan sokongan kebajikan susulan bersama Bendahari Kehormat.'
+          ],
+          contextClause: 'Kes ini berkaitan kecukupan sara diri dan keperluan makanan asas mahasiswa di kampus.'
+        };
+      }
+      if (k.includes('yuran') || k.includes('biasiswa') || k.includes('dermasiswa')) {
+        return {
+          priority: 'TINGGI (Tindakan < 24 Jam)',
+          bureau: 'Unit Bantuan Kewangan & Advokasi Dana Siswa',
+          steps: [
+            '1. Semak status permohonan & dokumen sokongan pelajar bersama Jabatan Bendahari IPT atau Yayasan Selangor/LZS.',
+            '2. Keluarkan surat pengesahan sokongan rasmi PERMAS bagi permohonan penangguhan sekatan peperiksaan/yuran.',
+            '3. Kemas kini jadual jangkaan penyaluran dana terus kepada pengadu.'
+          ],
+          contextClause: 'Kes ini melibatkan kelewatan pembiayaan pengajian atau tunggakan yuran yang berisiko menjejaskan pendaftaran semester atau status akademik pengadu.'
+        };
+      }
+      if (k.includes('deposit') || k.includes('rumah sewa') || k.includes('penipuan')) {
+        return {
+          priority: 'TINGGI (Tindakan < 24 Jam)',
+          bureau: 'Unit Advokasi Perumahan & Guaman Siswa (Biro Kebajikan)',
+          steps: [
+            '1. Kumpul salinan perjanjian sewa (TA), resit pemindahan bank & tangkap layar komunikasi bersama pemilik premis.',
+            '2. Keluarkan notis rasmi tuntutan mediasi PERMAS kepada pemilik premis dalam tempoh 48 jam.',
+            '3. Rujuk kes ke Tribunal Tuntutan Pengguna Malaysia (TTPM) / khidmat nasihat guaman jika tiada penyelesaian.'
+          ],
+          contextClause: 'Kes ini melibatkan pertikaian perjanjian sewa kediaman luar kampus dan tuntutan hak kewangan mahasiswa yang sah.'
+        };
+      }
+      if (k.includes('kolej') || k.includes('fasiliti')) {
+        return {
+          priority: 'TINGGI (Tindakan < 24 Jam)',
+          bureau: 'Jawatankuasa Perwakilan Kampus (YDP Cawangan) & Biro Kebajikan',
+          steps: [
+            '1. Serahkan memorandum aduan teknikal/fasiliti kepada Pengetua Kolej & Bahagian Hal Ehwal Pelajar (BHEP).',
+            '2. Tuntut pemeriksaan kerosakan atau penyelarasan semula penempatan pelajar.',
+            '3. Pantau maklum balas pihak universiti dalam tempoh 3 hari bekerja.'
+          ],
+          contextClause: 'Kes ini menyentuh keselesaan, keselamatan infrastruktur dan kemudahan penginapan pelajar di kolej kediaman.'
+        };
+      }
+      if (k.includes('latihan industri') || k.includes('praktikal')) {
+        return {
+          priority: 'SEDERHANA (Tindakan < 48 Jam)',
+          bureau: 'Seksyen Pembangunan & Pemerkasaan Mahasiswa (Unit Kerjaya)',
+          steps: [
+            '1. Semak surat tawaran latihan industri, garis panduan elaun & rekod kehadiran pelajar.',
+            '2. Adakan perbincangan rasmi bersama unit kerjaya fakulti serta bahagian sumber manusia syarikat terlibat.',
+            '3. Cadangkan penempatan alternatif atau skim sokongan SISPRO GLC Selangor sekiranya perlu.'
+          ],
+          contextClause: 'Kes ini berkaitan hak elaun, kebajikan penempatan atau penyeliaan latihan industri mahasiswa anak Selangor.'
+        };
+      }
+      if (k.includes('tatatertib') || k.includes('akademik')) {
+        return {
+          priority: 'TINGGI (Tindakan < 24 Jam)',
+          bureau: 'Majlis Tertinggi & Biro Advokasi Hak Akademik Siswa',
+          steps: [
+            '1. Teliti surat pertuduhan / keputusan akademik serta kronologi rayuan pengadu secara sulit.',
+            '2. Sediakan draf surat rayuan rasmi & pengiring pembelaan pelajar bersama MPP kampus.',
+            '3. Selaras pertemuan bersama pihak Dekan / BHEP universiti berkenaan.'
+          ],
+          contextClause: 'Kes ini melibatkan hak keadilan tatatertib, penilaian akademik dan prosedur rayuan rasmi pelajar.'
+        };
+      }
+      return {
+        priority: 'SEDERHANA (Tindakan < 48 Jam)',
+        bureau: 'Sekretariat Induk & Biro Kebajikan PERMAS Nasional',
+        steps: [
+          '1. Hubungi pengadu bagi mendapatkan maklumat serta bukti dokumen tambahan.',
+          '2. Agihkan kes kepada Seksyen atau YDP Cawangan IPT yang berkaitan.',
+          '3. Laporkan status penyelesaian awal dalam tempoh 48 jam bekerja.'
+        ],
+        contextClause: 'Kes ini merupakan aduan am kebajikan dan aspirasi mahasiswa yang memerlukan penilaian serta penyelarasan sekretariat.'
+      };
+    }
+
+    function readComplaintFormFields() {
+      return {
+        nama: (document.getElementById('aduan-nama')?.value || '').trim(),
+        ic: (document.getElementById('aduan-ic')?.value || '').trim(),
+        ipt: (document.getElementById('aduan-ipt')?.value || '').trim(),
+        tel: (document.getElementById('aduan-tel')?.value || '').trim(),
+        kategori: (document.getElementById('aduan-kategori')?.value || '').trim(),
+        daerah: (document.getElementById('aduan-daerah')?.value || '').trim(),
+        tajuk: (document.getElementById('aduan-tajuk')?.value || '').trim(),
+        keterangan: (document.getElementById('aduan-keterangan')?.value || '').trim(),
+        sulit: Boolean(document.getElementById('aduan-sulit')?.checked)
+      };
+    }
+
+    function buildFormalKeteranganText(data) {
+      const cat = data.kategori || 'Permasalahan Kebajikan Mahasiswa';
+      const tajuk = data.tajuk || 'Permohonan Bantuan & Intervensi Kebajikan Mahasiswa';
+      const ipt = data.ipt || 'Institusi Pengajian Tinggi berkaitan';
+      const daerah = data.daerah || 'Selangor';
+      const nama = data.nama || 'Mahasiswa Anak Selangor';
+      const rawNote = (data.keterangan || '').trim();
+      const amountMatch = `${tajuk} ${rawNote}`.match(/RM\s*[\d,]+(?:\.\d{1,2})?/i);
+      const amountClause = amountMatch
+        ? ` Nilai kewangan atau tuntutan yang dikenal pasti dalam kes ini berjumlah ${amountMatch[0].toUpperCase()}.`
+        : '';
+      const meta = analyzeComplaintCategory(cat);
+
+      const userFactLine = rawNote && !rawNote.includes('[RINGKASAN MASALAH]')
+        ? `Butiran awal pengadu: "${rawNote}".`
+        : `Isu yang dilaporkan adalah berhubung: "${tajuk}".`;
+
+      return [
+        `[RINGKASAN MASALAH]`,
+        `Saya, ${nama}, mahasiswa anak Selangor (Daerah ${daerah}) yang kini menuntut di ${ipt}, memohon perhatian serta campur tangan rasmi Biro Kebajikan & Advokasi PERMAS Nasional berhubung kes di bawah kategori "${cat}" bertajuk "${tajuk}".${amountClause}`,
+        ``,
+        `[KRONOLOGI & FAKTA UTAMA]`,
+        `1. ${userFactLine}`,
+        `2. ${meta.contextClause}`,
+        `3. Dokumen sokongan (resit bayaran, surat rasmi, rekod komunikasi WhatsApp/emel, atau gambar kejadian) sedia dikemukakan kepada pegawai bertugas sekiranya diperlukan bagi proses verifikasi.`,
+        ``,
+        `[PERMOHONAN TINDAKAN]`,
+        `Saya memohon agar Sekretariat PERMAS Nasional meneliti kes ini dengan segera, menyelaraskan rundingan atau penyaluran bantuan sewajarnya, serta menghubungi saya di talian ${data.tel || 'yang tertera'} bagi tindakan susulan.`
+      ].join('\n');
+    }
+
+    function autoDraftKeteranganWithAI() {
+      const btn = document.getElementById('ai-draft-btn');
+      const textarea = document.getElementById('aduan-keterangan');
+      if (!textarea) return;
+
+      const data = readComplaintFormFields();
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳ AI sedang menulis butiran rasmi...</span>';
+      }
+
+      setTimeout(() => {
+        textarea.value = buildFormalKeteranganText(data);
+        textarea.classList.add('ring-2', 'ring-amber-400');
+        setTimeout(() => textarea.classList.remove('ring-2', 'ring-amber-400'), 1800);
+
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>✨ Jana / Lengkapkan Butiran Kes Dengan AI</span>';
+        }
+        showToast('✨ AI telah menulis draf keterangan rasmi yang lengkap. Semak atau terus klik Hantar!', 'success');
+      }, 320);
+    }
+
+    function generateAiOfficialReport(data) {
+      const now = new Date();
+      const pad2 = (n) => String(n).padStart(2, '0');
+      const dateCode = `${now.getFullYear()}${pad2(now.getMonth() + 1)}${pad2(now.getDate())}`;
+      const rand4 = Math.floor(1000 + Math.random() * 9000);
+      const refId = `PERMAS/ADUAN/2026/${pad2(now.getMonth() + 1)}${pad2(now.getDate())}-${rand4}`;
+      const timeLabel = now.toLocaleString('ms-MY', {
+        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+
+      const meta = analyzeComplaintCategory(data.kategori);
+      const narrative = data.keterangan && data.keterangan.includes('[RINGKASAN MASALAH]')
+        ? data.keterangan
+        : buildFormalKeteranganText(data);
+
+      const pdpaStatus = data.sulit
+        ? 'SULIT (Dilindungi PDPA 2010 — Identiti pengadu dirahsiakan daripada pihak ketiga pada peringkat rundingan awal)'
+        : 'TERBUKA (Pengadu membenarkan rujukan identiti terus kepada pihak berkuasa universiti / agensi)';
+
+      const amountMatch = `${data.tajuk} ${data.keterangan}`.match(/RM\s*[\d,]+(?:\.\d{1,2})?/i);
+      const summary = `Kes bertaraf ${meta.priority.split(' ')[0]} oleh ${data.nama} (${data.ipt}, Anak Selangor Daerah ${data.daerah}) di bawah kategori "${data.kategori}" mengenai "${data.tajuk}"${amountMatch ? ' melibatkan nilai ' + amountMatch[0].toUpperCase() : ''}. Ditugaskan kepada ${meta.bureau}.`;
+
+      const subject = `[E-Aduan AI PERMAS] ${refId} | ${data.kategori} - ${data.tajuk}`;
+      const fullEmailText = [
+        `============================================================`,
+        `LAPORAN RASMI E-ADUAN MAHASISWA (DITULIS & DIANALISIS AI)`,
+        `PERSATUAN MAHASISWA SELANGOR KEBANGSAAN (PERMAS NASIONAL)`,
+        `============================================================`,
+        `No. Rujukan   : ${refId}`,
+        `Tarikh / Masa : ${timeLabel} (${dateCode})`,
+        `Keutamaan AI  : ${meta.priority}`,
+        `Biro Tindakan : ${meta.bureau}`,
+        ``,
+        `1. PROFIL PENGADU`,
+        `   - Nama Penuh       : ${data.nama}`,
+        `   - No. Kad Pengenalan: ${data.ic}`,
+        `   - Universiti / IPT : ${data.ipt}`,
+        `   - No. Tel/WhatsApp : ${data.tel}`,
+        `   - Daerah Selangor  : ${data.daerah}`,
+        ``,
+        `2. KLASIFIKASI & RINGKASAN EKSEKUTIF AI`,
+        `   - Kategori Kes     : ${data.kategori}`,
+        `   - Tajuk Aduan      : ${data.tajuk}`,
+        `   - Ringkasan AI     : ${summary}`,
+        ``,
+        `3. KETERANGAN & KRONOLOGI KES (JANAAN AI)`,
+        narrative,
+        ``,
+        `4. PELAN TINDAKAN DISYORKAN OLEH AI`,
+        meta.steps.join('\n'),
+        ``,
+        `5. STATUS KERAHSIAAN & PDPA`,
+        `   ${pdpaStatus}`,
+        `============================================================`,
+        `Dihantar melalui Sistem Pintar E-Aduan Portal PERMAS Nasional`,
+        `Emel Rasmi: permasnasionalofficial@gmail.com`
+      ].join('\n');
+
+      return {
+        refId,
+        priority: meta.priority,
+        bureau: meta.bureau,
+        summary,
+        narrative,
+        pdpaStatus,
+        subject,
+        fullEmailText
+      };
+    }
+
+    async function copyAiReportText() {
+      if (!window._lastAiReportText) return;
+      try {
+        await navigator.clipboard.writeText(window._lastAiReportText);
+        showToast('📋 Laporan lengkap janaan AI berjaya disalin ke papan keratan!', 'success');
+      } catch (e) {
+        showToast('Sila pilih dan salin teks laporan secara manual daripada kotak paparan.', 'info');
+      }
+    }
+
+    function setEmailStatusBadge(mode, text) {
+      const badge = document.getElementById('ai-email-status-badge');
+      if (!badge) return;
+      const base = 'text-[11px] font-bold px-3 py-1.5 rounded-xl border inline-flex items-center gap-1.5 ';
+      if (mode === 'success') {
+        badge.className = base + 'bg-emerald-500/15 border-emerald-400/45 text-emerald-300';
+      } else if (mode === 'warning') {
+        badge.className = base + 'bg-amber-500/15 border-amber-400/45 text-amber-200';
+      } else {
+        badge.className = base + 'bg-slate-800 border-slate-700 text-slate-200';
+      }
+      badge.textContent = text;
+    }
+
+    async function handleComplaintSubmit(e) {
       e.preventDefault();
-      const nama = document.getElementById('aduan-nama')?.value || '';
-      const ic = document.getElementById('aduan-ic')?.value || '';
-      const ipt = document.getElementById('aduan-ipt')?.value || '';
-      const tel = document.getElementById('aduan-tel')?.value || '';
-      const kategori = document.getElementById('aduan-kategori')?.value || '';
-      const daerah = document.getElementById('aduan-daerah')?.value || '';
-      const tajuk = document.getElementById('aduan-tajuk')?.value || '';
-      const keterangan = document.getElementById('aduan-keterangan')?.value || '';
-      const sulit = document.getElementById('aduan-sulit')?.checked ? 'YA (Rahsiakan Identiti)' : 'TIDAK';
+      const submitBtn = document.getElementById('aduan-submit-btn');
+      const data = readComplaintFormFields();
+      const report = generateAiOfficialReport(data);
 
-      const msgBody = `*LAPORAN RASMI E-ADUAN & ADVOKASI PERMAS*\n----------------------------------\n*Nama:* ${nama}\n*No. KP:* ${ic}\n*IPT:* ${ipt}\n*No. Tel:* ${tel}\n*Daerah:* ${daerah}\n*Kategori:* ${kategori}\n*Status Sulit:* ${sulit}\n\n*Tajuk Aduan:* ${tajuk}\n*Keterangan Kes:*\n${keterangan}`;
+      window._lastAiReportText = report.fullEmailText;
 
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ AI Sedang Menulis & Menghantar ke Emel PERMAS...';
+      }
+
+      document.getElementById('ai-rep-ref').textContent = report.refId;
+      document.getElementById('ai-rep-priority').textContent = report.priority;
+      document.getElementById('ai-rep-bureau').textContent = report.bureau;
+      document.getElementById('ai-rep-summary').textContent = report.summary;
+      document.getElementById('ai-rep-body').textContent = report.fullEmailText;
+
+      const mailtoHref = `mailto:permasnasionalofficial@gmail.com?subject=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}`;
+      const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=permasnasionalofficial@gmail.com&su=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}`;
+
+      const gmailBtn = document.getElementById('gmail-direct-btn');
+      if (gmailBtn) gmailBtn.href = gmailHref;
+      const mailBtn = document.getElementById('mailto-direct-btn');
+      if (mailBtn) mailBtn.href = mailtoHref;
       const waBtn = document.getElementById('wa-direct-btn');
       if (waBtn) {
-        waBtn.href = `https://wa.me/60355447000?text=${encodeURIComponent(msgBody)}`;
-      }
-      const mailBtn = document.getElementById('mailto-direct-btn');
-      if (mailBtn) {
-        mailBtn.href = `mailto:permasnasionalofficial@gmail.com?subject=${encodeURIComponent('[E-Aduan PERMAS] ' + kategori + ' - ' + tajuk)}&body=${encodeURIComponent(msgBody)}`;
+        waBtn.href = `https://wa.me/60355447000?text=${encodeURIComponent(report.fullEmailText)}`;
       }
 
-      document.getElementById('complaint-success').classList.remove('hidden');
-      document.getElementById('complaint-success').scrollIntoView({ behavior: 'smooth' });
+      setEmailStatusBadge('loading', '⏳ AI selesai menulis laporan — sedang menghantar ke permasnasionalofficial@gmail.com...');
+      const successBox = document.getElementById('complaint-success');
+      successBox.classList.remove('hidden');
+      successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      let emailDelivered = false;
+      let needsActivation = false;
+      let savedLocally = false;
+
+      // 1. Try local Python server relay (/api/submit-aduan)
+      try {
+        const localRes = await fetch('/api/submit-aduan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            refId: report.refId,
+            nama: data.nama,
+            ic: data.ic,
+            ipt: data.ipt,
+            tel: data.tel,
+            daerah: data.daerah,
+            kategori: data.kategori,
+            sulit: report.pdpaStatus,
+            tajuk: data.tajuk,
+            priority: report.priority,
+            bureau: report.bureau,
+            aiReportText: report.fullEmailText
+          })
+        });
+        if (localRes.ok) {
+          const localJson = await localRes.json();
+          savedLocally = Boolean(localJson.savedLocally);
+          emailDelivered = Boolean(localJson.emailSent);
+          if ((localJson.emailDetail || '').toLowerCase().includes('activation')) {
+            needsActivation = true;
+          }
+        }
+      } catch (err) {}
+
+      // 2. If running on GitHub Pages or local relay didn't complete email delivery, send directly via FormSubmit AJAX
+      if (!emailDelivered && !needsActivation) {
+        try {
+          const fsRes = await fetch('https://formsubmit.co/ajax/permasnasionalofficial@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              _subject: report.subject,
+              _template: 'box',
+              _captcha: 'false',
+              No_Rujukan: report.refId,
+              Keutamaan_AI: report.priority,
+              Biro_Bertanggungjawab: report.bureau,
+              Nama_Pengadu: data.nama,
+              Universiti_IPT: data.ipt,
+              No_Telefon_WhatsApp: data.tel,
+              Daerah_Selangor: data.daerah,
+              Status_Kerahsiaan: report.pdpaStatus,
+              Laporan_Penuh_Janaan_AI: report.fullEmailText
+            })
+          });
+          if (fsRes.ok) {
+            const fsJson = await fsRes.json();
+            if (String(fsJson.success).toLowerCase() === 'true') {
+              emailDelivered = true;
+            } else if ((fsJson.message || '').toLowerCase().includes('activation')) {
+              needsActivation = true;
+            }
+          }
+        } catch (err) {}
+      }
+
+      if (emailDelivered) {
+        setEmailStatusBadge('success', '✅ Laporan Janaan AI Berjaya Dihantar Terus ke permasnasionalofficial@gmail.com!');
+        showToast(`✅ Aduan (${report.refId}) ditulis oleh AI & dihantar terus ke emel PERMAS!`, 'success');
+      } else if (needsActivation) {
+        setEmailStatusBadge('warning', '⚠️ Laporan AI disimpan! Admin PERMAS perlu klik pautan pengesahan FormSubmit kali pertama di inbox permasnasionalofficial@gmail.com, atau klik Gmail Web di bawah.');
+        showToast('⚠️ Laporan AI siap! Klik pengesahan FormSubmit kali pertama di emel PERMAS atau guna butang Gmail Web.', 'info');
+      } else if (savedLocally) {
+        setEmailStatusBadge('warning', '💾 Laporan AI direkodkan! Sambungan emel automatik terhalang — aplikasi emel dibuka sebagai sandaran.');
+        showToast('💾 Laporan AI direkodkan. Membuka aplikasi emel untuk hantaran terus...', 'info');
+        window.location.href = mailtoHref;
+      } else {
+        setEmailStatusBadge('warning', '✉️ Membuka aplikasi emel anda dengan laporan lengkap janaan AI...');
+        showToast('Membuka aplikasi emel siap diisi AI ke permasnasionalofficial@gmail.com...', 'info');
+        window.location.href = mailtoHref;
+      }
+
       e.target.reset();
-      showToast('Aduan anda telah direkodkan. Anda juga boleh menghantar salinan terus melalui WhatsApp atau Emel.', 'success');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '✨ Jana Laporan AI & Hantar Terus ke Emel PERMAS →';
+      }
     }
 
     function selectComplaintCategory(categoryValue) {
@@ -684,7 +1046,7 @@
       }, 5000);
     }
   </script>
-  <script src="js/ui-motion.js?v=16"></script>
+  <script src="js/ui-motion.js?v=17"></script>
 </body>
 </html>
 
