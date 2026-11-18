@@ -26,6 +26,8 @@ import xml.etree.ElementTree as ET
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.join(ROOT_DIR, 'js', 'live-news-cache.json')
+ADUAN_LOG_PATH = os.path.join(ROOT_DIR, 'js', 'aduan-submissions.json')
+ADUAN_LOCK = threading.Lock()
 PORT = 3000
 AUTO_REFRESH_SECONDS = 600  # 10 minutes server background refresh
 GIT_SYNC_INTERVAL_SECONDS = 15  # 15 seconds file watcher auto-sync to GitHub
@@ -423,6 +425,97 @@ def background_git_auto_sync():
         except Exception as exc:
             print(f'[PERMAS GitHub Auto-Sync] Error: {exc}', file=sys.stderr)
         time.sleep(GIT_SYNC_INTERVAL_SECONDS)
+
+
+def handle_submit_aduan(data: dict) -> dict:
+    if not isinstance(data, dict):
+        raise ValueError('Format aduan tidak sah')
+
+    now_my = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+    ref_id = str(data.get('refId') or f"PERMAS/ADUAN/{now_my.strftime('%Y%m%d-%H%M%S')}").strip()
+    record = {
+        'refId': ref_id,
+        'submittedAt': now_my.isoformat(),
+        'submittedLabel': now_my.strftime('%d/%m/%Y %H:%M MYT'),
+        'nama': str(data.get('nama', '')).strip(),
+        'ic': str(data.get('ic', '')).strip(),
+        'ipt': str(data.get('ipt', '')).strip(),
+        'tel': str(data.get('tel', '')).strip(),
+        'daerah': str(data.get('daerah', '')).strip(),
+        'kategori': str(data.get('kategori', '')).strip(),
+        'sulit': str(data.get('sulit', '')).strip(),
+        'tajuk': str(data.get('tajuk', '')).strip(),
+        'priority': str(data.get('priority', '')).strip(),
+        'bureau': str(data.get('bureau', '')).strip(),
+        'aiReportText': str(data.get('aiReportText', '')).strip(),
+    }
+    if not record['nama'] or not record['tajuk']:
+        raise ValueError('Nama dan tajuk aduan diperlukan')
+
+    with ADUAN_LOCK:
+        existing = []
+        if os.path.exists(ADUAN_LOG_PATH):
+            try:
+                with open(ADUAN_LOG_PATH, 'r', encoding='utf-8') as f:
+                    loaded = json.load(f)
+                    if isinstance(loaded, list):
+                        existing = loaded
+            except Exception:
+                existing = []
+        existing.insert(0, record)
+        os.makedirs(os.path.dirname(ADUAN_LOG_PATH), exist_ok=True)
+        tmp_path = ADUAN_LOG_PATH + '.tmp'
+        with open(tmp_path, 'w', encoding='utf-8') as f:
+            json.dump(existing[:200], f, ensure_ascii=False, indent=2)
+        os.replace(tmp_path, ADUAN_LOG_PATH)
+
+    email_sent = False
+    email_detail = ''
+    relay_payload = json.dumps({
+        '_subject': f"[E-Aduan AI PERMAS] {record['refId']} | {record['kategori']} - {record['tajuk']}",
+        '_template': 'box',
+        '_captcha': 'false',
+        'No_Rujukan': record['refId'],
+        'Keutamaan_AI': record['priority'],
+        'Biro_Bertanggungjawab': record['bureau'],
+        'Nama_Pengadu': record['nama'],
+        'Universiti_IPT': record['ipt'],
+        'No_Telefon_WhatsApp': record['tel'],
+        'Daerah_Selangor': record['daerah'],
+        'Status_Kerahsiaan': record['sulit'],
+        'Laporan_Penuh_Janaan_AI': record['aiReportText'],
+    }).encode('utf-8')
+
+    try:
+        ctx = ssl._create_unverified_context()
+        req = urllib.request.Request(
+            'https://formsubmit.co/ajax/permasnasionalofficial@gmail.com',
+            data=relay_payload,
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Origin': 'https://arifkhumainipro-beep.github.io',
+                'Referer': 'https://arifkhumainipro-beep.github.io/permas/aduan.html',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            },
+            method='POST',
+        )
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            resp_data = json.loads(resp.read().decode('utf-8', errors='replace'))
+            succ = str(resp_data.get('success', '')).lower()
+            msg = str(resp_data.get('message', '')).strip()
+            email_sent = succ == 'true'
+            email_detail = msg or ('Dihantar ke permasnasionalofficial@gmail.com' if email_sent else 'Perlu pengaktifan FormSubmit')
+    except Exception as exc:
+        email_detail = f'Relay emel tidak dapat dihubungi ({exc})'
+
+    return {
+        'status': 'ok',
+        'savedLocally': True,
+        'emailSent': email_sent,
+        'emailDetail': email_detail,
+        'refId': ref_id,
+    }
 
 
 class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
