@@ -49,7 +49,7 @@ const PERMAS_DATA = {
       photo: "assets/ahli/presiden.jpg",
       featured: true,
       quote: "Menerajui gerak kerja organisasi dalam memperkukuh peranan mahasiswa Selangor di peringkat nasional berteraskan slogan PERMAS Proaktif, Selangor Progresif.",
-      social: { instagram: "permasnasionalofficial", email: "presiden@permasnasional.org.my" }
+      social: { instagram: "permasnasionalofficial", email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "tydp1",
@@ -62,7 +62,7 @@ const PERMAS_DATA = {
       roleCode: "TP I",
       photo: "assets/ahli/tydp1.jpg",
       quote: "Memperkukuh kepimpinan cawangan kampus dan memacu agenda sinergi antara universiti awam seluruh Malaysia.",
-      social: { email: "tp1@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "tydp2",
@@ -75,7 +75,7 @@ const PERMAS_DATA = {
       roleCode: "TP II",
       photo: "assets/ahli/tydp2.jpg",
       quote: "Menjamin keterangkuman dan representasi berbilang kaum mahasiswa anak Selangor dalam arus pembangunan negeri.",
-      social: { email: "tp2@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "suag",
@@ -88,7 +88,7 @@ const PERMAS_DATA = {
       roleCode: "SUAG",
       photo: "assets/ahli/suag.jpg",
       quote: "Tadbir urus perlembagaan telus, pengurusan dokumentasi rasmi serta keselarasan tatakelola seluruh jentera PERMAS.",
-      social: { email: "suag@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "bendahari",
@@ -101,7 +101,7 @@ const PERMAS_DATA = {
       roleCode: "BENDAHARI",
       photo: "assets/ahli/bendahari.jpg",
       quote: "Amanah kewangan berintegriti, pengagihan dana efisien dan pengurusan peruntukan berimpak tinggi.",
-      social: { email: "bendahari@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "penerangan",
@@ -114,7 +114,7 @@ const PERMAS_DATA = {
       roleCode: "PENERANGAN",
       photo: "assets/ahli/penerangan.jpg",
       quote: "Menyampaikan wacana dasar negeri dan ketelusan maklumat kepada seluruh komuniti mahasiswa anak Selangor.",
-      social: { email: "penerangan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "su-komunikasi",
@@ -127,7 +127,7 @@ const PERMAS_DATA = {
       roleCode: "SU KORPORAT",
       photo: "assets/ahli/su-komunikasi.jpg",
       quote: "Membangunkan jaringan strategik korporat serta memperkasa jenama digital PERMAS Nasional di persada media.",
-      social: { email: "komunikasi@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "su-pembangunan",
@@ -141,7 +141,7 @@ const PERMAS_DATA = {
       photo: "assets/ahli/su-pembangunan.jpg",
       featuredBadge: "Pimpinan Mahasiswa",
       quote: "Merapatkan ekosistem bakat mahasiswa dengan kemahiran masa hadapan, pendidikan holistik dan kebolehpasaran graduan berdaya saing.",
-      social: { email: "pembangunan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "su-kebajikan",
@@ -154,7 +154,7 @@ const PERMAS_DATA = {
       roleCode: "SU KEBAJIKAN",
       photo: "assets/ahli/su-kebajikan.jpg",
       quote: "Menjaga kebajikan asasi mahasiswa, gerak kerja bantuan kecemasan dan memastikan tiada anak Selangor terpinggir.",
-      social: { email: "kebajikan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "timbalan-bendahari",
@@ -167,7 +167,7 @@ const PERMAS_DATA = {
       roleCode: "TIMB. BENDAHARI",
       photo: "assets/ahli/timbalan-bendahari.jpg",
       quote: "Memantau audit berkala, tatatertib akaun dan ketelusan sumber kewangan persatuan.",
-      social: { email: "tbendahari@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
 
     // MAJLIS EKSEKUTIF - SEKSYEN PEMBANGUNAN & PEMERKASAAN MAHASISWA
@@ -182,7 +182,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO AKADEMIK",
       photo: "assets/ahli/exco-akademik.jpg",
       quote: "Meningkatkan kecemerlangan akademik dan mempermudah laluan kerjaya pasca-ijazah mahasiswa Selangor.",
-      social: { email: "akademik@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-sukan",
@@ -195,7 +195,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO SUKAN",
       photo: "assets/ahli/exco-sukan.jpg",
       quote: "Menyuburkan nilai kesukanan, kecergasan dan warisan seni budaya tradisi Negeri Selangor di kampus.",
-      social: { email: "sukan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-keusahawanan",
@@ -208,7 +208,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO INOVASI",
       photo: "assets/ahli/exco-keusahawanan.jpg",
       quote: "Melahirkan usahawan tekno-siswazah berpendapatan tinggi yang merintis industri baharu.",
-      social: { email: "ekonomi@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-sukarelawan",
@@ -221,7 +221,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO RELAWAN",
       photo: "assets/ahli/exco-sukarelawan.jpg",
       quote: "Menggembleng tenaga belia Selangor dalam inisiatif kelestarian alam dan bakti kemasyarakatan.",
-      social: { email: "sukarelawan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
 
     // MAJLIS EKSEKUTIF - SEKSYEN KEBAJIKAN MAHASISWA
@@ -236,7 +236,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO KEBAJIKAN",
       photo: "assets/ahli/exco-kebajikan-kerohanian.jpg",
       quote: "Membina daya tahan emosi, pemantapan rohani serta keharmonian perpaduan mahasiswa kampus.",
-      social: { email: "kebajikan.kerohanian@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-inklusiviti-1",
@@ -249,7 +249,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO INTEGRASI",
       photo: "assets/ahli/exco-inklusiviti-1.jpg",
       quote: "Mempererat persefahaman dan interaksi antara cawangan mahasiswa di seluruh semenanjung dan kepulauan Borneo.",
-      social: { email: "inklusiviti@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-inklusiviti-2",
@@ -262,7 +262,7 @@ const PERMAS_DATA = {
       roleCode: "LANTIKAN KHAS",
       photo: "assets/ahli/exco-inklusiviti-2.jpg",
       quote: "Kerusi khas perwakilan kampus zon selatan bagi pemerkasaan sinergi IPT.",
-      social: { email: "kebajikan@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-siswi",
@@ -275,7 +275,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO SISWI",
       photo: "assets/ahli/exco-siswi.jpg",
       quote: "Memartabatkan kepimpinan mahasiswi wanita Selangor dalam pembuat keputusan dan advokasi keselamatan.",
-      social: { email: "siswi@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
 
     // MAJLIS EKSEKUTIF - SEKSYEN KOMUNIKASI & KORPORAT
@@ -290,7 +290,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO MEDIA",
       photo: "assets/ahli/exco-multimedia-1.jpg",
       quote: "Kreativiti visual bertenaga bagi membina impak naratif anak Selangor yang berdaya saing.",
-      social: { email: "multimedia@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-multimedia-2",
@@ -303,7 +303,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO MEDIA",
       photo: "assets/ahli/exco-multimedia-2.jpg",
       quote: "Penyebaran hebahan pantas, rekabentuk berkualiti tinggi dan sinergi media massa digital.",
-      social: { email: "media2@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-multimedia-3",
@@ -316,7 +316,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO MEDIA",
       photo: "assets/ahli/exco-multimedia-3.jpg",
       quote: "Pengukuhan saluran multimedia dan penerbitan berkala aspirasi mahasiswa Selangor.",
-      social: { email: "media3@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     },
     {
       id: "exco-korporat-luar",
@@ -329,7 +329,7 @@ const PERMAS_DATA = {
       roleCode: "EXCO KORPORAT",
       photo: "assets/ahli/exco-korporat-luar.jpg",
       quote: "Membina jambatan kolaborasi bersama agensi kerajaan negeri, GLC Selangor dan pemegang taruh strategik.",
-      social: { email: "korporat@permasnasional.org.my" }
+      social: { email: "permasnasionalofficial@gmail.com" }
     }
   ],
 
