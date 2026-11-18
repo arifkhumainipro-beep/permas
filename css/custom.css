@@ -841,26 +841,28 @@ html.dark-mode header.nav-scrolled {
   box-shadow: 0 14px 35px -10px rgba(0, 0, 0, 0.65);
 }
 
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .nav-tab-item {
-    padding: 0 0.42rem;
-    font-size: 0.74rem;
-    gap: 4px;
-  }
-}
-
 html.dark-mode .nav-tab-item {
   color: #CBD5E1;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0 0.85rem;
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  html.dark-mode .nav-tab-item {
+    padding: 0 0.58rem;
+    font-size: 0.74rem;
+  }
 }
 
 html.dark-mode .nav-tab-item:hover,
 html.dark-mode .nav-tab-item.active {
-  color: #FCD34D;
+  color: #FFFFFF;
 }
 
 html.dark-mode #nav-magic-pill {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.24) 0%, rgba(245, 158, 11, 0.22) 100%);
-  border-color: rgba(251, 191, 36, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 html.dark-mode #nav-hover-preview {

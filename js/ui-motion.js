@@ -87,7 +87,7 @@ function initScrollProgressAndHeader() {
 }
 
 /* ---------------------------------------------------------------------------
-   2. ANIMATED SLIDING MENU & FLOATING MEGA-PREVIEW CARD
+   2. CLEAN EXECUTIVE SLIDING NAVBAR
 --------------------------------------------------------------------------- */
 function initAnimatedNavbar() {
   const nav = document.querySelector('header nav');
@@ -97,107 +97,19 @@ function initAnimatedNavbar() {
   const navItems = Array.from(nav.querySelectorAll('.nav-tab-item'));
   if (!navItems.length) return;
 
-  const MENU_META = [
-    {
-      match: 'index.html',
-      icon: '🏠',
-      badge: 'Portal Utama & Warta',
-      title: 'Laman Utama PERMAS Nasional',
-      desc: 'Hebahan rasmi, statistik impak RM 3.8M+, infografik pelajar dan galeri lensa Selangor.',
-      accent: 'bg-red-700',
-      links: [
-        { label: '📰 Berita & Warta Terkini', href: 'index.html?v=10#berita-terkini' },
-        { label: '📊 Infografik Impak Dana', href: 'index.html?v=10#infografik-impak' }
-      ]
-    },
-    {
-      match: 'inisiatif.html',
-      icon: '🎓',
-      badge: '4 Skim Bantuan Negeri',
-      title: 'Inisiatif & Dermasiswa Selangor',
-      desc: 'Panduan lengkap Dermasiswa Yuran, Komputer Riba B40, Tiket Kasih dan SISPRO GLC.',
-      accent: 'bg-amber-600',
-      links: [
-        { label: '💻 Semak 4 Skim Bantuan', href: 'inisiatif.html?v=10#tab-section' },
-        { label: '❓ Soalan Lazim (FAQ)', href: 'inisiatif.html?v=10#faq-inisiatif-container' }
-      ]
-    },
-    {
-      match: 'kampus.html',
-      icon: '🗺️',
-      badge: 'Peta Satelit Interaktif',
-      title: 'Rangkaian 20 UA & 38 Cawangan IPT',
-      desc: 'Teroka lokasi universiti, nombor perwakilan YDP kampus dan agihan 5 zon wilayah.',
-      accent: 'bg-blue-700',
-      links: [
-        { label: '📍 Buka Peta Satelit 20 UA', href: 'kampus.html?v=10#peta-section' },
-        { label: '🏫 Direktori Kampus', href: 'kampus.html?v=10#senarai-ua' }
-      ]
-    },
-    {
-      match: 'takwim.html',
-      icon: '📅',
-      badge: 'Kalendar Rasmi 2026',
-      title: 'Takwim Program & Acara Mega',
-      desc: 'Jadual Konvensyen Mahasiswa Selangor (KMS), Sukan SUKMAS dan Kembara Bakti.',
-      accent: 'bg-emerald-700',
-      links: [
-        { label: '📅 Jadual Acara 2026', href: 'takwim.html?v=10' },
-        { label: '🏆 Sukan SUKMAS & KMS', href: 'takwim.html?v=10' }
-      ]
-    },
-    {
-      match: 'kepimpinan.html',
-      icon: '🏛️',
-      badge: 'Sesi 2024–2026',
-      title: 'Saf Majlis Tertinggi & Exco',
-      desc: 'Kenali 22 pimpinan utama kebangsaan serta slaid warta pelantikan rasmi PERMAS.',
-      accent: 'bg-slate-800',
-      links: [
-        { label: '👥 Direktori 22 Pimpinan', href: 'kepimpinan.html?v=10#leadership-grid' },
-        { label: '📜 Lihat Direktori Penuh', href: 'kepimpinan.html?v=10' }
-      ]
-    },
-    {
-      match: 'aduan.html',
-      icon: '📢',
-      badge: 'Talian Hayat 24 Jam',
-      title: 'Meja E-Aduan & Hab Bencana SOS',
-      desc: 'Saluran sulit masalah yuran, rumah sewa, kesihatan serta respon pantas kecemasan.',
-      accent: 'bg-red-800',
-      links: [
-        { label: '📝 Isi Borang E-Aduan', href: 'aduan.html?v=10#borang-aduan' },
-        { label: '🚨 Hab Bencana & SOS', href: 'aduan.html?v=10#sos-teras' }
-      ]
-    }
-  ];
-
-  const getMetaForItem = (anchor) => {
-    const href = (anchor.getAttribute('href') || '').toLowerCase();
-    return MENU_META.find(m => href.includes(m.match)) || MENU_META[0];
-  };
-
-  // Inject animated icons inside each tab link
+  const oldPreview = document.getElementById('nav-hover-preview');
+  if (oldPreview) oldPreview.remove();
   navItems.forEach((item) => {
-    if (!item.querySelector('.nav-tab-icon')) {
-      const meta = getMetaForItem(item);
-      const text = item.textContent.trim();
-      item.innerHTML = `<span class="nav-tab-icon" aria-hidden="true">${meta.icon}</span><span>${text}</span>`;
-    }
+    const iconEl = item.querySelector('.nav-tab-icon');
+    if (iconEl) iconEl.remove();
   });
 
-  // Inject floating sliding magic pill & bottom bar
+  // Inject subtle sliding pill & bottom accent bar
   const magicPill = document.createElement('span');
   magicPill.id = 'nav-magic-pill';
   const magicBar = document.createElement('span');
   magicBar.id = 'nav-magic-bar';
   nav.prepend(magicPill, magicBar);
-
-  // Inject floating mega-preview popover anchored to nav
-  const previewCard = document.createElement('div');
-  previewCard.id = 'nav-hover-preview';
-  previewCard.className = 'hidden lg:block text-left';
-  nav.appendChild(previewCard);
 
   const moveIndicatorTo = (el) => {
     if (!el || el.offsetWidth === 0) return;
@@ -206,76 +118,21 @@ function initAnimatedNavbar() {
     magicPill.style.width = `${Math.max(20, el.offsetWidth - 4)}px`;
 
     magicBar.style.opacity = '1';
-    magicBar.style.left = `${el.offsetLeft + 8}px`;
-    magicBar.style.width = `${Math.max(16, el.offsetWidth - 16)}px`;
+    magicBar.style.left = `${el.offsetLeft + 10}px`;
+    magicBar.style.width = `${Math.max(16, el.offsetWidth - 20)}px`;
   };
 
   const getActiveItem = () => nav.querySelector('.nav-tab-item.active') || navItems[0];
 
-  // Position initially once fonts/layout settle
   requestAnimationFrame(() => moveIndicatorTo(getActiveItem()));
   window.addEventListener('resize', () => moveIndicatorTo(getActiveItem()));
 
-  let hidePreviewTimer = null;
-
-  const showPreviewFor = (item) => {
-    clearTimeout(hidePreviewTimer);
-    const meta = getMetaForItem(item);
-    previewCard.innerHTML = `
-      <div class="flex items-start gap-3.5">
-        <div class="w-11 h-11 rounded-2xl ${meta.accent} text-white flex items-center justify-center text-xl shadow-md shrink-0">
-          ${meta.icon}
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-50 text-red-700 border border-red-200">
-              ${meta.badge}
-            </span>
-          </div>
-          <h4 class="font-heading font-extrabold text-sm text-slate-900 leading-snug">${meta.title}</h4>
-          <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">${meta.desc}</p>
-        </div>
-      </div>
-      <div class="mt-3 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
-        ${meta.links.map(l => `
-          <a href="${l.href}" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 hover:text-red-700 border border-slate-200/80 hover:border-red-200 text-[11px] font-bold transition flex items-center justify-between gap-1">
-            <span class="truncate">${l.label}</span>
-            <span class="text-red-600">&rarr;</span>
-          </a>
-        `).join('')}
-      </div>
-    `;
-
-    // Align horizontal center under hovered item while keeping within nav bounds
-    const navWidth = nav.offsetWidth || 480;
-    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-    const clampedCenter = Math.max(160, Math.min(navWidth - 120, itemCenter));
-    previewCard.style.left = `${clampedCenter}px`;
-    previewCard.classList.add('show');
-  };
-
-  const scheduleHidePreview = () => {
-    clearTimeout(hidePreviewTimer);
-    hidePreviewTimer = setTimeout(() => {
-      previewCard.classList.remove('show');
-      moveIndicatorTo(getActiveItem());
-    }, 160);
-  };
-
   navItems.forEach((item) => {
-    item.addEventListener('mouseenter', () => {
-      moveIndicatorTo(item);
-      showPreviewFor(item);
-    });
-    item.addEventListener('focus', () => {
-      moveIndicatorTo(item);
-      showPreviewFor(item);
-    });
+    item.addEventListener('mouseenter', () => moveIndicatorTo(item));
+    item.addEventListener('focus', () => moveIndicatorTo(item));
   });
 
-  nav.addEventListener('mouseleave', scheduleHidePreview);
-  previewCard.addEventListener('mouseenter', () => clearTimeout(hidePreviewTimer));
-  previewCard.addEventListener('mouseleave', scheduleHidePreview);
+  nav.addEventListener('mouseleave', () => moveIndicatorTo(getActiveItem()));
 }
 
 /* ---------------------------------------------------------------------------
