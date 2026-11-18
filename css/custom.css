@@ -553,12 +553,12 @@ nav.nav-animated-wrap {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(153, 27, 27, 0.09) 0%, rgba(245, 158, 11, 0.14) 100%);
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(153, 27, 27, 0.08);
   border: 1px solid rgba(153, 27, 27, 0.14);
   pointer-events: none;
-  transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 0;
   opacity: 0;
 }
@@ -566,12 +566,12 @@ nav.nav-animated-wrap {
 #nav-magic-bar {
   position: absolute;
   bottom: 0;
-  height: 3px;
+  height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #991B1B 0%, #EF4444 50%, #F59E0B 100%);
-  box-shadow: 0 -2px 10px rgba(153, 27, 27, 0.35);
+  background: #F59E0B;
+  box-shadow: none;
   pointer-events: none;
-  transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 1;
   opacity: 0;
 }

@@ -36,13 +36,14 @@ function initRoyalDarkModeToggle() {
       rightActions.classList.add('shrink-0');
       Array.from(rightActions.children).forEach((child) => {
         if (child.tagName === 'A') {
-          child.classList.remove('px-4', 'py-2', 'text-xs');
-          child.classList.add('px-3', 'py-2', 'text-[11px]');
+          child.classList.remove('px-4', 'px-3', 'text-[11px]', 'rounded-xl', 'font-bold');
+          child.classList.add('px-3.5', 'py-2', 'text-xs', 'font-semibold', 'rounded-lg');
           const spans = child.querySelectorAll('span');
           if (spans.length > 0) {
             const lastSpan = spans[spans.length - 1];
-            if (lastSpan && lastSpan.textContent.includes('Aduan')) {
-              lastSpan.textContent = '📢 Aduan & SOS';
+            if (lastSpan) {
+              const cleaned = lastSpan.textContent.replace(/^📢\s*/, '').trim();
+              lastSpan.textContent = cleaned.includes('Aduan') ? 'Salur Aduan & SOS' : cleaned;
             }
           }
         }
