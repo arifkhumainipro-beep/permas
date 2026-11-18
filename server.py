@@ -555,6 +555,14 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         super().do_GET()
 
+    def _send_json(self, status_code: int, payload: dict):
+        body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        self.send_response(status_code)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == '/api/upload-leader-photo':
@@ -574,21 +582,22 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
                 out_path = os.path.join(ahli_dir, f'{leader_id}.jpg')
                 with open(out_path, 'wb') as f:
                     f.write(img_bytes)
-                resp = {'status': 'ok', 'id': leader_id, 'path': rel_path}
-                body = json.dumps(resp).encode('utf-8')
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.send_header('Content-Length', str(len(body)))
-                self.end_headers()
-                self.wfile.write(body)
+                self._send_json(200, {'status': 'ok', 'id': leader_id, 'path': rel_path})
             except Exception as exc:
-                err = json.dumps({'status': 'error', 'message': str(exc)}).encode('utf-8')
-                self.send_response(400)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.send_header('Content-Length', str(len(err)))
-                self.end_headers()
-                self.wfile.write(err)
+                self._send_json(400, {'status': 'error', 'message': str(exc)})
             return
+
+        if parsed.path == '/api/submit-aduan':
+            try:
+                length = int(self.headers.get('Content-Length', '0'))
+                raw = self.rfile.read(length).decode('utf-8')
+                data = json.loads(raw)
+                resp = handle_submit_aduan(data)
+                self._send_json(200, resp)
+            except Exception as exc:
+                self._send_json(400, {'status': 'error', 'message': str(exc)})
+            return
+
         self.send_error(404)
 
     def log_message(self, format, *args):
