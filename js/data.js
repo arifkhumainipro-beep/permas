@@ -1211,7 +1211,7 @@ window.renderLeaderPortraitCard = function (l, options = {}) {
   const safePos = escLeaderHtml(l.position);
   const safeInst = escLeaderHtml(l.institution);
   const safeQuote = escLeaderHtml(l.quote);
-  const safeEmail = escLeaderHtml((l.social && l.social.email) || 'info@permasnasional.org.my');
+  const safeEmail = escLeaderHtml((l.social && l.social.email) || 'permasnasionalofficial@gmail.com');
   const frameHeight = compact ? 'h-56' : 'h-64';
 
   return `
