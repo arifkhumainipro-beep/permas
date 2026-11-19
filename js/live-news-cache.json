@@ -1,8 +1,8 @@
 {
   "status": "ok",
   "mode": "live-rss",
-  "updatedAt": "2026-11-19T22:02:40.353179+08:00",
-  "updatedLabel": "19/11/2026 22:02 MYT",
+  "updatedAt": "2026-11-19T22:05:45.187999+08:00",
+  "updatedLabel": "19/11/2026 22:05 MYT",
   "nextRefreshMinutes": 2,
   "total": 24,
   "selangorCount": 16,
@@ -426,6 +426,26 @@
     },
     {
       "id": 20,
+      "title": "Peruntukan RM290 juta untuk program BAeK PTPTN, bantu pelajar miskin - Adam Adli",
+      "source": "Sinar Harian",
+      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOeFNta21GdkdCQWxJV0FhdEJjNlJ2N05JNlAzOHZJVE1Yb1NzNzY1WUF3OHNUMmh4WWdKUDgzeXBTMVNsNkVWbE80bWpZcjZZNDJQYmtVeWQwc0NIVkYzc0FpVUVKUU04MjJQdzJoWWdRZjhjY2RiYWY1ZzFSMUxQeVJVZWtKQ0RneUppOXVyb0NMNnp2Y0RZX0dFSFFJelRYREFtcm5Hbnp0bXBPX3NZdkpyLVdkdEllaHdmVzJOS2hnM3kxYUg0eWIxRU9iM3hPVXl3SU0wQ2xDOGFERXZTY3FBS05RUQ?oc=5",
+      "dateShort": "18 Nov 2026",
+      "dateFull": "18 November 2026",
+      "timestamp": 1794978348,
+      "isoDate": "2026-11-18T13:05:48+08:00",
+      "isSelangor": false,
+      "isBantuan": true,
+      "category": "bantuan",
+      "categories": [
+        "bantuan"
+      ],
+      "badge": "Bantuan & Biasiswa",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Laporan terkini oleh Sinar Harian (18 November 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh Sinar Harian (18 November 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>18 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> Peruntukan RM290 juta untuk program BAeK PTPTN, bantu pelajar miskin - Adam Adli Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
+    },
+    {
+      "id": 21,
       "title": "Istiadat Konvokesyen: Universiti Malaya menyulam impian, mengukir sumbangan",
       "source": "Astro Awani",
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPX1puMzJ2allJdkNlNDRFanZQUzBXNGVKMlBMaVNXb3N1THNJVVE0Y0J6QkUtNVY4b0VhR194WklkcWY5VDBhWmM4b0xSdjlxWmYtS2ZuU2pzMFA2MEFwUHhaaXVMWUM3VDlDMmktTGR3Qlh4a3VkQ2hubHptR0l4a2p0R2RZVFB3OG45ajNERzBHOWFIUk9TZ0dfRmY4TmJ3NHFnVTZOSVpCQQ?oc=5",
@@ -440,29 +460,9 @@
         "aktiviti"
       ],
       "badge": "Kampus Malaysia",
-      "image": "assets/images/selangor_shah_alam_night.jpg",
+      "image": "assets/images/campus_life.jpg",
       "summary": "Sorotan berita tempatan daripada Astro Awani (18 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (18 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>18 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> Istiadat Konvokesyen: Universiti Malaya menyulam impian, mengukir sumbangan Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
-    },
-    {
-      "id": 21,
-      "title": "[VIDEO] Peruntukan RM290 juta untuk program BAeK PTPTN, bantu pelajar miskin - Adam Adli",
-      "source": "Sinar Harian",
-      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNbnZvdU0wQVZzd0dmOVhWU2RiMGtTcVFlUVFuQ3hpemJUQlZnQ0JMVlV5ZVpyT0d4SHdGbXlrQUwxQ2g1TU03TTZYbnJNMzgtYWhWSldGR3BFak1WcjVCd3ZpZGdRNHA4SDExb1A2ay15YndfVzlpVjk4TkR4bkJJa1JTVjY5U3RjWUZINmpPaTJsRExyZmFic0xJMi1SX1hxU2YyQ185YWptSXk0clZpZThDMHVjS29mU1JCNlZiRHZVeElxa1lXVDY1blNoeThjckJQLVZZOUJOeThFWVRQctIBXEFVX3lxTFBsT1FDMi05SVd0Q0ZwSnJhZzZKTTk1czg2UVhXc0NGbV8wV0NrS0RRbHVuUlp4RXBJR2tZM2VqRmVNc191a3E4alRHck1pUVUwRGZxTHRxX2FQeGNy?oc=5",
-      "dateShort": "18 Nov 2026",
-      "dateFull": "18 November 2026",
-      "timestamp": 1794974100,
-      "isoDate": "2026-11-18T11:55:00+08:00",
-      "isSelangor": false,
-      "isBantuan": true,
-      "category": "bantuan",
-      "categories": [
-        "bantuan"
-      ],
-      "badge": "Bantuan & Biasiswa",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Laporan terkini oleh Sinar Harian (18 November 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Laporan terkini oleh Sinar Harian (18 November 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa di IPT Malaysia.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>18 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> [VIDEO] Peruntukan RM290 juta untuk program BAeK PTPTN, bantu pelajar miskin - Adam Adli | Sinar Harian Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
     },
     {
       "id": 22,
