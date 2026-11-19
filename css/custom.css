@@ -1304,14 +1304,6 @@ html.dark-mode .broadsheet-paper.paper-dark .paper-photo-frame {
   column-count: 1;
 }
 
-@media (min-width: 768px) {
-  .broadsheet-columns {
-    column-count: 2;
-    column-gap: 1.75rem;
-    column-rule: 1px solid var(--paper-rule);
-  }
-}
-
 .broadsheet-dropcap::first-letter {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
