@@ -46,8 +46,8 @@
     const paras = splitParagraphs(body);
     return paras.map((p, idx) => {
       const cls = withDropCap && idx === 0
-        ? 'broadsheet-dropcap font-newsbody paper-ink text-[15.5px] sm:text-base leading-[1.72] mb-3.5 text-justify'
-        : 'font-newsbody paper-ink text-[15px] sm:text-[15.5px] leading-[1.72] mb-3.5 text-justify';
+        ? 'broadsheet-dropcap font-newsbody paper-ink text-[15.5px] sm:text-base leading-[1.8] mb-4 text-left'
+        : 'font-newsbody paper-ink text-[15px] sm:text-[15.5px] leading-[1.8] mb-4 text-left';
       return `<p class="${cls}">${esc(p)}</p>`;
     }).join('');
   }
