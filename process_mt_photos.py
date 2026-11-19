@@ -392,7 +392,7 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
         fg = harmonize_lighting(fg, adj_face, boost_exposure=True)
     elif mode == 'white_wall':
         border_bg = build_border_flood_bg(aligned, valid_mask, thresh=13.0)
-        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False)
+        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False, is_white_wall=True)
         fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
     elif mode == 'studio_neutral':
         border_bg = build_border_flood_bg(aligned, valid_mask, thresh=15.0)
