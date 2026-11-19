@@ -480,12 +480,12 @@
             <div class="space-y-4">
               <!-- Zon Tengah -->
               <div>
-                <div class="flex items-center justify-between text-xs mb-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs mb-1.5">
                   <span class="font-bold text-slate-900 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-red-700"></span>
+                    <span class="w-2 h-2 rounded-full bg-red-700 shrink-0"></span>
                     Zon Tengah (UM, UKM, UPM, UiTM, UIAM, UPNM)
                   </span>
-                  <span class="font-mono font-bold text-red-700">12,400 siswa (44%)</span>
+                  <span class="font-mono font-bold text-red-700 shrink-0">12,400 siswa (44%)</span>
                 </div>
                 <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
                   <div class="h-full rounded-full bg-gradient-to-r from-red-700 to-red-500 animated-bar-fill" data-bar-width="88%"></div>
@@ -494,12 +494,12 @@
 
               <!-- Zon Utara -->
               <div>
-                <div class="flex items-center justify-between text-xs mb-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs mb-1.5">
                   <span class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                    <span class="w-2 h-2 rounded-full bg-amber-600 shrink-0"></span>
                     Zon Utara (USM, UUM, UPSI, UniMAP)
                   </span>
-                  <span class="font-mono font-bold text-amber-700">5,690 siswa (20%)</span>
+                  <span class="font-mono font-bold text-amber-700 shrink-0">5,690 siswa (20%)</span>
                 </div>
                 <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
                   <div class="h-full rounded-full bg-gradient-to-r from-amber-600 to-amber-400 animated-bar-fill" data-bar-width="40%"></div>
@@ -508,12 +508,12 @@
 
               <!-- Zon Selatan -->
               <div>
-                <div class="flex items-center justify-between text-xs mb-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs mb-1.5">
                   <span class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
                     Zon Selatan (UTM, UTHM, UTeM, USIM)
                   </span>
-                  <span class="font-mono font-bold text-emerald-700">4,550 siswa (16%)</span>
+                  <span class="font-mono font-bold text-emerald-700 shrink-0">4,550 siswa (16%)</span>
                 </div>
                 <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
                   <div class="h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-400 animated-bar-fill" data-bar-width="32%"></div>
@@ -522,12 +522,12 @@
 
               <!-- Zon Pantai Timur -->
               <div>
-                <div class="flex items-center justify-between text-xs mb-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs mb-1.5">
                   <span class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                    <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
                     Zon Pantai Timur (UMPSA, UMT, UniSZA, UMK)
                   </span>
-                  <span class="font-mono font-bold text-blue-700">3,410 siswa (12%)</span>
+                  <span class="font-mono font-bold text-blue-700 shrink-0">3,410 siswa (12%)</span>
                 </div>
                 <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
                   <div class="h-full rounded-full bg-gradient-to-r from-blue-600 to-sky-400 animated-bar-fill" data-bar-width="24%"></div>
@@ -536,12 +536,12 @@
 
               <!-- Zon Borneo -->
               <div>
-                <div class="flex items-center justify-between text-xs mb-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs mb-1.5">
                   <span class="font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-violet-600"></span>
+                    <span class="w-2 h-2 rounded-full bg-violet-600 shrink-0"></span>
                     Zon Sabah &amp; Sarawak (UMS, UNIMAS)
                   </span>
-                  <span class="font-mono font-bold text-violet-700">2,400 siswa (8%)</span>
+                  <span class="font-mono font-bold text-violet-700 shrink-0">2,400 siswa (8%)</span>
                 </div>
                 <div class="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
                   <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-purple-400 animated-bar-fill" data-bar-width="16%"></div>
@@ -584,17 +584,17 @@
         </div>
 
         <!-- Category Filter Buttons -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button onclick="filterNews('all')" id="news-tab-all" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition">
+        <div class="flex flex-nowrap sm:flex-wrap items-center gap-2 overflow-x-auto pb-1 max-w-full">
+          <button onclick="filterNews('all')" id="news-tab-all" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition whitespace-nowrap shrink-0">
             Semua Berita
           </button>
-          <button onclick="filterNews('selangor')" id="news-tab-selangor" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterNews('selangor')" id="news-tab-selangor" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Mahasiswa Selangor
           </button>
-          <button onclick="filterNews('bantuan')" id="news-tab-bantuan" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterNews('bantuan')" id="news-tab-bantuan" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Bantuan &amp; Biasiswa
           </button>
-          <button onclick="filterNews('aktiviti')" id="news-tab-aktiviti" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterNews('aktiviti')" id="news-tab-aktiviti" class="news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Kampus &amp; Komuniti
           </button>
         </div>
@@ -970,17 +970,17 @@
         </div>
 
         <!-- Gallery Filter Pills -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button onclick="filterGallery('all')" id="gal-tab-all" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition">
+        <div class="flex flex-nowrap sm:flex-wrap items-center gap-2 overflow-x-auto pb-1 max-w-full">
+          <button onclick="filterGallery('all')" id="gal-tab-all" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition whitespace-nowrap shrink-0">
             Semua Lensa (7)
           </button>
-          <button onclick="filterGallery('aktiviti')" id="gal-tab-aktiviti" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterGallery('aktiviti')" id="gal-tab-aktiviti" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Aktiviti & Kebajikan
           </button>
-          <button onclick="filterGallery('warta')" id="gal-tab-warta" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterGallery('warta')" id="gal-tab-warta" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Warta Kepimpinan
           </button>
-          <button onclick="filterGallery('selangor')" id="gal-tab-selangor" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="filterGallery('selangor')" id="gal-tab-selangor" class="gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0">
             Panorama Selangor
           </button>
         </div>
@@ -1335,11 +1335,11 @@
       activeNewsCategory = category;
       showAllNews = false;
       document.querySelectorAll('.news-filter-btn').forEach(btn => {
-        btn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+        btn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0';
       });
       const activeBtn = document.getElementById('news-tab-' + category);
       if (activeBtn) {
-        activeBtn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition';
+        activeBtn.className = 'news-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition whitespace-nowrap shrink-0';
       }
       renderLiveNewsGrid();
     }
@@ -1757,11 +1757,11 @@
 
     function filterGallery(cat) {
       document.querySelectorAll('.gal-filter-btn').forEach(btn => {
-        btn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+        btn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition whitespace-nowrap shrink-0';
       });
       const activeBtn = document.getElementById('gal-tab-' + cat);
       if (activeBtn) {
-        activeBtn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition';
+        activeBtn.className = 'gal-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white shadow-xs transition whitespace-nowrap shrink-0';
       }
       document.querySelectorAll('.gal-item').forEach(card => {
         if (cat === 'all' || card.getAttribute('data-gal') === cat) {
