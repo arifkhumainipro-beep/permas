@@ -490,14 +490,19 @@
   <script>
     const TAB_DATA = {
       'dermasiswa': {
-        title: 'Dermasiswa Pengajian Tinggi Selangor',
-        subtitle: 'Tajaan Yuran Pengajian Sehingga RM5,000 Setahun',
+        title: 'Dermasiswa & Hadiah Pengajian IPT Selangor',
+        subtitle: 'Tajaan Yuran Pengajian & HPIPT RM1,000 – RM5,000',
         graphic: 'assets/images/graphic_scholarship.svg',
-        badge: 'Tajaan Yuran RM5,000',
+        badge: 'Tajaan Yuran RM1,000 – RM5,000',
         badgeColor: 'bg-red-50 text-red-700 border-red-200',
-        portalUrl: 'https://www.zakatselangor.com.my',
-        portalName: 'Portal Lembaga Zakat & Yayasan Selangor',
-        desc: 'Inisiatif khas bantuan kewangan bagi membantu mahasiswa semester 1 dan ke atas yang menuntut di universiti awam dan swasta tempatan yang diiktiraf MQA. Tajaan disalurkan secara bersama oleh Lembaga Zakat Selangor dan Yayasan Selangor.',
+        portalUrl: 'https://hpipt.selangor.gov.my',
+        portalName: 'Mohon di Portal HPIPT Selangor',
+        portals: [
+          { name: 'Portal Rasmi HPIPT RM1,000', url: 'https://hpipt.selangor.gov.my', primary: true },
+          { name: 'Biasiswa Negeri (TKWBNS)', url: 'https://tkwbns.selangor.gov.my' },
+          { name: 'Lembaga Zakat Selangor', url: 'https://www.zakatselangor.com.my' }
+        ],
+        desc: 'Inisiatif khas bantuan kewangan termasuk Hadiah Pengajian IPT (HPIPT RM1,000 one-off), Pinjaman Pelajaran TKWBNS, dan Dermasiswa Asnaf bagi membantu mahasiswa universiti awam dan swasta yang diiktiraf MQA.',
         syarat: [
           'Warganegara Malaysia dan anak kelahiran Negeri Selangor (atau ibu/bapa lahir di Selangor).',
           'Telah bermastautin di Selangor melebihi 10 tahun bagi pemohon luar negeri.',
@@ -514,6 +519,10 @@
         badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
         portalUrl: 'https://www.yayasanselangor.org.my',
         portalName: 'Portal Rasmi Yayasan Selangor',
+        portals: [
+          { name: 'Portal Rasmi Yayasan Selangor', url: 'https://www.yayasanselangor.org.my', primary: true },
+          { name: 'Portal Kerajaan Negeri Selangor', url: 'https://www.selangor.gov.my' }
+        ],
         desc: 'Pemberian satu unit komputer riba baharu (pemproses Core i5 / AMD Ryzen 5, 16GB RAM, SSD 512GB) lengkap dengan beg sandang, tetikus, serta lesen perisian pembelajaran digital percuma.',
         syarat: [
           'Pelajar tahun pertama atau kedua peringkat Diploma atau Ijazah Sarjana Muda.',
@@ -530,6 +539,10 @@
         badgeColor: 'bg-amber-50 text-amber-800 border-amber-200',
         portalUrl: 'https://www.selangor.gov.my',
         portalName: 'Portal Rasmi Kerajaan Negeri Selangor',
+        portals: [
+          { name: 'Portal Kerajaan Negeri Selangor', url: 'https://www.selangor.gov.my', primary: true },
+          { name: 'Direktori Cawangan PERMAS', url: 'kampus.html?v=23#senarai-ua' }
+        ],
         desc: 'Pemberian baucar tiket bas ekspres, ETS, dan penerbangan domestik (khusus bagi mahasiswa perantauan di Sabah dan Sarawak) sempena cuti perayaan Aidilfitri, Tahun Baru Cina dan cuti semester.',
         syarat: [
           'Mahasiswa anak Selangor yang menuntut di kampus luar Lembah Klang atau kepulauan Borneo.',
@@ -545,6 +558,10 @@
         badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
         portalUrl: 'https://www.mbiselangor.com',
         portalName: 'Portal Rasmi MBI Selangor',
+        portals: [
+          { name: 'Portal Rasmi MBI Selangor', url: 'https://www.mbiselangor.com', primary: true },
+          { name: 'Portal Kerajaan Negeri Selangor', url: 'https://www.selangor.gov.my' }
+        ],
         desc: 'Program residensi kerjaya eksekutif bersama syarikat berkaitan kerajaan negeri (GLC Selangor) seperti MBI Selangor, PKNS, Air Selangor, KDEB Waste Management dan Worldwide Holdings.',
         syarat: [
           'Mahasiswa semester akhir peringkat Diploma atau Ijazah Sarjana Muda.',
@@ -564,6 +581,15 @@
       const contentBox = document.getElementById('tab-content');
       if (!data || !contentBox) return;
 
+      const portalButtonsHtml = (data.portals || [{ name: data.portalName, url: data.portalUrl, primary: true }]).map(p => {
+        const isExternal = /^https?:\/\//i.test(p.url);
+        const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+        const cls = p.primary
+          ? 'px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 border border-amber-400/40 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5'
+          : 'px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition shadow-xs flex items-center gap-1.5';
+        return `<a href="${p.url}"${targetAttr} class="${cls}"><span>🌐 ${p.name}</span><span class="text-amber-300">↗</span></a>`;
+      }).join('');
+
       contentBox.innerHTML = `
         <div class="space-y-6 text-left">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 border-b border-slate-100 gap-4">
@@ -580,11 +606,8 @@
               </div>
             </div>
             <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-              <a href="${data.portalUrl}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
-                <span>🌐 ${data.portalName}</span>
-                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <a href="aduan.html?v=8" class="btn-primary-red py-2.5 px-5 text-xs font-bold shadow-sm hover:shadow-md">
+              ${portalButtonsHtml}
+              <a href="aduan.html?v=23&kategori=Isu%20Yuran%20%26%20Biasiswa%20%2F%20Dermasiswa#borang-aduan" class="btn-primary-red py-2.5 px-5 text-xs font-bold shadow-sm hover:shadow-md">
                 Pertanyaan / Aduan Bantuan →
               </a>
             </div>
