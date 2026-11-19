@@ -256,7 +256,7 @@ def build_border_flood_bg(bgr: np.ndarray, valid_mask: np.ndarray, thresh: float
     return (ff_mask[1:-1, 1:-1] > 0) | (~valid_mask)
 
 
-def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, border_bg: np.ndarray = None, is_outdoor: bool = False, is_white_wall: bool = False):
+def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, border_bg: np.ndarray = None, is_outdoor: bool = False, is_white_wall: bool = False, tight_sides: bool = False):
     cx, cy, fw, fh = face_box
     yy, xx = np.mgrid[0:OUT_H, 0:OUT_W]
     hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
@@ -268,7 +268,7 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
     gc_mask = np.full((OUT_H, OUT_W), cv2.GC_PR_BGD, dtype=np.uint8)
 
     head_top = cy - fh * 1.02
-    margin_x = fw * (1.72 if is_outdoor else 1.85)
+    margin_x = fw * (1.44 if tight_sides else (1.72 if is_outdoor else 1.85))
     outer_sides = np.abs(xx - cx) > margin_x
     top_bg = yy < max(8.0, head_top - 22.0)
 
@@ -394,6 +394,10 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
         border_bg = build_border_flood_bg(aligned, valid_mask, thresh=13.0)
         fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False, is_white_wall=True)
         fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
+    elif mode == 'studio_hall':
+        border_bg = build_border_flood_bg(aligned, valid_mask, thresh=14.0)
+        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False, tight_sides=True)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
     elif mode == 'studio_neutral':
         border_bg = build_border_flood_bg(aligned, valid_mask, thresh=15.0)
         fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False)
@@ -408,15 +412,19 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
     return True
 
 
+DEFAULT_MODES = {
+    'presiden': 'studio_hall',
+    'tydp1': 'green',
+    'bendahari': 'white_wall',
+    'su-komunikasi': 'studio_neutral',
+    'suag': 'outdoor',
+    'su-pembangunan': 'studio_neutral',
+}
+
+
 def main():
     backdrop = make_studio_backdrop()
-    jobs = [
-        ('tydp1', 'green'),
-        ('bendahari', 'white_wall'),
-        ('su-komunikasi', 'studio_neutral'),
-        ('suag', 'outdoor'),
-        ('su-pembangunan', 'studio_neutral'),
-    ]
+    jobs = list(DEFAULT_MODES.items())
     seen_ids = {lid for lid, _ in jobs}
     if os.path.isdir(RAW_DIR):
         for p in sorted(glob.glob(os.path.join(RAW_DIR, '*.jpg'))):

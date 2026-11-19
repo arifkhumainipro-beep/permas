@@ -460,7 +460,8 @@ def sync_drive_mt_photos(force: bool = False) -> dict:
                     try:
                         import process_mt_photos
                         backdrop = process_mt_photos.make_studio_backdrop()
-                        processed = bool(process_mt_photos.process_one(matched_leader_id, 'studio_neutral', backdrop))
+                        mode = getattr(process_mt_photos, 'DEFAULT_MODES', {}).get(matched_leader_id, 'studio_neutral')
+                        processed = bool(process_mt_photos.process_one(matched_leader_id, mode, backdrop))
                     except Exception as proc_exc:
                         print(f'[PERMAS Drive Sync] Studio processing fallback for {matched_leader_id}: {proc_exc}', file=sys.stderr)
 

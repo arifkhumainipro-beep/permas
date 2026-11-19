@@ -1076,7 +1076,7 @@ function getLeaderPhotoSrc(leader) {
     const cached = localStorage.getItem('permas_leader_photo_' + leader.id);
     if (cached && cached.startsWith('data:image/')) return cached;
   } catch (e) {}
-  return (leader.photo || `assets/ahli/${leader.id}.jpg`) + '?v=20';
+  return (leader.photo || `assets/ahli/${leader.id}.jpg`) + '?v=25';
 }
 
 function showLeaderUploadToast(message, isError = false) {
