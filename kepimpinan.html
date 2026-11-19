@@ -510,15 +510,11 @@
   <!-- Shared Data & Scripts -->
   <script src="js/data.js?v=20"></script>
   <script>
-    function renderLeadership(filter = 'all') {
-      const container = document.getElementById('leadership-grid');
-      if (!container || !PERMAS_DATA.leadership) return;
+    function renderLeaderGroup(containerId, list) {
+      const container = document.getElementById(containerId);
+      if (!container || !Array.isArray(list)) return;
 
-      const filtered = filter === 'all'
-        ? PERMAS_DATA.leadership
-        : PERMAS_DATA.leadership.filter(l => l.section === filter);
-
-      container.innerHTML = filtered
+      container.innerHTML = list
         .map(l => window.renderLeaderPortraitCard(l, { compact: false }))
         .join('');
 
@@ -527,10 +523,26 @@
       }
     }
 
-    function filterLeadership(section, btn) {
-      document.querySelectorAll('.leader-chip').forEach(b => b.classList.remove('active'));
+    function renderMajlisTertinggi() {
+      if (!PERMAS_DATA.leadership) return;
+      renderLeaderGroup(
+        'mt-leadership-grid',
+        PERMAS_DATA.leadership.filter(l => l.section === 'tertinggi')
+      );
+    }
+
+    function renderExco(filter = 'all') {
+      if (!PERMAS_DATA.leadership) return;
+      const list = PERMAS_DATA.leadership.filter(
+        l => l.section !== 'tertinggi' && (filter === 'all' || l.section === filter)
+      );
+      renderLeaderGroup('exco-leadership-grid', list);
+    }
+
+    function filterExco(section, btn) {
+      document.querySelectorAll('#seksyen-exco .leader-chip').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      renderLeadership(section);
+      renderExco(section);
     }
 
     const wartaSlides = [
@@ -591,7 +603,8 @@
           presImg.src = getLeaderPhotoSrc(presObj);
         }
       }
-      renderLeadership('all');
+      renderMajlisTertinggi();
+      renderExco('all');
     });
   </script>
   <script src="js/ui-motion.js?v=18"></script>
