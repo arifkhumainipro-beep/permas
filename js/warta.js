@@ -442,19 +442,19 @@
               <span class="font-sans font-extrabold paper-accent">${esc(lead.category)}</span>
               <span>${esc(lead.location)} &bull; ${esc(lead.dateLabel)}</span>
             </div>
-            <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
+            <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
               ${esc(lead.title)}
             </a>
-            <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
+            <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
               <div class="aspect-[16/9] overflow-hidden bg-slate-900">
                 <img src="${esc(lead.imageUrl)}" alt="${esc(lead.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
             </a>
-            <p class="broadsheet-dropcap font-newsbody text-sm sm:text-[15px] paper-ink leading-relaxed text-justify">
-              ${esc(splitParagraphs(lead.body)[0] || lead.subtitle || '')}
-            </p>
+            <div class="broadsheet-columns">
+              ${renderParagraphsHtml(splitParagraphs(lead.body).slice(0, 2).join('\n\n') || lead.subtitle || '', true)}
+            </div>
             <div class="pt-1">
-              <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
+              <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
                 Baca Edisi Penuh Akhbar →
               </a>
             </div>
@@ -466,7 +466,7 @@
               <span class="text-[10px] font-mono paper-muted">${state.articles.length} Edisi</span>
             </div>
             ${side.map((art, idx) => `
-              <a href="warta.html?v=2#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
+              <a href="warta.html?v=3#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
                 <div class="flex gap-3 items-start">
                   <div class="w-24 h-18 shrink-0 paper-photo-frame border p-0.5 overflow-hidden">
                     <img src="${esc(art.imageUrl)}" alt="${esc(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -487,7 +487,7 @@
                 <p class="text-[10px] font-extrabold uppercase tracking-wider paper-gold">Arkib Akhbar Program</p>
                 <p class="font-newsbody text-xs paper-muted mt-0.5">Lihat semua sorotan aktiviti &amp; program rasmi PERMAS Nasional.</p>
               </div>
-              <a href="warta.html?v=2" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
+              <a href="warta.html?v=3" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
                 Buka Warta →
               </a>
             </div>
