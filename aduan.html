@@ -348,15 +348,15 @@
               <p class="text-xs text-slate-500 mt-1">Sila isi butiran lengkap untuk tindakan tatatertib dan advokasi segera.</p>
             </div>
 
-            <!-- Success Alert & AI Report Panel -->
+            <!-- Success Alert & Official Receipt Card -->
             <div id="complaint-success" class="hidden p-5 sm:p-6 rounded-2xl bg-slate-900/95 border border-emerald-500/40 text-slate-100 space-y-4 shadow-xl">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-2 font-bold text-sm text-emerald-300">
                   <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                  <span>Laporan Rasmi AI Telah Dijana &amp; Diproses!</span>
+                  <span>Resit Rasmi E-Aduan &amp; Laporan AI PERMAS Nasional</span>
                 </div>
                 <span id="ai-email-status-badge" class="text-[11px] font-bold px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-200 inline-flex items-center gap-1.5">
-                  ⏳ Sedang menghantar ke permasnasionalofficial@gmail.com...
+                  ⏳ AI sedang memproses &amp; menghantar aduan ke PERMAS Nasional...
                 </span>
               </div>
 
@@ -383,24 +383,18 @@
                 </div>
 
                 <div>
-                  <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1.5">Teks Laporan Lengkap (Sedia Dihantar Ke Emel PERMAS)</span>
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1.5">Salinan Laporan Rasmi E-Aduan (Dijana Automatik Oleh AI)</span>
                   <pre id="ai-rep-body" class="whitespace-pre-wrap font-mono text-[11px] sm:text-xs text-slate-200 bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 leading-relaxed max-h-72 overflow-y-auto"></pre>
                 </div>
               </div>
 
               <div class="flex flex-wrap gap-2.5 pt-1">
-                <a id="gmail-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
-                  <span>📨 Buka &amp; Hantar Terus Melalui Gmail Web (Siap Diisi AI)</span>
-                </a>
-                <a id="mailto-direct-btn" href="#" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
-                  <span>✉️ Hantar Melalui Aplikasi Emel (permasnasionalofficial@gmail.com)</span>
-                </a>
-                <button type="button" onclick="copyAiReportText()" class="px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/40 text-amber-300 text-xs font-bold transition inline-flex items-center gap-1.5">
-                  <span>📋 Salin Laporan AI</span>
+                <button type="button" onclick="printOfficialAduanReceipt()" class="px-4 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
+                  <span>🖨️ Cetak / Simpan Resit Rasmi (PDF)</span>
                 </button>
-                <a id="wa-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
-                  <span>💬 WhatsApp Urusetia</span>
-                </a>
+                <button type="button" onclick="copyAiReportText()" class="px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/40 text-amber-300 text-xs font-bold transition inline-flex items-center gap-1.5">
+                  <span>📋 Salin Laporan &amp; No. Rujukan</span>
+                </button>
               </div>
             </div>
 
@@ -422,25 +416,15 @@
                   <input id="aduan-ipt" type="text" required placeholder="cth: Universiti Kebangsaan Malaysia (UKM)" class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">No. Telefon (WhatsApp) *</label>
-                  <input id="aduan-tel" type="tel" required placeholder="cth: +60 12-345 6789" class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600">
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Alamat Emel Mahasiswa *</label>
+                  <input id="aduan-emel" type="email" required placeholder="cth: danish@siswa.ukm.edu.my" class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600">
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kategori Isu / Aduan *</label>
-                  <select id="aduan-kategori" required class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600 bg-white">
-                    <option value="">Pilih Kategori...</option>
-                    <option value="Kecemasan Banjir / Bencana Rumah Sewa (SOS)">🚨 Kecemasan Banjir / Bencana Rumah Sewa (SOS)</option>
-                    <option value="Bantuan Makanan Sifar Lapar (Food Bank)">🍱 Bantuan Makanan Sifar Lapar (Food Bank)</option>
-                    <option value="Isu Yuran & Biasiswa / Dermasiswa">💳 Isu Yuran & Kelewatan Biasiswa / Dermasiswa</option>
-                    <option value="Penipuan / Penahanan Deposit Rumah Sewa">🏠 Penipuan / Penahanan Deposit Rumah Sewa</option>
-                    <option value="Isu Fasiliti & Penempatan Kolej Kediaman">🏢 Isu Fasiliti & Penempatan Kolej Kediaman</option>
-                    <option value="Isu Elaun Latihan Industri / Praktikal">💼 Isu Elaun Latihan Industri / Praktikal</option>
-                    <option value="Tatatertib / Hak Akademik Pelajar">🎓 Tatatertib / Hak Akademik Pelajar</option>
-                    <option value="Lain-lain Permasalahan Mahasiswa">📢 Lain-lain Permasalahan Mahasiswa</option>
-                  </select>
+                  <label class="block text-xs font-bold text-slate-700 uppercase mb-1">No. Telefon (WhatsApp) *</label>
+                  <input id="aduan-tel" type="tel" required placeholder="cth: +60 12-345 6789" class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600">
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Daerah Asal di Selangor *</label>
@@ -459,18 +443,28 @@
               </div>
 
               <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kategori Isu / Aduan *</label>
+                <select id="aduan-kategori" required class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600 bg-white">
+                  <option value="">Pilih Kategori...</option>
+                  <option value="Kecemasan Banjir / Bencana Rumah Sewa (SOS)">🚨 Kecemasan Banjir / Bencana Rumah Sewa (SOS)</option>
+                  <option value="Bantuan Makanan Sifar Lapar (Food Bank)">🍱 Bantuan Makanan Sifar Lapar (Food Bank)</option>
+                  <option value="Isu Yuran & Biasiswa / Dermasiswa">💳 Isu Yuran & Kelewatan Biasiswa / Dermasiswa</option>
+                  <option value="Penipuan / Penahanan Deposit Rumah Sewa">🏠 Penipuan / Penahanan Deposit Rumah Sewa</option>
+                  <option value="Isu Fasiliti & Penempatan Kolej Kediaman">🏢 Isu Fasiliti & Penempatan Kolej Kediaman</option>
+                  <option value="Isu Elaun Latihan Industri / Praktikal">💼 Isu Elaun Latihan Industri / Praktikal</option>
+                  <option value="Tatatertib / Hak Akademik Pelajar">🎓 Tatatertib / Hak Akademik Pelajar</option>
+                  <option value="Lain-lain Permasalahan Mahasiswa">📢 Lain-lain Permasalahan Mahasiswa</option>
+                </select>
+              </div>
+
+              <div>
                 <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tajuk Aduan *</label>
                 <input id="aduan-tajuk" type="text" required placeholder="cth: Tuan Rumah Enggan Memulangkan Deposit RM1,500 Selepas Tamat Kontrak" class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600">
               </div>
 
               <div>
-                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                  <label class="block text-xs font-bold text-slate-700 uppercase">Keterangan Terperinci Kes *</label>
-                  <button type="button" id="ai-draft-btn" onclick="autoDraftKeteranganWithAI()" class="px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/45 text-amber-300 text-[11px] font-bold transition inline-flex items-center gap-1.5">
-                    <span>✨ Jana / Lengkapkan Butiran Kes Dengan AI</span>
-                  </button>
-                </div>
-                <textarea id="aduan-keterangan" rows="5" required placeholder="Taip ringkas isu anda (cth: deposit rumah sewa RM1,500 tak dipulangkan) dan klik butang AI di atas untuk tulis laporan rasmi lengkap, atau terus isi dan tekan Hantar..." class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600"></textarea>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Keterangan Terperinci Kes *</label>
+                <textarea id="aduan-keterangan" rows="5" required placeholder="Ceritakan kronologi dan butiran aduan anda secara ringkas atau lengkap. Sistem AI PERMAS akan menulis laporan rasmi yang lengkap secara automatik dan menghantarnya terus kepada pihak sekretariat apabila anda menekan butang Submit." class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-red-600"></textarea>
               </div>
 
               <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
@@ -584,8 +578,10 @@
 
   <!-- Shared Data & Scripts -->
   <script src="js/data.js?v=17"></script>
+  <script src="js/gas-config.js?v=21"></script>
   <script>
     window._lastAiReportText = '';
+    window._lastAiReceiptMeta = null;
 
     function analyzeComplaintCategory(kategori) {
       const k = (kategori || '').toLowerCase();
@@ -690,6 +686,7 @@
         nama: (document.getElementById('aduan-nama')?.value || '').trim(),
         ic: (document.getElementById('aduan-ic')?.value || '').trim(),
         ipt: (document.getElementById('aduan-ipt')?.value || '').trim(),
+        emel: (document.getElementById('aduan-emel')?.value || '').trim(),
         tel: (document.getElementById('aduan-tel')?.value || '').trim(),
         kategori: (document.getElementById('aduan-kategori')?.value || '').trim(),
         daerah: (document.getElementById('aduan-daerah')?.value || '').trim(),
@@ -726,32 +723,8 @@
         `3. Dokumen sokongan (resit bayaran, surat rasmi, rekod komunikasi WhatsApp/emel, atau gambar kejadian) sedia dikemukakan kepada pegawai bertugas sekiranya diperlukan bagi proses verifikasi.`,
         ``,
         `[PERMOHONAN TINDAKAN]`,
-        `Saya memohon agar Sekretariat PERMAS Nasional meneliti kes ini dengan segera, menyelaraskan rundingan atau penyaluran bantuan sewajarnya, serta menghubungi saya di talian ${data.tel || 'yang tertera'} bagi tindakan susulan.`
+        `Saya memohon agar Sekretariat PERMAS Nasional meneliti kes ini dengan segera, menyelaraskan rundingan atau penyaluran bantuan sewajarnya, serta menghubungi saya di talian ${data.tel || 'yang tertera'}${data.emel ? ' atau emel ' + data.emel : ''} bagi tindakan susulan.`
       ].join('\n');
-    }
-
-    function autoDraftKeteranganWithAI() {
-      const btn = document.getElementById('ai-draft-btn');
-      const textarea = document.getElementById('aduan-keterangan');
-      if (!textarea) return;
-
-      const data = readComplaintFormFields();
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span>⏳ AI sedang menulis butiran rasmi...</span>';
-      }
-
-      setTimeout(() => {
-        textarea.value = buildFormalKeteranganText(data);
-        textarea.classList.add('ring-2', 'ring-amber-400');
-        setTimeout(() => textarea.classList.remove('ring-2', 'ring-amber-400'), 1800);
-
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<span>✨ Jana / Lengkapkan Butiran Kes Dengan AI</span>';
-        }
-        showToast('✨ AI telah menulis draf keterangan rasmi yang lengkap. Semak atau terus klik Hantar!', 'success');
-      }, 320);
     }
 
     function generateAiOfficialReport(data) {
@@ -762,7 +735,7 @@
       const refId = `PERMAS/ADUAN/2026/${pad2(now.getMonth() + 1)}${pad2(now.getDate())}-${rand4}`;
       const timeLabel = now.toLocaleString('ms-MY', {
         day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-      });
+      }) + ' MYT';
 
       const meta = analyzeComplaintCategory(data.kategori);
       const narrative = data.keterangan && data.keterangan.includes('[RINGKASAN MASALAH]')
@@ -788,16 +761,17 @@
         `Biro Tindakan : ${meta.bureau}`,
         ``,
         `1. PROFIL PENGADU`,
-        `   - Nama Penuh       : ${data.nama}`,
+        `   - Nama Penuh        : ${data.nama}`,
         `   - No. Kad Pengenalan: ${data.ic}`,
-        `   - Universiti / IPT : ${data.ipt}`,
-        `   - No. Tel/WhatsApp : ${data.tel}`,
-        `   - Daerah Selangor  : ${data.daerah}`,
+        `   - Alamat Emel       : ${data.emel || '-'}`,
+        `   - Universiti / IPT  : ${data.ipt}`,
+        `   - No. Tel/WhatsApp  : ${data.tel}`,
+        `   - Daerah Selangor   : ${data.daerah}`,
         ``,
         `2. KLASIFIKASI & RINGKASAN EKSEKUTIF AI`,
-        `   - Kategori Kes     : ${data.kategori}`,
-        `   - Tajuk Aduan      : ${data.tajuk}`,
-        `   - Ringkasan AI     : ${summary}`,
+        `   - Kategori Kes      : ${data.kategori}`,
+        `   - Tajuk Aduan       : ${data.tajuk}`,
+        `   - Ringkasan AI      : ${summary}`,
         ``,
         `3. KETERANGAN & KRONOLOGI KES (JANAAN AI)`,
         narrative,
@@ -814,6 +788,7 @@
 
       return {
         refId,
+        timeLabel,
         priority: meta.priority,
         bureau: meta.bureau,
         summary,
@@ -824,11 +799,81 @@
       };
     }
 
+    function escapeReceiptHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function printOfficialAduanReceipt() {
+      const meta = window._lastAiReceiptMeta;
+      if (!meta || !window._lastAiReportText) {
+        showToast('Sila hantar borang aduan terlebih dahulu untuk mencetak resit rasmi.', 'info');
+        return;
+      }
+      const printWin = window.open('', '_blank', 'width=860,height=920');
+      if (!printWin) {
+        window.print();
+        return;
+      }
+      const safeRef = escapeReceiptHtml(meta.refId);
+      const safeTitle = escapeReceiptHtml(meta.tajuk);
+      const safePriority = escapeReceiptHtml(meta.priority);
+      const safeBureau = escapeReceiptHtml(meta.bureau);
+      const safeTime = escapeReceiptHtml(meta.timeLabel);
+      const safeSummary = escapeReceiptHtml(meta.summary);
+      const safeBody = escapeReceiptHtml(meta.fullEmailText);
+
+      printWin.document.write(`<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>Resit Rasmi E-Aduan PERMAS - ${safeRef}</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 28px; color: #0f172a; line-height: 1.55; }
+    .header { border-bottom: 3px solid #991b1b; padding-bottom: 14px; margin-bottom: 18px; }
+    .brand { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: #991b1b; text-transform: uppercase; }
+    h1 { margin: 4px 0 4px; font-size: 20px; color: #0f172a; }
+    .ref { font-family: monospace; font-size: 13px; font-weight: 700; color: #b45309; }
+    .meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-size: 12px; }
+    .meta-label { font-size: 10px; text-transform: uppercase; color: #64748b; font-weight: 700; display: block; }
+    .summary { background: #fffbeb; border: 1px solid #fcd34d; border-left: 4px solid #d97706; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px; font-size: 12px; }
+    pre { white-space: pre-wrap; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; }
+    .footer { margin-top: 18px; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">Persatuan Mahasiswa Selangor Kebangsaan (PERMAS Nasional)</div>
+    <h1>Resit Pengesahan Rasmi &amp; Laporan E-Aduan</h1>
+    <div class="ref">No. Rujukan: ${safeRef} &bull; ${safeTime}</div>
+  </div>
+  <div class="meta-grid">
+    <div><span class="meta-label">Tajuk Aduan</span><strong>${safeTitle}</strong></div>
+    <div><span class="meta-label">Tahap Keutamaan AI</span><strong>${safePriority}</strong></div>
+    <div><span class="meta-label">Biro Bertanggungjawab</span><strong>${safeBureau}</strong></div>
+    <div><span class="meta-label">Emel Sekretariat Rasmi</span><strong>permasnasionalofficial@gmail.com</strong></div>
+  </div>
+  <div class="summary">
+    <strong style="display:block;font-size:11px;text-transform:uppercase;color:#92400e;margin-bottom:4px;">Ringkasan Eksekutif AI</strong>
+    ${safeSummary}
+  </div>
+  <pre>${safeBody}</pre>
+  <div class="footer">Dokumen ini dijana secara automatik oleh Portal E-Aduan AI PERMAS Nasional. Simpan salinan PDF ini sebagai rujukan rasmi anda.</div>
+  <script>window.onload = function(){ window.print(); };<\/script>
+</body>
+</html>`);
+      printWin.document.close();
+    }
+
     async function copyAiReportText() {
       if (!window._lastAiReportText) return;
       try {
         await navigator.clipboard.writeText(window._lastAiReportText);
-        showToast('📋 Laporan lengkap janaan AI berjaya disalin ke papan keratan!', 'success');
+        showToast('📋 No. Rujukan & laporan rasmi AI berjaya disalin!', 'success');
       } catch (e) {
         showToast('Sila pilih dan salin teks laporan secara manual daripada kotak paparan.', 'info');
       }
@@ -855,10 +900,19 @@
       const report = generateAiOfficialReport(data);
 
       window._lastAiReportText = report.fullEmailText;
+      window._lastAiReceiptMeta = {
+        refId: report.refId,
+        timeLabel: report.timeLabel,
+        priority: report.priority,
+        bureau: report.bureau,
+        summary: report.summary,
+        fullEmailText: report.fullEmailText,
+        tajuk: data.tajuk
+      };
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = '⏳ AI Sedang Menulis & Menghantar ke Emel PERMAS...';
+        submitBtn.textContent = '⏳ AI Sedang Menulis Laporan & Menghantar ke PERMAS...';
       }
 
       document.getElementById('ai-rep-ref').textContent = report.refId;
@@ -867,50 +921,65 @@
       document.getElementById('ai-rep-summary').textContent = report.summary;
       document.getElementById('ai-rep-body').textContent = report.fullEmailText;
 
-      const mailtoHref = `mailto:permasnasionalofficial@gmail.com?subject=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}`;
-      const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=permasnasionalofficial@gmail.com&su=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}`;
-
-      const gmailBtn = document.getElementById('gmail-direct-btn');
-      if (gmailBtn) gmailBtn.href = gmailHref;
-      const mailBtn = document.getElementById('mailto-direct-btn');
-      if (mailBtn) mailBtn.href = mailtoHref;
-      const waBtn = document.getElementById('wa-direct-btn');
-      if (waBtn) {
-        waBtn.href = `https://wa.me/60355447000?text=${encodeURIComponent(report.fullEmailText)}`;
-      }
-
-      setEmailStatusBadge('loading', '⏳ AI selesai menulis laporan — sedang menghantar ke permasnasionalofficial@gmail.com...');
+      setEmailStatusBadge('loading', '⏳ AI telah menjana laporan rasmi — sedang menghantar ke permasnasionalofficial@gmail.com...');
       const successBox = document.getElementById('complaint-success');
       successBox.classList.remove('hidden');
       successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
+      const gasWebhookUrl = String(window.PERMAS_GAS_WEBHOOK_URL || localStorage.getItem('permas_gas_webhook_url') || '').trim();
+      const gasPayload = {
+        refNo: report.refId,
+        priority: report.priority,
+        bureau: report.bureau,
+        timestampDisplay: report.timeLabel,
+        nama: data.nama,
+        ic: data.ic,
+        emel: data.emel,
+        ipt: data.ipt,
+        tel: data.tel,
+        kategori: data.kategori,
+        daerah: data.daerah,
+        tajuk: data.tajuk,
+        keterangan: data.keterangan,
+        aiSummary: report.summary,
+        sulitText: report.pdpaStatus,
+        reportBody: report.fullEmailText
+      };
+
+      let gasDelivered = false;
       let emailDelivered = false;
       let needsActivation = false;
       let savedLocally = false;
 
-      // 1. Try local Python server relay (/api/submit-aduan)
+      // 1. Cuba pelayan tempatan (/api/submit-aduan) untuk rekod tempatan & relay terus ke GAS/FormSubmit
       try {
         const localRes = await fetch('/api/submit-aduan', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             refId: report.refId,
+            timestampDisplay: report.timeLabel,
             nama: data.nama,
             ic: data.ic,
+            emel: data.emel,
             ipt: data.ipt,
             tel: data.tel,
             daerah: data.daerah,
             kategori: data.kategori,
+            keterangan: data.keterangan,
+            aiSummary: report.summary,
             sulit: report.pdpaStatus,
             tajuk: data.tajuk,
             priority: report.priority,
             bureau: report.bureau,
-            aiReportText: report.fullEmailText
+            aiReportText: report.fullEmailText,
+            gasWebhookUrl: gasWebhookUrl
           })
         });
         if (localRes.ok) {
           const localJson = await localRes.json();
           savedLocally = Boolean(localJson.savedLocally);
+          gasDelivered = Boolean(localJson.gasSent);
           emailDelivered = Boolean(localJson.emailSent);
           if ((localJson.emailDetail || '').toLowerCase().includes('activation')) {
             needsActivation = true;
@@ -918,8 +987,22 @@
         }
       } catch (err) {}
 
-      // 2. If running on GitHub Pages or local relay didn't complete email delivery, send directly via FormSubmit AJAX
-      if (!emailDelivered && !needsActivation) {
+      // 2. Hantaran langsung ke Google Apps Script Webhook (utama untuk GitHub Pages / awam)
+      if (!gasDelivered && /^https:\/\/script\.google\.com\/macros\/s\//i.test(gasWebhookUrl)) {
+        try {
+          await fetch(gasWebhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(gasPayload)
+          });
+          gasDelivered = true;
+          emailDelivered = true;
+        } catch (err) {}
+      }
+
+      // 3. Saluran sandaran FormSubmit AJAX jika Google Apps Script Webhook belum dikonfigurasikan
+      if (!gasDelivered && !emailDelivered && !needsActivation) {
         try {
           const fsRes = await fetch('https://formsubmit.co/ajax/permasnasionalofficial@gmail.com', {
             method: 'POST',
@@ -931,10 +1014,12 @@
               _subject: report.subject,
               _template: 'box',
               _captcha: 'false',
+              _replyto: data.emel || undefined,
               No_Rujukan: report.refId,
               Keutamaan_AI: report.priority,
               Biro_Bertanggungjawab: report.bureau,
               Nama_Pengadu: data.nama,
+              Emel_Pengadu: data.emel || '-',
               Universiti_IPT: data.ipt,
               No_Telefon_WhatsApp: data.tel,
               Daerah_Selangor: data.daerah,
@@ -953,20 +1038,18 @@
         } catch (err) {}
       }
 
-      if (emailDelivered) {
+      if (gasDelivered) {
+        setEmailStatusBadge('success', '✅ Laporan Rasmi AI Dihantar ke permasnasionalofficial@gmail.com, Direkod ke Google Sheets & Resit Dihantar ke Emel Anda!');
+        showToast(`✅ Aduan (${report.refId}) berjaya dihantar ke PERMAS Nasional & resit dihantar ke ${data.emel}!`, 'success');
+      } else if (emailDelivered) {
         setEmailStatusBadge('success', '✅ Laporan Janaan AI Berjaya Dihantar Terus ke permasnasionalofficial@gmail.com!');
         showToast(`✅ Aduan (${report.refId}) ditulis oleh AI & dihantar terus ke emel PERMAS!`, 'success');
-      } else if (needsActivation) {
-        setEmailStatusBadge('warning', '⚠️ Laporan AI disimpan! Admin PERMAS perlu klik pautan pengesahan FormSubmit kali pertama di inbox permasnasionalofficial@gmail.com, atau klik Gmail Web di bawah.');
-        showToast('⚠️ Laporan AI siap! Klik pengesahan FormSubmit kali pertama di emel PERMAS atau guna butang Gmail Web.', 'info');
-      } else if (savedLocally) {
-        setEmailStatusBadge('warning', '💾 Laporan AI direkodkan! Sambungan emel automatik terhalang — aplikasi emel dibuka sebagai sandaran.');
-        showToast('💾 Laporan AI direkodkan. Membuka aplikasi emel untuk hantaran terus...', 'info');
-        window.location.href = mailtoHref;
+      } else if (needsActivation || savedLocally) {
+        setEmailStatusBadge('warning', '💾 Resit rasmi AI dijana & kes direkodkan! Sila cetak resit PDF atau lengkapkan tetapan Webhook Apps Script untuk penghantaran automatik penuh.');
+        showToast(`💾 Aduan (${report.refId}) telah direkodkan. Sila simpan resit rasmi PDF anda.`, 'info');
       } else {
-        setEmailStatusBadge('warning', '✉️ Membuka aplikasi emel anda dengan laporan lengkap janaan AI...');
-        showToast('Membuka aplikasi emel siap diisi AI ke permasnasionalofficial@gmail.com...', 'info');
-        window.location.href = mailtoHref;
+        setEmailStatusBadge('warning', '⚠️ Resit rasmi AI telah dijana! Sila muat turun PDF / salin laporan sementara sambungan penghantaran automatik disiapkan.');
+        showToast('⚠️ Resit rasmi dijana. Sila simpan salinan PDF atau salin laporan.', 'info');
       }
 
       e.target.reset();

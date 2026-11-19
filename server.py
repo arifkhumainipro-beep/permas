@@ -27,6 +27,7 @@ import xml.etree.ElementTree as ET
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.join(ROOT_DIR, 'js', 'live-news-cache.json')
 ADUAN_LOG_PATH = os.path.join(ROOT_DIR, 'js', 'aduan-submissions.json')
+GAS_CONFIG_PATH = os.path.join(ROOT_DIR, 'js', 'gas-config.js')
 ADUAN_LOCK = threading.Lock()
 DRIVE_SYNC_LOCK = threading.Lock()
 DRIVE_FOLDER_ID = '1VBIh012vL_y0Fk4CkYZz6XXlZndY4H6g'
@@ -541,6 +542,20 @@ def background_git_auto_sync():
         time.sleep(GIT_SYNC_INTERVAL_SECONDS)
 
 
+def get_gas_webhook_url() -> str:
+    if not os.path.exists(GAS_CONFIG_PATH):
+        return ''
+    try:
+        with open(GAS_CONFIG_PATH, 'r', encoding='utf-8') as f:
+            content = f.read()
+        match = re.search(r'''PERMAS_GAS_WEBHOOK_URL\s*=\s*(['"])(.*?)\1''', content)
+        if match:
+            return match.group(2).strip()
+    except Exception:
+        pass
+    return ''
+
+
 def handle_submit_aduan(data: dict) -> dict:
     if not isinstance(data, dict):
         raise ValueError('Format aduan tidak sah')
@@ -550,13 +565,16 @@ def handle_submit_aduan(data: dict) -> dict:
     record = {
         'refId': ref_id,
         'submittedAt': now_my.isoformat(),
-        'submittedLabel': now_my.strftime('%d/%m/%Y %H:%M MYT'),
+        'submittedLabel': str(data.get('timestampDisplay') or now_my.strftime('%d/%m/%Y %H:%M MYT')).strip(),
         'nama': str(data.get('nama', '')).strip(),
         'ic': str(data.get('ic', '')).strip(),
+        'emel': str(data.get('emel', '')).strip(),
         'ipt': str(data.get('ipt', '')).strip(),
         'tel': str(data.get('tel', '')).strip(),
         'daerah': str(data.get('daerah', '')).strip(),
         'kategori': str(data.get('kategori', '')).strip(),
+        'keterangan': str(data.get('keterangan', '')).strip(),
+        'aiSummary': str(data.get('aiSummary', '')).strip(),
         'sulit': str(data.get('sulit', '')).strip(),
         'tajuk': str(data.get('tajuk', '')).strip(),
         'priority': str(data.get('priority', '')).strip(),
@@ -583,49 +601,106 @@ def handle_submit_aduan(data: dict) -> dict:
             json.dump(existing[:200], f, ensure_ascii=False, indent=2)
         os.replace(tmp_path, ADUAN_LOG_PATH)
 
+    gas_url = get_gas_webhook_url() or str(data.get('gasWebhookUrl', '')).strip()
+    gas_sent = False
     email_sent = False
     email_detail = ''
-    relay_payload = json.dumps({
-        '_subject': f"[E-Aduan AI PERMAS] {record['refId']} | {record['kategori']} - {record['tajuk']}",
-        '_template': 'box',
-        '_captcha': 'false',
-        'No_Rujukan': record['refId'],
-        'Keutamaan_AI': record['priority'],
-        'Biro_Bertanggungjawab': record['bureau'],
-        'Nama_Pengadu': record['nama'],
-        'Universiti_IPT': record['ipt'],
-        'No_Telefon_WhatsApp': record['tel'],
-        'Daerah_Selangor': record['daerah'],
-        'Status_Kerahsiaan': record['sulit'],
-        'Laporan_Penuh_Janaan_AI': record['aiReportText'],
-    }).encode('utf-8')
 
-    try:
-        ctx = ssl._create_unverified_context()
-        req = urllib.request.Request(
-            'https://formsubmit.co/ajax/permasnasionalofficial@gmail.com',
-            data=relay_payload,
-            headers={
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Origin': 'https://arifkhumainipro-beep.github.io',
-                'Referer': 'https://arifkhumainipro-beep.github.io/permas/aduan.html',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            },
-            method='POST',
-        )
-        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
-            resp_data = json.loads(resp.read().decode('utf-8', errors='replace'))
-            succ = str(resp_data.get('success', '')).lower()
-            msg = str(resp_data.get('message', '')).strip()
-            email_sent = succ == 'true'
-            email_detail = msg or ('Dihantar ke permasnasionalofficial@gmail.com' if email_sent else 'Perlu pengaktifan FormSubmit')
-    except Exception as exc:
-        email_detail = f'Relay emel tidak dapat dihubungi ({exc})'
+    # 1. Utamakan Google Apps Script Webhook (hantar emel rasmi HTML + resit pengadu + rekod Google Sheets)
+    if gas_url.startswith('https://script.google.com/macros/s/'):
+        gas_payload = json.dumps({
+            'refNo': record['refId'],
+            'priority': record['priority'],
+            'bureau': record['bureau'],
+            'timestampDisplay': record['submittedLabel'],
+            'nama': record['nama'],
+            'ic': record['ic'],
+            'emel': record['emel'],
+            'ipt': record['ipt'],
+            'tel': record['tel'],
+            'kategori': record['kategori'],
+            'daerah': record['daerah'],
+            'tajuk': record['tajuk'],
+            'keterangan': record['keterangan'],
+            'aiSummary': record['aiSummary'],
+            'sulitText': record['sulit'],
+            'reportBody': record['aiReportText'],
+        }).encode('utf-8')
+        try:
+            ctx = ssl._create_unverified_context()
+            req = urllib.request.Request(
+                gas_url,
+                data=gas_payload,
+                headers={
+                    'Content-Type': 'text/plain;charset=utf-8',
+                    'User-Agent': 'PERMAS-Portal-Server/1.0',
+                },
+                method='POST',
+            )
+            with urllib.request.urlopen(req, context=ctx, timeout=20) as resp:
+                resp_body = resp.read().decode('utf-8', errors='replace')
+                try:
+                    gas_json = json.loads(resp_body)
+                    if gas_json.get('ok'):
+                        gas_sent = True
+                        email_sent = True
+                        email_detail = 'Dihantar melalui Google Apps Script Webhook (Gmail + Google Sheets)'
+                except Exception:
+                    if resp.status == 200:
+                        gas_sent = True
+                        email_sent = True
+                        email_detail = 'Dihantar ke Google Apps Script Webhook'
+        except Exception as exc:
+            email_detail = f'Relay Apps Script gagal ({exc})'
+
+    # 2. Sandaran FormSubmit AJAX jika Webhook Apps Script belum dipasang / belum berjaya
+    if not gas_sent:
+        relay_obj = {
+            '_subject': f"[E-Aduan AI PERMAS] {record['refId']} | {record['kategori']} - {record['tajuk']}",
+            '_template': 'box',
+            '_captcha': 'false',
+            'No_Rujukan': record['refId'],
+            'Keutamaan_AI': record['priority'],
+            'Biro_Bertanggungjawab': record['bureau'],
+            'Nama_Pengadu': record['nama'],
+            'Emel_Pengadu': record['emel'] or '-',
+            'Universiti_IPT': record['ipt'],
+            'No_Telefon_WhatsApp': record['tel'],
+            'Daerah_Selangor': record['daerah'],
+            'Status_Kerahsiaan': record['sulit'],
+            'Laporan_Penuh_Janaan_AI': record['aiReportText'],
+        }
+        if record['emel']:
+            relay_obj['_replyto'] = record['emel']
+        relay_payload = json.dumps(relay_obj).encode('utf-8')
+
+        try:
+            ctx = ssl._create_unverified_context()
+            req = urllib.request.Request(
+                'https://formsubmit.co/ajax/permasnasionalofficial@gmail.com',
+                data=relay_payload,
+                headers={
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Origin': 'https://arifkhumainipro-beep.github.io',
+                    'Referer': 'https://arifkhumainipro-beep.github.io/permas/aduan.html',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                },
+                method='POST',
+            )
+            with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+                resp_data = json.loads(resp.read().decode('utf-8', errors='replace'))
+                succ = str(resp_data.get('success', '')).lower()
+                msg = str(resp_data.get('message', '')).strip()
+                email_sent = succ == 'true'
+                email_detail = msg or ('Dihantar ke permasnasionalofficial@gmail.com' if email_sent else 'Perlu pengaktifan FormSubmit')
+        except Exception as exc:
+            email_detail = f'Relay emel tidak dapat dihubungi ({exc})'
 
     return {
         'status': 'ok',
         'savedLocally': True,
+        'gasSent': gas_sent,
         'emailSent': email_sent,
         'emailDetail': email_detail,
         'refId': ref_id,
