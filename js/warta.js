@@ -134,7 +134,7 @@
     const archiveStories = others.slice(3);
 
     const leadParas = splitParagraphs(lead.body);
-    const leadExcerpt = leadParas.slice(0, 2).join('\n\n');
+    const leadExcerpt = leadParas.slice(0, 4).join('\n\n');
     const leadGalCount = Array.isArray(lead.gallery) ? lead.gallery.length : 0;
 
     const leadHtml = `
@@ -220,7 +220,7 @@
                     </p>
                   </div>
                 </div>
-                <p class="font-newsbody text-xs paper-muted leading-relaxed mt-2 line-clamp-2">
+                <p class="font-newsbody text-xs paper-muted leading-relaxed mt-2 line-clamp-3">
                   ${esc(art.subtitle || splitParagraphs(art.body)[0] || '')}
                 </p>
                 <div class="mt-2 text-[11px] no-print">
