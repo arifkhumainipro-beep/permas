@@ -389,7 +389,13 @@
               </div>
 
               <div class="flex flex-wrap gap-2.5 pt-1">
-                <button type="button" onclick="printOfficialAduanReceipt()" class="px-4 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
+                <a id="gmail-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-red-700 hover:bg-red-600 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
+                  <span>📨 Buka Gmail Pelajar &amp; Tekan Send (Siap Diisi AI)</span>
+                </a>
+                <a id="mailto-direct-btn" href="#" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
+                  <span>✉️ Buka Aplikasi Emel (Mail App)</span>
+                </a>
+                <button type="button" onclick="printOfficialAduanReceipt()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5">
                   <span>🖨️ Cetak / Simpan Resit Rasmi (PDF)</span>
                 </button>
                 <button type="button" onclick="copyAiReportText()" class="px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/40 text-amber-300 text-xs font-bold transition inline-flex items-center gap-1.5">
@@ -921,10 +927,30 @@
       document.getElementById('ai-rep-summary').textContent = report.summary;
       document.getElementById('ai-rep-body').textContent = report.fullEmailText;
 
-      setEmailStatusBadge('loading', '⏳ AI telah menjana laporan rasmi — sedang menghantar ke permasnasionalofficial@gmail.com...');
+      const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=permasnasionalofficial@gmail.com&su=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}${data.emel ? '&authuser=' + encodeURIComponent(data.emel) : ''}`;
+      const mailtoHref = `mailto:permasnasionalofficial@gmail.com?subject=${encodeURIComponent(report.subject)}&body=${encodeURIComponent(report.fullEmailText)}`;
+
+      const gmailBtn = document.getElementById('gmail-direct-btn');
+      if (gmailBtn) gmailBtn.href = gmailHref;
+      const mailBtn = document.getElementById('mailto-direct-btn');
+      if (mailBtn) mailBtn.href = mailtoHref;
+
+      setEmailStatusBadge('loading', `📨 AI telah menjana laporan & sedang membuka emel pelajar (${data.emel || 'akaun anda'})...`);
       const successBox = document.getElementById('complaint-success');
       successBox.classList.remove('hidden');
       successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Terus buka emel pelajar serta-merta (sebelum await fetch supaya tidak disekat popup blocker pelayar)
+      const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobileDevice) {
+        window.location.href = mailtoHref;
+      } else {
+        const openedWin = window.open(gmailHref, '_blank');
+        if (!openedWin || openedWin.closed || typeof openedWin.closed === 'undefined') {
+          window.location.href = mailtoHref;
+        }
+      }
+      showToast('📨 Laporan AI telah dijana & tetingkap emel anda dibuka — sila tekan Send untuk menghantar!', 'success');
 
       const gasWebhookUrl = String(window.PERMAS_GAS_WEBHOOK_URL || localStorage.getItem('permas_gas_webhook_url') || '').trim();
       const gasPayload = {
