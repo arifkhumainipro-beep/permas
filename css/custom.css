@@ -3,7 +3,7 @@
    No AI cliches. Sharp typography, disciplined white space, elegant micro-interactions.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap');
 
 :root {
   --sel-red: #991B1B;
@@ -845,13 +845,13 @@ html.dark-mode .nav-tab-item {
   color: #CBD5E1;
   font-weight: 600;
   letter-spacing: 0.01em;
-  padding: 0 0.85rem;
+  padding: 0 0.68rem;
 }
 
-@media (min-width: 1024px) and (max-width: 1199px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
   html.dark-mode .nav-tab-item {
-    padding: 0 0.58rem;
-    font-size: 0.74rem;
+    padding: 0 0.46rem;
+    font-size: 0.72rem;
   }
 }
 
@@ -1167,5 +1167,216 @@ html, body {
 
   footer {
     padding-bottom: 5.5rem !important;
+  }
+}
+
+/* ============================================================
+   WARTA DIGITAL PERMAS NASIONAL (DIGITAL BROADSHEET NEWSPAPER)
+   ============================================================ */
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
+  letter-spacing: -0.015em;
+}
+
+.font-newsbody {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif !important;
+}
+
+.broadsheet-paper {
+  --paper-bg: #FAF5EA;
+  --paper-card: #F4EDE0;
+  --paper-ink: #171310;
+  --paper-muted: #574F46;
+  --paper-accent: #8B1518;
+  --paper-gold: #B45309;
+  --paper-rule: rgba(28, 24, 20, 0.2);
+  --paper-rule-strong: #1C1814;
+  background-color: var(--paper-bg) !important;
+  color: var(--paper-ink) !important;
+  border: 1px solid var(--paper-rule) !important;
+  background-image:
+    radial-gradient(rgba(23, 19, 16, 0.03) 1px, transparent 0),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(235, 224, 204, 0.16) 100%);
+  background-size: 18px 18px, 100% 100%;
+  box-shadow: 0 28px 60px -24px rgba(0, 0, 0, 0.45);
+}
+
+html.dark-mode .broadsheet-paper.paper-classic,
+.broadsheet-paper.paper-classic {
+  --paper-bg: #FAF5EA;
+  --paper-card: #F3EAD8;
+  --paper-ink: #171310;
+  --paper-muted: #574F46;
+  --paper-accent: #8B1518;
+  --paper-gold: #B45309;
+  --paper-rule: rgba(28, 24, 20, 0.22);
+  --paper-rule-strong: #1C1814;
+  background-color: #FAF5EA !important;
+  color: #171310 !important;
+  border-color: rgba(28, 24, 20, 0.28) !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic h1,
+html.dark-mode .broadsheet-paper.paper-classic h2,
+html.dark-mode .broadsheet-paper.paper-classic h3,
+html.dark-mode .broadsheet-paper.paper-classic h4,
+html.dark-mode .broadsheet-paper.paper-classic .paper-ink {
+  color: #171310 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic .paper-muted {
+  color: #574F46 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic .paper-accent {
+  color: #8B1518 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic .paper-gold {
+  color: #92400E !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic .paper-card {
+  background-color: #F2E8D6 !important;
+  border-color: rgba(28, 24, 20, 0.2) !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-classic .paper-photo-frame {
+  background-color: #E7DCC8 !important;
+  border-color: rgba(28, 24, 20, 0.24) !important;
+}
+
+.broadsheet-paper.paper-dark,
+html.dark-mode .broadsheet-paper.paper-dark {
+  --paper-bg: #0F172A;
+  --paper-card: #131D33;
+  --paper-ink: #F1ECE1;
+  --paper-muted: #94A3B8;
+  --paper-accent: #F87171;
+  --paper-gold: #FBBF24;
+  --paper-rule: rgba(251, 191, 36, 0.22);
+  --paper-rule-strong: rgba(251, 191, 36, 0.72);
+  background-color: #0F172A !important;
+  color: #F1ECE1 !important;
+  border-color: rgba(251, 191, 36, 0.22) !important;
+  background-image:
+    radial-gradient(rgba(241, 236, 225, 0.03) 1px, transparent 0),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.35) 0%, rgba(9, 13, 22, 0.25) 100%);
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-ink {
+  color: #F1ECE1 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-muted {
+  color: #94A3B8 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-accent {
+  color: #F87171 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-gold {
+  color: #FBBF24 !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-card {
+  background-color: #131D33 !important;
+  border-color: rgba(251, 191, 36, 0.2) !important;
+}
+
+html.dark-mode .broadsheet-paper.paper-dark .paper-photo-frame {
+  background-color: #090D16 !important;
+  border-color: rgba(251, 191, 36, 0.22) !important;
+}
+
+.broadsheet-double-rule {
+  border-top: 3px solid var(--paper-rule-strong);
+  border-bottom: 1px solid var(--paper-rule-strong);
+  padding: 2px 0;
+}
+
+.broadsheet-hairline {
+  border-color: var(--paper-rule) !important;
+}
+
+.broadsheet-columns {
+  column-count: 1;
+}
+
+@media (min-width: 768px) {
+  .broadsheet-columns {
+    column-count: 2;
+    column-gap: 1.75rem;
+    column-rule: 1px solid var(--paper-rule);
+  }
+}
+
+.broadsheet-dropcap::first-letter {
+  float: left;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.35rem;
+  line-height: 0.84;
+  padding-right: 0.55rem;
+  padding-top: 0.16rem;
+  font-weight: 900;
+  color: var(--paper-accent);
+}
+
+.broadsheet-sidebar-rule {
+  border-top: 1px solid var(--paper-rule);
+  padding-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .broadsheet-sidebar-rule {
+    border-top: 0;
+    padding-top: 0;
+    border-left: 1px solid var(--paper-rule);
+    padding-left: 1.75rem;
+  }
+}
+
+.broadsheet-col-divider {
+  border-color: var(--paper-rule);
+}
+
+@media print {
+  header,
+  footer,
+  .selangor-ribbon,
+  #warta-toolbar,
+  #warta-editor-modal,
+  #permas-floating-dock,
+  #royal-theme-toast,
+  .no-print {
+    display: none !important;
+  }
+
+  body,
+  html.dark-mode body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .broadsheet-paper,
+  html.dark-mode .broadsheet-paper {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  #warta-reader-modal {
+    position: static !important;
+    background: #FFFFFF !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  #warta-reader-modal .broadsheet-paper {
+    max-width: 100% !important;
+    box-shadow: none !important;
   }
 }
