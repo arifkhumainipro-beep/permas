@@ -939,7 +939,8 @@ html.dark-mode .bg-amber-100 {
 
 html.dark-mode .bg-emerald-50,
 html.dark-mode .bg-emerald-50\/50,
-html.dark-mode .bg-emerald-50\/70 {
+html.dark-mode .bg-emerald-50\/70,
+html.dark-mode .bg-emerald-100 {
   background-color: rgba(5, 150, 105, 0.18) !important;
 }
 
