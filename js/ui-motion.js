@@ -387,6 +387,10 @@ function initScrollRevealAndFloatingDock() {
           <span>📰</span>
           <span>Warta Berita Terkini</span>
         </a>
+        <a href="warta.html?v=1" class="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-extrabold shadow-lg border border-amber-300 flex items-center gap-2 transition hover:-translate-x-1">
+          <span>🗞️</span>
+          <span>Surat Khabar Program</span>
+        </a>
       </div>
       <div class="flex items-center gap-2">
         <button id="dock-scroll-top" type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Kembali ke Atas" class="hidden w-11 h-11 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 shadow-xl items-center justify-center transition hover:-translate-y-0.5">
