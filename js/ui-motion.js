@@ -12,11 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
   initRoyalDarkModeToggle();
   initScrollProgressAndHeader();
   initAnimatedNavbar();
+  initMobileNavAutoClose();
   initHeroConstellationCanvas();
   init3DCardTiltAndSpotlight();
   initAnimatedCountersAndBars();
   initScrollRevealAndFloatingDock();
 });
+
+function initMobileNavAutoClose() {
+  const mobileNav = document.getElementById('mobile-nav');
+  if (!mobileNav) return;
+  mobileNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.add('hidden');
+    });
+  });
+}
 
 /* ---------------------------------------------------------------------------
    0. SELANGOR PERMANENT DARK MODE (MOD GELAP KEKAL)
@@ -240,6 +251,7 @@ function initHeroConstellationCanvas() {
 --------------------------------------------------------------------------- */
 function init3DCardTiltAndSpotlight() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.innerWidth < 768 || window.matchMedia('(hover: none)').matches) return;
   const cards = document.querySelectorAll('.bento-card, .bento-card-dark');
 
   cards.forEach((card) => {
