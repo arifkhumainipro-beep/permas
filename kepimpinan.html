@@ -299,40 +299,70 @@
   </section>
 
   <!-- ========================================================
-       PORTFOLIO FILTER TABS & LEADERSHIP GRID
+       SEKSYEN 1: BARISAN MAJLIS TERTINGGI (MT)
   ======================================================== -->
-  <section class="py-14 bg-slate-50 border-b border-slate-200 flex-1">
+  <section id="seksyen-majlis-tertinggi" class="py-14 bg-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <div class="flex items-center justify-between flex-wrap gap-4 mb-8 text-left">
         <div>
-          <h3 class="font-extrabold font-heading text-slate-900 text-xl">
-            Struktur Kabinet & Majlis Eksekutif
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 text-[11px] font-extrabold uppercase tracking-wider mb-2">
+            <span>10 Pimpinan Utama</span>
+          </div>
+          <h3 class="font-extrabold font-heading text-slate-900 text-2xl">
+            Barisan Majlis Tertinggi (MT)
           </h3>
-          <p class="text-xs text-slate-500 mt-0.5">Pilih bahagian untuk melihat perincian pimpinan mengikut seksyen portfolio</p>
+          <p class="text-xs text-slate-500 mt-1">
+            Barisan peneraju utama yang menerajui tadbir urus dan dasar PERMAS Nasional
+          </p>
+        </div>
+      </div>
+
+      <!-- DYNAMIC MAJLIS TERTINGGI GRID -->
+      <div id="mt-leadership-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SEKSYEN 2: BARISAN MAJLIS EKSEKUTIF (EXCO KEBANGSAAN)
+  ======================================================== -->
+  <section id="seksyen-exco" class="py-14 bg-slate-50 border-b border-slate-200 flex-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-8 text-left">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-800/60 text-red-300 text-[11px] font-extrabold uppercase tracking-wider mb-2">
+            <span>12 Exco Portfolio</span>
+          </div>
+          <h3 class="font-extrabold font-heading text-slate-900 text-2xl">
+            Barisan Majlis Eksekutif (Exco Kebangsaan)
+          </h3>
+          <p class="text-xs text-slate-500 mt-1">
+            Pilih bahagian untuk melihat barisan Exco mengikut seksyen portfolio
+          </p>
         </div>
 
         <div class="flex items-center gap-2 overflow-x-auto pb-2 max-w-full">
-          <button onclick="filterLeadership('all', this)" class="leader-chip active">
-            Semua (22)
+          <button onclick="filterExco('all', this)" class="leader-chip active">
+            Semua Exco (12)
           </button>
-          <button onclick="filterLeadership('tertinggi', this)" class="leader-chip">
-            Majlis Tertinggi (10)
+          <button onclick="filterExco('pembangunan', this)" class="leader-chip">
+            Pembangunan &amp; Pemerkasaan (4)
           </button>
-          <button onclick="filterLeadership('pembangunan', this)" class="leader-chip">
-            Pembangunan & Pemerkasaan (4)
-          </button>
-          <button onclick="filterLeadership('kebajikan', this)" class="leader-chip">
+          <button onclick="filterExco('kebajikan', this)" class="leader-chip">
             Kebajikan Mahasiswa (4)
           </button>
-          <button onclick="filterLeadership('komunikasi', this)" class="leader-chip">
-            Komunikasi & Korporat (4)
+          <button onclick="filterExco('komunikasi', this)" class="leader-chip">
+            Komunikasi &amp; Korporat (4)
           </button>
         </div>
       </div>
 
-      <!-- DYNAMIC LEADERSHIP CARDS GRID -->
-      <div id="leadership-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
+      <!-- DYNAMIC EXCO CARDS GRID -->
+      <div id="exco-leadership-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-left">
         <!-- Rendered via JavaScript -->
       </div>
 
