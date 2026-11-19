@@ -70,20 +70,21 @@ TRUSTED_PORTAL_MAP = {
 }
 
 QUERIES = [
-    'site:astroawani.com (mahasiswa OR pelajar IPT OR universiti OR UiTM OR UNISEL OR UKM OR UPM OR UIAM OR PTPTN OR KPT OR biasiswa)',
-    'site:astroawani.com (mahasiswa Selangor OR Hadiah Pengajian IPT OR UNISEL OR UiTM OR UKM OR UPM)',
-    '(site:sinarharian.com.my OR site:bharian.com.my OR site:bernama.com) (mahasiswa Selangor OR pelajar IPT Selangor OR UNISEL OR UiTM OR UKM OR UPM OR UIAM)',
-    '(site:hmetro.com.my OR site:utusan.com.my OR site:kosmo.com.my) (mahasiswa Selangor OR pelajar IPT Selangor OR UNISEL OR UiTM OR UKM OR UPM OR HPIPT)',
-    '(site:buletintv3.my OR site:malaysiagazette.com OR site:berita.rtm.gov.my OR site:selangorkini.my) (mahasiswa OR pelajar IPT OR UiTM OR UNISEL OR UKM OR UPM) Selangor',
-    '(site:astroawani.com OR site:bernama.com OR site:bharian.com.my OR site:sinarharian.com.my OR site:utusan.com.my OR site:hmetro.com.my OR site:kosmo.com.my) (mahasiswa OR KPT OR PTPTN OR konvokesyen OR inovasi mahasiswa OR biasiswa IPT)',
+    '(mahasiswa OR "pelajar IPT" OR "Hadiah Pengajian IPT" OR HPIPT OR biasiswa OR dermasiswa) Selangor',
+    'site:astroawani.com (mahasiswa OR "pelajar IPT" OR "Hadiah Pengajian IPT" OR PTPTN OR biasiswa OR graduan OR konvokesyen)',
+    '(site:sinarharian.com.my OR site:bharian.com.my OR site:bernama.com) (mahasiswa OR "pelajar IPT" OR graduan OR biasiswa OR "Kesatuan Pelajar") (Selangor OR UNISEL OR UiTM OR UKM OR UPM OR UIAM)',
+    '(site:hmetro.com.my OR site:utusan.com.my OR site:kosmo.com.my) (mahasiswa OR "pelajar IPT" OR HPIPT OR biasiswa OR graduan) (Selangor OR UNISEL OR UiTM OR UKM OR UPM)',
+    '(site:buletintv3.my OR site:malaysiagazette.com OR site:berita.rtm.gov.my) (mahasiswa OR "pelajar IPT" OR graduan OR biasiswa) (Selangor OR UKM OR UPM OR UiTM OR UNISEL)',
+    '(site:astroawani.com OR site:bernama.com OR site:bharian.com.my OR site:sinarharian.com.my OR site:utusan.com.my OR site:hmetro.com.my OR site:kosmo.com.my) (mahasiswa OR PTPTN OR "pelajar IPT" OR graduan OR konvokesyen)',
 ]
 
 STUDENT_KW = [
-    'mahasiswa', 'mahasiswi', 'siswa', 'pelajar ipt', 'pelajar universiti',
-    'universiti', 'graduan', 'kampus', 'biasiswa', 'dermasiswa', 'unisel',
-    'uitm', 'ukm', 'upm', 'uis', 'uiam', 'kpt', 'pengajian tinggi', 'ptptn',
-    'politeknik', 'hpipt', 'konvokesyen', 'kesatuan pelajar',
+    'mahasiswa', 'mahasiswi', 'siswa', 'siswi', 'pelajar ipt', 'pelajar universiti',
+    'pelajar ukm', 'pelajar upm', 'pelajar uitm', 'pelajar unisel', 'pelajar uiam',
+    'graduan', 'kampus', 'biasiswa', 'dermasiswa', 'pengajian tinggi', 'ptptn',
+    'hpipt', 'hadiah pengajian', 'konvokesyen', 'kesatuan pelajar',
     'majlis perwakilan pelajar', 'yuran pengajian', 'inovasi pelajar',
+    'wang saku pelajar', 'bantuan rm1,000', 'pelajar politeknik', 'anak asnaf di ipt',
 ]
 
 SELANGOR_KW = [
@@ -101,7 +102,8 @@ EXCLUDE_KW = [
     'anak perak', 'rakyat sabah', 'kerajaan sarawak', 'pelajar sarawak',
     'pelajar ipt sarawak', 'ketua menteri melaka', 'sarawak memilih',
     'pickleball', 'jamali shadat', 'hospital sentosa', 'kematian pelajar',
-    'kes tetak', 'warga asing', 'uitm tawau',
+    'kes tetak', 'warga asing', 'uitm tawau', 'shahrol shiro', 'lkan 1/2026',
+    'penghina sultan', 'pensyarah ukm', 'pemuda pas', 'cancel culture',
 ]
 
 BANTUAN_KW = [
@@ -247,7 +249,8 @@ def fetch_live_news_items():
             if not any(kw in low for kw in STUDENT_KW):
                 continue
 
-            norm_key = re.sub(r'\W+', '', clean_title.lower())
+            dedup_title = re.sub(r'^\[[^\]]+\]\s*', '', clean_title).lower()
+            norm_key = re.sub(r'\W+', '', dedup_title)
             if norm_key in seen_titles:
                 continue
 
