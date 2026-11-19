@@ -1113,3 +1113,59 @@ html.dark-mode .leaflet-popup-content-wrapper {
 html.dark-mode .leaflet-popup-tip {
   background: #0F172A !important;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE LAYOUT POLISH (< 640px & TOUCH DEVICES)
+   ============================================================ */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* Hide clunky horizontal scrollbars inside pill tabs on mobile */
+.overflow-x-auto {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .bento-card,
+  .pro-card,
+  .metric-box {
+    padding: 1.15rem !important;
+    border-radius: 18px !important;
+  }
+
+  h1, h2, h3, h4, p, a, span, li, strong {
+    overflow-wrap: anywhere;
+  }
+
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+
+  .leader-chip {
+    padding: 7px 14px;
+    font-size: 0.75rem;
+  }
+
+  #permas-floating-dock {
+    bottom: 14px;
+    right: 14px;
+  }
+
+  #permas-floating-dock #dock-toggle-btn {
+    padding: 9px 14px;
+    font-size: 0.72rem;
+  }
+
+  footer {
+    padding-bottom: 5.5rem !important;
+  }
+}
