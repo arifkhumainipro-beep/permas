@@ -163,7 +163,7 @@
           <span>Diterbitkan dalam Warta Digital PERMAS</span>
         </div>
 
-        <figure class="paper-photo-frame border p-2 sm:p-2.5 cursor-pointer group" onclick="openWartaReader('${esc(lead.id)}')">
+        <figure class="paper-photo-frame border p-2 sm:p-2.5 cursor-pointer group" onclick="openWartaReader('${esc(lead.id)}', 0)">
           <div class="relative overflow-hidden aspect-[16/9] bg-slate-900">
             <img src="${esc(lead.imageUrl)}" alt="${esc(lead.title)}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500">
             ${leadGalCount > 0 ? `
@@ -178,6 +178,24 @@
             </figcaption>
           ` : ''}
         </figure>
+
+        ${leadGalCount > 0 ? `
+          <div class="paper-card border p-2.5 rounded-xl no-print">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider paper-accent">
+                📷 Lensa Program (${leadGalCount + 1} Gambar Pilihan)
+              </span>
+              <span class="text-[10px] font-mono paper-muted">Klik gambar untuk zum penuh</span>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1">
+              ${lead.gallery.map((g, gIdx) => `
+                <button type="button" onclick="openWartaReader('${esc(lead.id)}', ${gIdx + 1})" class="shrink-0 w-24 h-16 paper-photo-frame border p-0.5 overflow-hidden group hover:border-red-700 transition">
+                  <img src="${esc(g.url)}" alt="${esc(g.caption || lead.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
 
         <div class="broadsheet-columns pt-1">
           ${renderParagraphsHtml(leadExcerpt, true)}
@@ -337,7 +355,7 @@
     renderWartaBroadsheet();
   };
 
-  window.openWartaReader = function (id) {
+  window.openWartaReader = function (id, startPhotoIdx = 0) {
     const art = state.articles.find(a => a.id === id);
     if (!art) return;
     state.activeReaderId = id;
@@ -362,17 +380,20 @@
         capEl.classList.add('hidden');
       }
     };
-    setMainPhoto(art.imageUrl, art.caption);
 
     const allPhotos = [{ url: art.imageUrl, caption: art.caption || art.title }]
       .concat(Array.isArray(art.gallery) ? art.gallery : [])
       .filter(p => p && p.url);
 
+    const activeIdx = Math.max(0, Math.min(Number(startPhotoIdx) || 0, Math.max(0, allPhotos.length - 1)));
+    const initialPhoto = allPhotos[activeIdx] || { url: art.imageUrl, caption: art.caption };
+    setMainPhoto(initialPhoto.url, initialPhoto.caption);
+
     const galStrip = document.getElementById('reader-gallery-strip');
     if (allPhotos.length > 1) {
       galStrip.classList.remove('hidden');
       galStrip.innerHTML = allPhotos.map((p, idx) => `
-        <button type="button" data-idx="${idx}" class="warta-reader-thumb shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 ${idx === 0 ? 'border-red-700 ring-2 ring-red-400/50' : 'border-transparent opacity-80 hover:opacity-100'} transition">
+        <button type="button" data-idx="${idx}" class="warta-reader-thumb shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 ${idx === activeIdx ? 'border-red-700 ring-2 ring-red-400/50' : 'border-transparent opacity-80 hover:opacity-100'} transition">
           <img src="${esc(p.url)}" alt="${esc(p.caption)}" class="w-full h-full object-cover">
         </button>
       `).join('');
@@ -392,6 +413,16 @@
     }
 
     document.getElementById('reader-body').innerHTML = renderParagraphsHtml(art.body, true);
+
+    const srcBtn = document.getElementById('reader-source-btn');
+    if (srcBtn) {
+      if (art.sourceUrl) {
+        srcBtn.href = art.sourceUrl;
+        srcBtn.classList.remove('hidden');
+      } else {
+        srcBtn.classList.add('hidden');
+      }
+    }
 
     const shareUrl = `${window.location.origin}${window.location.pathname}#artikel=${encodeURIComponent(art.id)}`;
     const waHref = `https://wa.me/?text=${encodeURIComponent(`*WARTA DIGITAL PERMAS NASIONAL*\n*${art.title}*\n(${art.dateLabel} • ${art.location})\n\n${shareUrl}`)}`;
@@ -442,10 +473,10 @@
               <span class="font-sans font-extrabold paper-accent">${esc(lead.category)}</span>
               <span>${esc(lead.location)} &bull; ${esc(lead.dateLabel)}</span>
             </div>
-            <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
+            <a href="warta.html?v=4#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
               ${esc(lead.title)}
             </a>
-            <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
+            <a href="warta.html?v=4#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
               <div class="aspect-[16/9] overflow-hidden bg-slate-900">
                 <img src="${esc(lead.imageUrl)}" alt="${esc(lead.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
@@ -454,7 +485,7 @@
               ${renderParagraphsHtml(splitParagraphs(lead.body).slice(0, 2).join('\n\n') || lead.subtitle || '', true)}
             </div>
             <div class="pt-1">
-              <a href="warta.html?v=3#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
+              <a href="warta.html?v=4#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
                 Baca Edisi Penuh Akhbar →
               </a>
             </div>
@@ -466,7 +497,7 @@
               <span class="text-[10px] font-mono paper-muted">${state.articles.length} Edisi</span>
             </div>
             ${side.map((art, idx) => `
-              <a href="warta.html?v=3#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
+              <a href="warta.html?v=4#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
                 <div class="flex gap-3 items-start">
                   <div class="w-24 h-18 shrink-0 paper-photo-frame border p-0.5 overflow-hidden">
                     <img src="${esc(art.imageUrl)}" alt="${esc(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -487,7 +518,7 @@
                 <p class="text-[10px] font-extrabold uppercase tracking-wider paper-gold">Arkib Akhbar Program</p>
                 <p class="font-newsbody text-xs paper-muted mt-0.5">Lihat semua sorotan aktiviti &amp; program rasmi PERMAS Nasional.</p>
               </div>
-              <a href="warta.html?v=3" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
+              <a href="warta.html?v=4" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
                 Buka Warta →
               </a>
             </div>
