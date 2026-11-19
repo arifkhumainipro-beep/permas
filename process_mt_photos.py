@@ -130,7 +130,7 @@ def make_studio_backdrop() -> np.ndarray:
     return np.stack([b, g, r], axis=-1).astype(np.uint8)
 
 
-def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float) -> np.ndarray:
+def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float, bgr: np.ndarray = None, fw: float = 220.0) -> np.ndarray:
     u8 = mask_bool.astype(np.uint8)
     num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(u8, connectivity=8)
     if num_labels <= 1:
@@ -143,6 +143,19 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float) -> np.ndarr
         target_label = 1 + int(np.argmax(areas))
     main_mask = labels == target_label
 
+    # Estimate outer background LAB tone to avoid refilling background triangles trapped inside bent elbows
+    bg_lab_ref = None
+    lab_img = None
+    if bgr is not None:
+        lab_img = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB).astype(np.float32)
+        samples = np.concatenate([
+            lab_img[5:25, 10:80].reshape(-1, 3),
+            lab_img[5:25, -80:-10].reshape(-1, 3),
+            lab_img[350:550, 5:25].reshape(-1, 3),
+            lab_img[350:550, -25:-5].reshape(-1, 3),
+        ], axis=0)
+        bg_lab_ref = np.median(samples, axis=0)
+
     inv = (~main_mask).astype(np.uint8)
     n2, l2, s2, _ = cv2.connectedComponentsWithStats(inv, connectivity=8)
     filled = main_mask.copy()
@@ -151,7 +164,14 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float) -> np.ndarr
         x, y, bw, bh, _ = s2[lbl]
         touches_edge = (x == 0 or y == 0 or (x + bw) >= OUT_W or (y + bh) >= OUT_H)
         if not touches_edge and area < 45000:
-            filled[l2 == lbl] = True
+            hole_mask = (l2 == lbl)
+            hole_cx = x + bw * 0.5
+            # Skip refilling enclosed elbow/armpit triangles that match the outer studio wall color
+            if bg_lab_ref is not None and abs(hole_cx - cx) > fw * 0.45:
+                hole_lab = np.median(lab_img[hole_mask], axis=0)
+                if float(np.linalg.norm(hole_lab - bg_lab_ref)) < 30.0:
+                    continue
+            filled[hole_mask] = True
     return filled
 
 
@@ -256,18 +276,30 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
 
     # Core definite foreground priors
     face_core = (((xx - cx) / (fw * 0.36)) ** 2 + ((yy - cy) / (fh * 0.46)) ** 2) <= 1.0
+    neck_skin = (np.abs(xx - cx) < fw * 0.30) & (yy >= cy) & (yy <= cy + fh * 0.80) & (s_ch > 28) & (v_ch > 70)
     torso_dark = (yy > cy + fh * 0.62) & (np.abs(xx - cx) < fw * 1.28) & (v_ch < 48)
     maroon = ((h_ch >= 152) | (h_ch <= 10)) & (s_ch >= 65) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.72) & (yy > head_top) & (yy < cy + fh * 1.6)
-    inner_shirt = (np.abs(xx - cx) < fw * 0.34) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140)
+    inner_shirt = (
+        ((np.abs(xx - cx) < fw * 0.45) & (yy > cy + fh * 0.45) & (yy < cy + fh * 1.05) & (L_ch > 175) & (s_ch < 35))
+        | ((np.abs(xx - cx) < fw * 0.34) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140))
+    )
 
-    gc_mask[face_core | torso_dark | maroon | inner_shirt] = cv2.GC_FGD
-    gc_mask[top_bg | outer_sides | upper_bg | (~valid_mask)] = cv2.GC_BGD
+    gc_mask[face_core | neck_skin | torso_dark | maroon | inner_shirt] = cv2.GC_FGD
+    gc_mask[top_bg | outer_sides | (upper_bg & (~inner_shirt) & (~neck_skin)) | (~valid_mask)] = cv2.GC_BGD
 
     if border_bg is not None:
-        gc_mask[border_bg & (~face_core) & (~inner_shirt)] = cv2.GC_BGD
-        # Also remove enclosed bright low-saturation wall pockets (e.g., between sleeve & waist)
-        enclosed_white = (L_ch > 160) & (s_ch < 42) & (~inner_shirt) & (~face_core)
-        gc_mask[enclosed_white] = cv2.GC_BGD
+        gc_mask[border_bg & (~face_core) & (~neck_skin) & (~inner_shirt)] = cv2.GC_BGD
+        # Remove enclosed bright wall pockets OR inner-elbow studio backdrop pockets matching border tone
+        enclosed_white = (L_ch > 160) & (s_ch < 42) & (~inner_shirt) & (~face_core) & (~neck_skin)
+        lab_f = lab.astype(np.float32)
+        mid_samples = np.concatenate([
+            lab_f[350:650, 5:35].reshape(-1, 3),
+            lab_f[350:650, -35:-5].reshape(-1, 3),
+        ], axis=0)
+        mid_bg_ref = np.median(mid_samples, axis=0)
+        mid_dist = np.linalg.norm(lab_f - mid_bg_ref[None, None, :], axis=-1)
+        enclosed_studio = (mid_dist < 24.0) & (v_ch > 48) & (~face_core) & (~neck_skin) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.52)
+        gc_mask[enclosed_white | enclosed_studio] = cv2.GC_BGD
 
     if is_outdoor:
         # Outdoor architectural steps/glass/greenery background seeds outside face/shirt/suit
@@ -282,7 +314,7 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
     cv2.grabCut(bgr, gc_mask, None, bgd_model, fgd_model, 8, cv2.GC_INIT_WITH_MASK)
 
     fg_bool = ((gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD)) & valid_mask
-    fg_bool = keep_main_component(fg_bool, cx, cy)
+    fg_bool = keep_main_component(fg_bool, cx, cy, bgr=bgr, fw=fw)
     alpha = refine_alpha_edges(fg_bool, blur_ksize=5)
 
     # Decontaminate outer bright fringe pixels (white wall / outdoor glow) against dark studio backdrop
