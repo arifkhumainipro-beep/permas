@@ -278,7 +278,7 @@ function renderCampusBranches(zoneFilter = 'all', searchQuery = '') {
     <div class="glass-panel p-6 rounded-2xl glass-card-hover border border-slate-800/80 flex flex-col justify-between space-y-4">
       <div>
         <div class="flex items-start justify-between gap-3 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0 shadow-sm">
+          <div class="w-12 h-12 rounded-xl p-1.5 border border-slate-300/80 flex items-center justify-center shrink-0 shadow-sm" style="background-color:#ffffff !important;">
             <img src="${logoPath}" alt="Logo ${c.university}" class="w-full h-full object-contain">
           </div>
           <div class="text-right">
