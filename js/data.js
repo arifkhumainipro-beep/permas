@@ -180,7 +180,6 @@ const PERMAS_DATA = {
       section: "pembangunan",
       badge: "Seksyen Pembangunan",
       roleCode: "EXCO AKADEMIK",
-      photo: "assets/ahli/exco-akademik.jpg",
       quote: "Meningkatkan kecemerlangan akademik dan mempermudah laluan kerjaya pasca-ijazah mahasiswa Selangor.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -193,7 +192,6 @@ const PERMAS_DATA = {
       section: "pembangunan",
       badge: "Seksyen Pembangunan",
       roleCode: "EXCO SUKAN",
-      photo: "assets/ahli/exco-sukan.jpg",
       quote: "Menyuburkan nilai kesukanan, kecergasan dan warisan seni budaya tradisi Negeri Selangor di kampus.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -206,7 +204,6 @@ const PERMAS_DATA = {
       section: "pembangunan",
       badge: "Seksyen Pembangunan",
       roleCode: "EXCO INOVASI",
-      photo: "assets/ahli/exco-keusahawanan.jpg",
       quote: "Melahirkan usahawan tekno-siswazah berpendapatan tinggi yang merintis industri baharu.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -219,7 +216,6 @@ const PERMAS_DATA = {
       section: "pembangunan",
       badge: "Seksyen Pembangunan",
       roleCode: "EXCO RELAWAN",
-      photo: "assets/ahli/exco-sukarelawan.jpg",
       quote: "Menggembleng tenaga belia Selangor dalam inisiatif kelestarian alam dan bakti kemasyarakatan.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -234,7 +230,6 @@ const PERMAS_DATA = {
       section: "kebajikan",
       badge: "Seksyen Kebajikan",
       roleCode: "EXCO KEBAJIKAN",
-      photo: "assets/ahli/exco-kebajikan-kerohanian.jpg",
       quote: "Membina daya tahan emosi, pemantapan rohani serta keharmonian perpaduan mahasiswa kampus.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -247,7 +242,6 @@ const PERMAS_DATA = {
       section: "kebajikan",
       badge: "Seksyen Kebajikan",
       roleCode: "EXCO INTEGRASI",
-      photo: "assets/ahli/exco-inklusiviti-1.jpg",
       quote: "Mempererat persefahaman dan interaksi antara cawangan mahasiswa di seluruh semenanjung dan kepulauan Borneo.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -260,7 +254,6 @@ const PERMAS_DATA = {
       section: "kebajikan",
       badge: "Seksyen Kebajikan",
       roleCode: "LANTIKAN KHAS",
-      photo: "assets/ahli/exco-inklusiviti-2.jpg",
       quote: "Kerusi khas perwakilan kampus zon selatan bagi pemerkasaan sinergi IPT.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -273,7 +266,6 @@ const PERMAS_DATA = {
       section: "kebajikan",
       badge: "Seksyen Kebajikan",
       roleCode: "EXCO SISWI",
-      photo: "assets/ahli/exco-siswi.jpg",
       quote: "Memartabatkan kepimpinan mahasiswi wanita Selangor dalam pembuat keputusan dan advokasi keselamatan.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -288,7 +280,6 @@ const PERMAS_DATA = {
       section: "komunikasi",
       badge: "Seksyen Komunikasi",
       roleCode: "EXCO MEDIA",
-      photo: "assets/ahli/exco-multimedia-1.jpg",
       quote: "Kreativiti visual bertenaga bagi membina impak naratif anak Selangor yang berdaya saing.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -301,7 +292,6 @@ const PERMAS_DATA = {
       section: "komunikasi",
       badge: "Seksyen Komunikasi",
       roleCode: "EXCO MEDIA",
-      photo: "assets/ahli/exco-multimedia-2.jpg",
       quote: "Penyebaran hebahan pantas, rekabentuk berkualiti tinggi dan sinergi media massa digital.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -314,7 +304,6 @@ const PERMAS_DATA = {
       section: "komunikasi",
       badge: "Seksyen Komunikasi",
       roleCode: "EXCO MEDIA",
-      photo: "assets/ahli/exco-multimedia-3.jpg",
       quote: "Pengukuhan saluran multimedia dan penerbitan berkala aspirasi mahasiswa Selangor.",
       social: { email: "permasnasionalofficial@gmail.com" }
     },
@@ -327,7 +316,6 @@ const PERMAS_DATA = {
       section: "komunikasi",
       badge: "Seksyen Komunikasi",
       roleCode: "EXCO KORPORAT",
-      photo: "assets/ahli/exco-korporat-luar.jpg",
       quote: "Membina jambatan kolaborasi bersama agensi kerajaan negeri, GLC Selangor dan pemegang taruh strategik.",
       social: { email: "permasnasionalofficial@gmail.com" }
     }

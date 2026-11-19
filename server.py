@@ -28,6 +28,20 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.join(ROOT_DIR, 'js', 'live-news-cache.json')
 ADUAN_LOG_PATH = os.path.join(ROOT_DIR, 'js', 'aduan-submissions.json')
 ADUAN_LOCK = threading.Lock()
+DRIVE_SYNC_LOCK = threading.Lock()
+DRIVE_FOLDER_ID = '1VBIh012vL_y0Fk4CkYZz6XXlZndY4H6g'
+MT_DRIVE_MATCHERS = [
+    ('presiden', ['amirul irfan', 'saupi']),
+    ('tydp1', ['danish hariz', 'hamdan']),
+    ('tydp2', ['tharshan', 'pillay', 'wandek']),
+    ('suag', ['noor hayati', 'setiausaha agung']),
+    ('bendahari', ['faris imran', 'sofan']),
+    ('penerangan', ['harith darwish', 'nor mali', 'ketua penerangan']),
+    ('su-komunikasi', ['emylieya', 'natasyha']),
+    ('su-pembangunan', ['arif khumaini', 'muhamad fairuz']),
+    ('su-kebajikan', ['nurul najiha', 'fairulzaman']),
+    ('timbalan-bendahari', ['nazirah fatehah', 'mohamed nazri', 'timbalan bendahari']),
+]
 PORT = 3000
 AUTO_REFRESH_SECONDS = 600  # 10 minutes server background refresh
 GIT_SYNC_INTERVAL_SECONDS = 15  # 15 seconds file watcher auto-sync to GitHub
