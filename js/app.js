@@ -272,12 +272,14 @@ function renderCampusBranches(zoneFilter = 'all', searchQuery = '') {
     return;
   }
 
-  container.innerHTML = list.map(c => `
+  container.innerHTML = list.map(c => {
+    const logoPath = c.logo || `assets/uni-logos/${c.id}.png`;
+    return `
     <div class="glass-panel p-6 rounded-2xl glass-card-hover border border-slate-800/80 flex flex-col justify-between space-y-4">
       <div>
         <div class="flex items-start justify-between gap-3 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600/30 to-amber-500/20 border border-amber-500/30 flex items-center justify-center font-black text-amber-300 font-heading text-lg">
-            ${c.code.replace('PERMAS ', '')}
+          <div class="w-12 h-12 rounded-xl bg-white p-1.5 border border-slate-200 flex items-center justify-center shrink-0 shadow-sm">
+            <img src="${logoPath}" alt="Logo ${c.university}" class="w-full h-full object-contain">
           </div>
           <div class="text-right">
             <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide uppercase bg-slate-800 text-amber-400 border border-slate-700">
@@ -290,33 +292,28 @@ function renderCampusBranches(zoneFilter = 'all', searchQuery = '') {
           </div>
         </div>
 
-        <h4 class="text-lg font-bold text-white leading-snug group-hover:text-amber-300 transition-colors">${c.name}</h4>
-        <p class="text-xs text-slate-400 mt-1 font-medium">${c.university} • Negeri ${c.state}</p>
+        <h4 class="text-lg font-bold text-white leading-snug group-hover:text-amber-300 transition-colors">${c.university}</h4>
+        <p class="text-xs text-slate-400 mt-1 font-medium">${c.location} • ${c.state}</p>
         <p class="text-xs text-slate-300 italic mt-3 bg-slate-900/50 p-2.5 rounded-lg border-l-2 border-amber-500">
           "${c.tagline}"
         </p>
 
-        <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-800 text-xs">
-          <div>
-            <span class="text-slate-500 block text-[10px] uppercase font-bold">Pengerusi</span>
-            <span class="font-semibold text-slate-200 truncate block">${c.president}</span>
-          </div>
-          <div>
-            <span class="text-slate-500 block text-[10px] uppercase font-bold">Keahlian Aktif</span>
-            <span class="font-semibold text-amber-400">${c.membersCount.toLocaleString()} Mahasiswa</span>
-          </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 text-xs flex items-center justify-between">
+          <span class="text-slate-500 text-[10px] uppercase font-bold">Keahlian Aktif</span>
+          <span class="font-semibold text-amber-400">${c.membersCount.toLocaleString()} Mahasiswa</span>
         </div>
       </div>
 
       <div class="pt-3 border-t border-slate-800/70 flex items-center justify-between text-xs">
-        <span class="text-slate-400 font-mono text-[11px]">${c.instagram}</span>
-        <button onclick="contactBranch('${c.code}', '${c.president}', '${c.contact}')" class="px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600 text-red-300 hover:text-white font-bold text-xs border border-red-500/30 transition flex items-center gap-1.5">
+        <span class="text-slate-400 font-mono text-[11px]">${c.state}</span>
+        <button onclick="contactBranch('${c.university}', '${c.contact}')" class="px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600 text-red-300 hover:text-white font-bold text-xs border border-red-500/30 transition flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
           Hubungi
         </button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 window.filterCampuses = function(zone, btn) {
@@ -332,8 +329,9 @@ window.handleCampusSearch = function(val) {
   renderCampusBranches(zone, val);
 };
 
-window.contactBranch = function(code, president, contact) {
-  showToast(`Menghubungkan ke ${code} (${president}) — Talian Rasmi: ${contact}`, 'info');
+window.contactBranch = function(universityOrCode, contactOrPresident, maybeContact) {
+  const contact = maybeContact || contactOrPresident;
+  showToast(`Menghubungkan ke ${universityOrCode} — Talian Rasmi: ${contact}`, 'info');
 };
 
 /* -----------------------------------------------------------

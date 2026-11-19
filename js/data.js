@@ -325,6 +325,7 @@ const PERMAS_DATA = {
     // 1. ZON TENGAH (SELANGOR & KL)
     {
       id: "um",
+      logo: "assets/uni-logos/um.png",
       code: "PERMAS UM",
       name: "Persatuan Mahasiswa Selangor Universiti Malaya",
       university: "Universiti Malaya",
@@ -345,6 +346,7 @@ const PERMAS_DATA = {
     },
     {
       id: "ukm",
+      logo: "assets/uni-logos/ukm.png",
       code: "PERMAS UKM",
       name: "Persatuan Mahasiswa Selangor UKM Bangi",
       university: "Universiti Kebangsaan Malaysia",
@@ -365,6 +367,7 @@ const PERMAS_DATA = {
     },
     {
       id: "upm",
+      logo: "assets/uni-logos/upm.png",
       code: "PERMAS UPM",
       name: "Persatuan Mahasiswa Selangor UPM Serdang",
       university: "Universiti Putra Malaysia",
@@ -385,6 +388,7 @@ const PERMAS_DATA = {
     },
     {
       id: "uitm",
+      logo: "assets/uni-logos/uitm.png",
       code: "PERMAS UiTM",
       name: "Gabungan Mahasiswa Selangor UiTM Se-Malaysia",
       university: "Universiti Teknologi MARA",
@@ -405,6 +409,7 @@ const PERMAS_DATA = {
     },
     {
       id: "uia",
+      logo: "assets/uni-logos/uia.png",
       code: "PERMAS UIAM",
       name: "Selangor Student Association IIUM Gombak",
       university: "Universiti Islam Antarabangsa Malaysia",
@@ -425,6 +430,7 @@ const PERMAS_DATA = {
     },
     {
       id: "upnm",
+      logo: "assets/uni-logos/upnm.png",
       code: "PERMAS UPNM",
       name: "Sekretariat Mahasiswa Selangor UPNM",
       university: "Universiti Pertahanan Nasional Malaysia",
@@ -447,6 +453,7 @@ const PERMAS_DATA = {
     // 2. ZON SELATAN (NEGERI SEMBILAN, MELAKA, JOHOR)
     {
       id: "usim",
+      logo: "assets/uni-logos/usim.png",
       code: "PERMAS USIM",
       name: "Persatuan Mahasiswa Selangor USIM Nilai",
       university: "Universiti Sains Islam Malaysia",
@@ -467,6 +474,7 @@ const PERMAS_DATA = {
     },
     {
       id: "utem",
+      logo: "assets/uni-logos/utem.png",
       code: "PERMAS UTeM",
       name: "Persatuan Mahasiswa Selangor UTeM Melaka",
       university: "Universiti Teknikal Malaysia Melaka",
@@ -487,6 +495,7 @@ const PERMAS_DATA = {
     },
     {
       id: "uthm",
+      logo: "assets/uni-logos/uthm.png",
       code: "PERMAS UTHM",
       name: "Persatuan Mahasiswa Selangor UTHM Batu Pahat",
       university: "Universiti Tun Hussein Onn Malaysia",
@@ -507,6 +516,7 @@ const PERMAS_DATA = {
     },
     {
       id: "utm",
+      logo: "assets/uni-logos/utm.png",
       code: "PERMAS UTM",
       name: "Persatuan Mahasiswa Selangor UTM Skudai & KL",
       university: "Universiti Teknologi Malaysia",
@@ -529,6 +539,7 @@ const PERMAS_DATA = {
     // 3. ZON UTARA (PERAK, PULAU PINANG, KEDAH, PERLIS)
     {
       id: "upsi",
+      logo: "assets/uni-logos/upsi.png",
       code: "PERMAS UPSI",
       name: "Persatuan Mahasiswa Selangor UPSI Tanjung Malim",
       university: "Universiti Pendidikan Sultan Idris",
@@ -549,6 +560,7 @@ const PERMAS_DATA = {
     },
     {
       id: "usm",
+      logo: "assets/uni-logos/usm.png",
       code: "PERMAS USM",
       name: "Persatuan Mahasiswa Selangor USM Pulau Pinang",
       university: "Universiti Sains Malaysia",
@@ -569,6 +581,7 @@ const PERMAS_DATA = {
     },
     {
       id: "uum",
+      logo: "assets/uni-logos/uum.png",
       code: "PERMAS UUM",
       name: "Persatuan Mahasiswa Selangor UUM Sintok",
       university: "Universiti Utara Malaysia",
@@ -589,6 +602,7 @@ const PERMAS_DATA = {
     },
     {
       id: "unimap",
+      logo: "assets/uni-logos/unimap.png",
       code: "PERMAS UniMAP",
       name: "Sekretariat Mahasiswa Selangor UniMAP Perlis",
       university: "Universiti Malaysia Perlis",
@@ -611,6 +625,7 @@ const PERMAS_DATA = {
     // 4. ZON PANTAI TIMUR (PAHANG, TERENGGANU, KELANTAN)
     {
       id: "umpsa",
+      logo: "assets/uni-logos/umpsa.png",
       code: "PERMAS UMPSA",
       name: "Persatuan Mahasiswa Selangor UMPSA Pahang",
       university: "Universiti Malaysia Pahang Al-Sultan Abdullah",
@@ -631,6 +646,7 @@ const PERMAS_DATA = {
     },
     {
       id: "unisza",
+      logo: "assets/uni-logos/unisza.png",
       code: "PERMAS UniSZA",
       name: "Persatuan Mahasiswa Selangor UniSZA Terengganu",
       university: "Universiti Sultan Zainal Abidin",
@@ -651,6 +667,7 @@ const PERMAS_DATA = {
     },
     {
       id: "umt",
+      logo: "assets/uni-logos/umt.png",
       code: "PERMAS UMT",
       name: "Persatuan Mahasiswa Selangor UMT Kuala Nerus",
       university: "Universiti Malaysia Terengganu",
@@ -671,6 +688,7 @@ const PERMAS_DATA = {
     },
     {
       id: "umk",
+      logo: "assets/uni-logos/umk.png",
       code: "PERMAS UMK",
       name: "Persatuan Mahasiswa Selangor UMK Kelantan",
       university: "Universiti Malaysia Kelantan",
@@ -693,6 +711,7 @@ const PERMAS_DATA = {
     // 5. ZON BORNEO (SARAWAK & SABAH)
     {
       id: "unimas",
+      logo: "assets/uni-logos/unimas.png",
       code: "PERMAS UNIMAS",
       name: "Sekretariat Mahasiswa Selangor UNIMAS Sarawak",
       university: "Universiti Malaysia Sarawak",
@@ -713,6 +732,7 @@ const PERMAS_DATA = {
     },
     {
       id: "ums",
+      logo: "assets/uni-logos/ums.png",
       code: "PERMAS UMS",
       name: "Sekretariat Mahasiswa Selangor UMS Sabah",
       university: "Universiti Malaysia Sabah",
@@ -735,6 +755,7 @@ const PERMAS_DATA = {
     // 6. GABUNGAN IPTS BERSEKUTU
     {
       id: "ipts-alliance",
+      logo: "assets/uni-logos/ipts-alliance.png",
       code: "PERMAS IPTS",
       name: "Gabungan Mahasiswa Selangor IPTS (Taylor's, Sunway, MMU, UNITEN, Unisel)",
       university: "Institusi Pengajian Tinggi Swasta",
