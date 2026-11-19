@@ -3,15 +3,13 @@
    gallery photo switching, paper themes, and printing.
 */
 (function () {
-  const PAPER_MODE_KEY = 'permas_warta_paper_mode';
-
   const state = {
     edition: 'Jilid I • Bil. 01/2026',
     updatedLabel: '19 November 2026',
     articles: [],
     category: 'all',
     query: '',
-    paperMode: 'classic',
+    paperMode: 'dark',
     activeReaderId: '',
   };
 
@@ -313,31 +311,18 @@
     }
   }
 
-  function applyPaperMode(mode) {
-    state.paperMode = mode === 'dark' ? 'dark' : 'classic';
-    try { localStorage.setItem(PAPER_MODE_KEY, state.paperMode); } catch (e) {}
+  function applyPaperMode() {
+    state.paperMode = 'dark';
     const targets = [
       document.getElementById('warta-broadsheet'),
       document.getElementById('warta-reader-sheet'),
     ];
     targets.forEach(el => {
       if (!el) return;
-      el.classList.toggle('paper-classic', state.paperMode === 'classic');
-      el.classList.toggle('paper-dark', state.paperMode === 'dark');
+      el.classList.remove('paper-classic');
+      el.classList.add('paper-dark');
     });
-    const btnClassic = document.getElementById('paper-mode-classic');
-    const btnDark = document.getElementById('paper-mode-dark');
-    if (btnClassic && btnDark) {
-      btnClassic.className = state.paperMode === 'classic'
-        ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-100 text-amber-950 border border-amber-400 shadow-xs transition whitespace-nowrap'
-        : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 transition whitespace-nowrap';
-      btnDark.className = state.paperMode === 'dark'
-        ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-amber-300 border border-amber-400/60 shadow-xs transition whitespace-nowrap'
-        : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 hover:bg-slate-200 transition whitespace-nowrap';
-    }
   }
-
-  window.setWartaPaperMode = applyPaperMode;
 
   window.filterWartaCategory = function (cat) {
     state.category = cat || 'all';
@@ -430,7 +415,7 @@
     if (waBtn) waBtn.href = waHref;
 
     modal.classList.remove('hidden');
-    applyPaperMode(state.paperMode);
+    applyPaperMode();
     if (history.replaceState) {
       history.replaceState(null, '', '#artikel=' + encodeURIComponent(art.id));
     }
@@ -455,7 +440,7 @@
     const side = state.articles.filter((_, i) => i !== leadIdx).slice(0, 2);
 
     container.innerHTML = `
-      <div class="broadsheet-paper paper-classic rounded-3xl p-5 sm:p-7 shadow-xl border">
+      <div class="broadsheet-paper paper-dark rounded-3xl p-5 sm:p-7 shadow-xl border">
         <div class="broadsheet-double-rule mb-5 text-center py-2">
           <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono uppercase tracking-widest paper-muted px-1">
             <span>${esc(state.edition)}</span>
@@ -534,11 +519,7 @@
     }
 
     if (document.getElementById('warta-broadsheet')) {
-      try {
-        const savedMode = localStorage.getItem(PAPER_MODE_KEY);
-        if (savedMode === 'dark' || savedMode === 'classic') state.paperMode = savedMode;
-      } catch (e) {}
-      applyPaperMode(state.paperMode);
+      applyPaperMode();
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeWartaReader();
       });
