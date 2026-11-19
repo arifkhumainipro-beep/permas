@@ -5,7 +5,6 @@ Standardize PERMAS Majlis Tertinggi portrait photos into uniform
 clean background removal, royal slate studio backdrop, and balanced lighting.
 """
 
-import glob
 import os
 import cv2
 import numpy as np
@@ -13,7 +12,7 @@ from PIL import Image, ImageOps
 
 OUT_W = 800
 OUT_H = 1000
-TARGET_FACE_W = 224.0
+TARGET_FACE_W = 220.0
 TARGET_FACE_CX = 400.0
 TARGET_FACE_CY = 305.0
 
@@ -29,25 +28,38 @@ def load_upright_bgr(path: str) -> np.ndarray:
 
 def detect_primary_face(bgr: np.ndarray):
     gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
-    gray = cv2.equalizeHist(gray)
+    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
     cascade_path = os.path.join(cv2.data.haarcascades, 'haarcascade_frontalface_default.xml')
     detector = cv2.CascadeClassifier(cascade_path)
     h, w = gray.shape[:2]
-    min_dim = max(40, int(min(h, w) * 0.08))
-    faces = detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(min_dim, min_dim))
+    min_dim = max(40, int(min(h, w) * 0.09))
+
+    # Avoid equalizeHist first because it amplifies faint white-wall blotches
+    faces = detector.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=4, minSize=(min_dim, min_dim))
+    if len(faces) == 0:
+        clahe = cv2.createCLAHE(clipLimit=1.8, tileGridSize=(8, 8))
+        faces = detector.detectMultiScale(clahe.apply(gray), scaleFactor=1.06, minNeighbors=5, minSize=(min_dim, min_dim))
 
     if len(faces) == 0:
-        faces = detector.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=3, minSize=(30, 30))
-
-    if len(faces) == 0:
-        # Safe center-upper fallback
-        fw = w * 0.25
+        fw = w * 0.24
         return (w * 0.5, h * 0.28, fw, fw * 1.1)
 
-    # Prefer largest face in upper half
-    best = max(faces, key=lambda f: f[2] * f[3] * (1.2 if f[1] < h * 0.45 else 0.7))
-    fx, fy, fw, fh = [float(v) for v in best]
-    return (fx + fw * 0.5, fy + fh * 0.5, fw, fh)
+    best_score = -1.0
+    best_box = None
+    for (fx, fy, fw, fh) in faces:
+        fcx = fx + fw * 0.5
+        fcy = fy + fh * 0.5
+        # Prefer horizontally centered, upper-half, larger boxes with real skin saturation (not plain white wall)
+        center_penalty = 1.0 - min(0.85, abs(fcx / w - 0.5) * 2.2)
+        upper_bonus = 1.25 if fcy < h * 0.52 else 0.7
+        roi_s = float(hsv[fy:fy + fh, fx:fx + fw, 1].mean())
+        sat_factor = 1.0 if roi_s > 35.0 else 0.25
+        score = (fw * fh) * center_penalty * upper_bonus * sat_factor
+        if score > best_score:
+            best_score = score
+            best_box = (fcx, fcy, float(fw), float(fh))
+
+    return best_box
 
 
 def align_portrait_canvas(bgr: np.ndarray, face_box):
@@ -63,16 +75,12 @@ def align_portrait_canvas(bgr: np.ndarray, face_box):
     scaled_fw = fw * scale
     scaled_fh = fh * scale
 
-    # Ensure top of head stays inside canvas with clean headroom (~100-130px above face box)
     x0 = int(round(scaled_cx - TARGET_FACE_CX))
     y0 = int(round(scaled_cy - TARGET_FACE_CY))
 
-    # Clamp vertically if crop tries to go above top of source image
-    if y0 < 0:
-        y0 = 0
-
     canvas = np.zeros((OUT_H, OUT_W, 3), dtype=np.uint8)
-    # Fill any edge padding using nearest border pixels
+    valid_mask = np.zeros((OUT_H, OUT_W), dtype=bool)
+
     src_x1 = max(0, x0)
     src_y1 = max(0, y0)
     src_x2 = min(new_w, x0 + OUT_W)
@@ -84,18 +92,21 @@ def align_portrait_canvas(bgr: np.ndarray, face_box):
     dst_y2 = dst_y1 + (src_y2 - src_y1)
 
     canvas[dst_y1:dst_y2, dst_x1:dst_x2] = resized[src_y1:src_y2, src_x1:src_x2]
+    valid_mask[dst_y1:dst_y2, dst_x1:dst_x2] = True
 
-    # Replicate border columns/rows cleanly if source was narrower than canvas after scaling
-    if dst_x1 > 0:
-        canvas[dst_y1:dst_y2, :dst_x1] = canvas[dst_y1:dst_y2, dst_x1:dst_x1 + 1]
-    if dst_x2 < OUT_W:
-        canvas[dst_y1:dst_y2, dst_x2:] = canvas[dst_y1:dst_y2, dst_x2 - 1:dst_x2]
+    # Extend edge border color purely so blur/grabCut never reads pure zero black at padding seam
+    if dst_y1 > 0:
+        canvas[:dst_y1, dst_x1:dst_x2] = canvas[dst_y1:dst_y1 + 1, dst_x1:dst_x2]
     if dst_y2 < OUT_H:
-        canvas[dst_y2:, :] = canvas[dst_y2 - 1:dst_y2, :]
+        canvas[dst_y2:, dst_x1:dst_x2] = canvas[dst_y2 - 1:dst_y2, dst_x1:dst_x2]
+    if dst_x1 > 0:
+        canvas[:, :dst_x1] = canvas[:, dst_x1:dst_x1 + 1]
+    if dst_x2 < OUT_W:
+        canvas[:, dst_x2:] = canvas[:, dst_x2 - 1:dst_x2]
 
     adj_cx = scaled_cx - x0
     adj_cy = scaled_cy - y0
-    return canvas, (adj_cx, adj_cy, scaled_fw, scaled_fh)
+    return canvas, valid_mask, (adj_cx, adj_cy, scaled_fw, scaled_fh)
 
 
 def make_studio_backdrop() -> np.ndarray:
@@ -106,19 +117,16 @@ def make_studio_backdrop() -> np.ndarray:
     glow = np.clip(1.0 - dist, 0.0, 1.0) ** 1.65
 
     # Studio slate key behind shoulders (#2C3B52) -> obsidian vignette (#0B1120)
-    # BGR channels
-    b = 26.0 + glow * (86.0 - 26.0)
-    g = 17.0 + glow * (62.0 - 17.0)
-    r = 12.0 + glow * (48.0 - 12.0)
+    b = 26.0 + glow * (88.0 - 26.0)
+    g = 17.0 + glow * (64.0 - 17.0)
+    r = 12.0 + glow * (49.0 - 12.0)
 
-    # Very subtle warm royal sheen behind upper shoulders
     warm = np.exp(-(((xx - 400.0) / 260.0) ** 2 + ((yy - 410.0) / 220.0) ** 2))
     r = np.clip(r + warm * 10.0, 0, 255)
     g = np.clip(g + warm * 6.0, 0, 255)
     b = np.clip(b + warm * 4.0, 0, 255)
 
-    backdrop = np.stack([b, g, r], axis=-1).astype(np.uint8)
-    return backdrop
+    return np.stack([b, g, r], axis=-1).astype(np.uint8)
 
 
 def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float) -> np.ndarray:
@@ -130,18 +138,15 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float) -> np.ndarr
     iy = int(np.clip(round(cy), 0, OUT_H - 1))
     target_label = labels[iy, ix]
     if target_label == 0:
-        # Pick largest non-background component
         areas = stats[1:, cv2.CC_STAT_AREA]
         target_label = 1 + int(np.argmax(areas))
     main_mask = labels == target_label
 
-    # Fill interior holes cleanly
     inv = (~main_mask).astype(np.uint8)
     n2, l2, s2, _ = cv2.connectedComponentsWithStats(inv, connectivity=8)
     filled = main_mask.copy()
     for lbl in range(1, n2):
         area = s2[lbl, cv2.CC_STAT_AREA]
-        # Keep external background touching border, fill enclosed small/medium holes
         x, y, bw, bh, _ = s2[lbl]
         touches_edge = (x == 0 or y == 0 or (x + bw) >= OUT_W or (y + bh) >= OUT_H)
         if not touches_edge and area < 45000:
@@ -154,13 +159,12 @@ def refine_alpha_edges(bin_mask: np.ndarray, blur_ksize: int = 5) -> np.ndarray:
     k3 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
     u8 = cv2.morphologyEx(u8, cv2.MORPH_CLOSE, k3, iterations=1)
     u8 = cv2.morphologyEx(u8, cv2.MORPH_OPEN, k3, iterations=1)
-    # Slight inward shift + feather avoids bright outer fringe
     eroded = cv2.erode(u8, k3, iterations=1)
     alpha = cv2.GaussianBlur(eroded.astype(np.float32) / 255.0, (blur_ksize, blur_ksize), 0)
     return np.clip(alpha, 0.0, 1.0)
 
 
-def segment_green_screen(bgr: np.ndarray, face_box):
+def segment_green_screen(bgr: np.ndarray, valid_mask: np.ndarray, face_box):
     cx, cy, fw, fh = face_box
     f = bgr.astype(np.float32)
     b, g, r = f[:, :, 0], f[:, :, 1], f[:, :, 2]
@@ -168,48 +172,46 @@ def segment_green_screen(bgr: np.ndarray, face_box):
     h_ch, s_ch, v_ch = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
 
     green_excess = g - np.maximum(r, b)
-    is_green_hue = (h_ch >= 30) & (h_ch <= 92) & (s_ch >= 28) & (v_ch >= 35)
+    is_green_hue = (h_ch >= 32) & (h_ch <= 92) & (s_ch >= 22) & (v_ch >= 28)
 
-    # Raw soft alpha from green excess
-    alpha_green = 1.0 - np.clip((green_excess - 4.0) / 18.0, 0.0, 1.0)
-    alpha = np.where(is_green_hue, np.minimum(alpha_green, 1.0 - np.clip((green_excess - 2.0) / 14.0, 0.0, 1.0)), 1.0)
+    # Smooth matte solely from green-screen excess (no unconditional green oval over ears/background)
+    alpha_green = 1.0 - np.clip((green_excess - 2.0) / 14.0, 0.0, 1.0)
+    alpha = np.where(is_green_hue | (green_excess > 6.0), alpha_green, 1.0)
 
-    # Protect core face, eyes, hair & suit interior
+    # Protect core skin, glasses eyes, hair & suit interior ONLY when pixel is non-green
     yy, xx = np.mgrid[0:OUT_H, 0:OUT_W]
-    head_mask = (((xx - cx) / (fw * 0.52)) ** 2 + ((yy - cy) / (fh * 0.68)) ** 2) <= 1.0
-    torso_mask = (np.abs(xx - cx) < fw * 1.15) & (yy > cy + fh * 0.65) & (green_excess < 18.0)
-    alpha = np.where(head_mask | torso_mask, np.maximum(alpha, 0.96), alpha)
+    inner_face = (((xx - cx) / (fw * 0.36)) ** 2 + ((yy - cy) / (fh * 0.48)) ** 2) <= 1.0
+    torso_inner = (np.abs(xx - cx) < fw * 1.15) & (yy > cy + fh * 0.65) & (green_excess < 7.0)
+    alpha = np.where((inner_face & (~is_green_hue)) | torso_inner, np.maximum(alpha, 0.96), alpha)
+    alpha = np.where(valid_mask, alpha, 0.0)
 
-    # Keep primary connected person component
-    main_bool = keep_main_component(alpha > 0.35, cx, cy)
+    # Connected component keeps subject cleanly and removes any isolated green curtain specks
+    main_bool = keep_main_component(alpha > 0.38, cx, cy)
     alpha = np.where(main_bool, alpha, 0.0)
     alpha = cv2.GaussianBlur(alpha.astype(np.float32), (3, 3), 0)
 
-    # Green spill suppression across edges & glasses reflection
-    max_rb = np.maximum(r, b)
+    # Suppress green spill around hair, ears, glass frames, and suit lapel without yellowing face
     avg_rb = 0.52 * r + 0.48 * b
     spill = np.maximum(0.0, g - avg_rb)
-    # Strong spill cleanup near green hue or edges
-    edge_factor = np.clip(1.3 - alpha, 0.0, 1.0)
+    edge_factor = np.clip(1.35 - alpha, 0.0, 1.0)
+    spill_strength = np.where(inner_face, 0.72, np.maximum(0.84, edge_factor))
     clean_g = np.where(
-        (is_green_hue | (spill > 4.0)),
-        g - spill * np.where(head_mask, 0.68, np.maximum(0.78, edge_factor)),
+        is_green_hue | (spill > 3.0),
+        g - spill * spill_strength,
         g,
     )
     cleaned_bgr = np.stack([b, np.clip(clean_g, 0, 255), r], axis=-1).astype(np.uint8)
     return cleaned_bgr, alpha
 
 
-def build_border_flood_bg(bgr: np.ndarray, thresh: float = 16.0) -> np.ndarray:
-    """Flood-fill similar background starting from left, top, and right border seeds."""
+def build_border_flood_bg(bgr: np.ndarray, valid_mask: np.ndarray, thresh: float = 13.0) -> np.ndarray:
     h, w = bgr.shape[:2]
     lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB).astype(np.float32)
 
-    # Collect border pixels from top, upper-left, upper-right, mid-left, mid-right
     seed_pts = []
-    for x in range(10, w - 10, 40):
+    for x in range(10, w - 10, 32):
         seed_pts.append((x, 4))
-    for y in range(20, int(h * 0.85), 40):
+    for y in range(20, int(h * 0.88), 32):
         seed_pts.append((4, y))
         seed_pts.append((w - 5, y))
 
@@ -220,83 +222,75 @@ def build_border_flood_bg(bgr: np.ndarray, thresh: float = 16.0) -> np.ndarray:
 
     for sx, sy in seed_pts:
         if ff_mask[sy + 1, sx + 1] == 0:
-            # Skip seed if it looks very dark or strongly saturated maroon (person)
             pix = lab[sy, sx]
-            if pix[0] > 75:  # non-black wall
+            if pix[0] > 75:
                 cv2.floodFill(work, ff_mask, (sx, sy), 0, lo_up, lo_up, flags)
 
-    return ff_mask[1:-1, 1:-1] > 0
+    return (ff_mask[1:-1, 1:-1] > 0) | (~valid_mask)
 
 
-def grabcut_with_priors(bgr: np.ndarray, face_box, border_bg: np.ndarray = None, is_outdoor: bool = False):
+def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, border_bg: np.ndarray = None, is_outdoor: bool = False):
     cx, cy, fw, fh = face_box
     yy, xx = np.mgrid[0:OUT_H, 0:OUT_W]
     hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
     lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)
-    L_ch, a_ch, b_ch = lab[:, :, 0], lab[:, :, 1], lab[:, :, 2]
+    L_ch, _, _ = lab[:, :, 0], lab[:, :, 1], lab[:, :, 2]
     h_ch, s_ch, v_ch = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
+    b_ch, g_ch, r_ch = bgr[:, :, 0].astype(np.int16), bgr[:, :, 1].astype(np.int16), bgr[:, :, 2].astype(np.int16)
 
-    # Initialize mask with probable background everywhere
     gc_mask = np.full((OUT_H, OUT_W), cv2.GC_PR_BGD, dtype=np.uint8)
 
-    # Outer frame & envelope margins are definite background
-    margin_x = fw * (1.75 if is_outdoor else 1.85)
-    head_top = cy - fh * 0.92
-    # Narrower oval envelope around head height so architectural pillars above shoulders aren't included
-    shoulder_y = cy + fh * 0.78
-    upper_bg = (yy < shoulder_y) & (np.abs(xx - cx) > fw * 0.82)
+    head_top = cy - fh * 1.02
+    margin_x = fw * (1.72 if is_outdoor else 1.85)
     outer_sides = np.abs(xx - cx) > margin_x
-    top_bg = yy < max(12.0, head_top - 32.0)
+    top_bg = yy < max(8.0, head_top - 22.0)
 
-    # Probable foreground envelope centered on person
+    # Tapered head-to-shoulder exclusion so doorway/pillar gaps beside neck don't stick to collar
+    neck_slope_halfw = fw * (0.64 + 0.60 * np.clip((yy - (cy + fh * 0.35)) / (fh * 0.65), 0.0, 1.0))
+    upper_bg = (yy < cy + fh * 1.0) & (np.abs(xx - cx) > neck_slope_halfw)
+
     body_env = ((yy >= head_top) & (np.abs(xx - cx) <= fw * 1.48))
-    head_env = (((xx - cx) / (fw * 0.72)) ** 2 + ((yy - (cy - fh * 0.08)) / (fh * 0.82)) ** 2) <= 1.0
+    head_env = (((xx - cx) / (fw * 0.72)) ** 2 + ((yy - (cy - fh * 0.08)) / (fh * 0.86)) ** 2) <= 1.0
     gc_mask[body_env | head_env] = cv2.GC_PR_FGD
 
-    # Definite foreground priors
-    face_core = (((xx - cx) / (fw * 0.40)) ** 2 + ((yy - cy) / (fh * 0.52)) ** 2) <= 1.0
-    # Dark blazer torso pixels inside shoulder envelope
-    torso_dark = (yy > cy + fh * 0.60) & (np.abs(xx - cx) < fw * 1.32) & (v_ch < 65)
-    # Maroon tudung or tie pixels near head/upper chest
-    maroon = ((h_ch >= 145) | (h_ch <= 15)) & (s_ch >= 55) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.78) & (yy > head_top) & (yy < cy + fh * 1.6)
-    # Sealed white inner collar / shirt front strictly inside neck/chest V
-    inner_shirt = (np.abs(xx - cx) < fw * 0.36) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140)
+    # Core definite foreground priors
+    face_core = (((xx - cx) / (fw * 0.36)) ** 2 + ((yy - cy) / (fh * 0.46)) ** 2) <= 1.0
+    torso_dark = (yy > cy + fh * 0.62) & (np.abs(xx - cx) < fw * 1.28) & (v_ch < 58)
+    maroon = ((h_ch >= 145) | (h_ch <= 15)) & (s_ch >= 55) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.72) & (yy > head_top) & (yy < cy + fh * 1.6)
+    inner_shirt = (np.abs(xx - cx) < fw * 0.34) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140)
 
     gc_mask[face_core | torso_dark | maroon | inner_shirt] = cv2.GC_FGD
+    gc_mask[top_bg | outer_sides | upper_bg | (~valid_mask)] = cv2.GC_BGD
 
-    # Definite background priors
-    gc_mask[top_bg | outer_sides | upper_bg] = cv2.GC_BGD
     if border_bg is not None:
-        # Never overwrite definite core face or inner shirt
         gc_mask[border_bg & (~face_core) & (~inner_shirt)] = cv2.GC_BGD
 
     if is_outdoor:
-        # Outdoor entrance photo (`suag.jpg`): protect outer steps & bright sky/glass pillars away from black suit/maroon tudung
-        bright_arch = (L_ch > 155) & (s_ch < 85) & (~face_core) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.42)
-        upper_steps = (yy > cy + fh * 2.2) & (L_ch > 110) & (np.abs(xx - cx) > fw * 1.1)
-        # Background between blazer arms/underneath chin stairs outside white V
-        gc_mask[bright_arch | upper_steps] = cv2.GC_BGD
+        # Outdoor architectural steps/glass/greenery background seeds outside face/shirt/suit
+        bright_arch = (L_ch > 148) & (s_ch < 90) & (~face_core) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.40)
+        upper_green_door = (yy < cy + fh * 1.15) & (np.abs(xx - cx) > fw * 0.48) & ((g_ch > r_ch + 2) | (v_ch > 75)) & (~maroon) & (~face_core)
+        upper_steps = (yy > cy + fh * 2.15) & (L_ch > 105) & (np.abs(xx - cx) > fw * 1.08)
+        gc_mask[bright_arch | upper_green_door | upper_steps] = cv2.GC_BGD
 
     bgd_model = np.zeros((1, 65), dtype=np.float64)
     fgd_model = np.zeros((1, 65), dtype=np.float64)
     cv2.grabCut(bgr, gc_mask, None, bgd_model, fgd_model, 8, cv2.GC_INIT_WITH_MASK)
 
-    fg_bool = (gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD)
+    fg_bool = ((gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD)) & valid_mask
     fg_bool = keep_main_component(fg_bool, cx, cy)
     alpha = refine_alpha_edges(fg_bool, blur_ksize=5)
 
-    # Decontaminate outer bright fringe pixels along silhouette against dark backdrop
+    # Decontaminate outer bright fringe pixels (white wall / outdoor glow) against dark studio backdrop
     defringed = bgr.copy().astype(np.float32)
     k5 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     inner_solid = cv2.erode(fg_bool.astype(np.uint8), k5, iterations=1) > 0
     edge_band = (alpha > 0.05) & (~inner_solid)
-    # Darken very bright edge halo (white wall / sky glow) slightly toward inner neighbor tone
-    edge_bright = edge_band & (L_ch > 150) & (~face_core)
-    defringed[edge_bright] *= 0.72
+    edge_bright = edge_band & (L_ch > 135) & (~face_core)
+    defringed[edge_bright] *= 0.62
     return defringed.astype(np.uint8), alpha
 
 
-def harmonize_lighting(bgr: np.ndarray, alpha: np.ndarray, face_box, boost_exposure: bool = False):
+def harmonize_lighting(bgr: np.ndarray, face_box, boost_exposure: bool = False):
     cx, cy, fw, fh = face_box
     yy, xx = np.mgrid[0:OUT_H, 0:OUT_W]
     face_sample = (((xx - cx) / (fw * 0.28)) ** 2 + ((yy - cy) / (fh * 0.35)) ** 2) <= 1.0
@@ -304,26 +298,21 @@ def harmonize_lighting(bgr: np.ndarray, alpha: np.ndarray, face_box, boost_expos
     lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB).astype(np.float32)
     face_L = float(np.median(lab[:, :, 0][face_sample]))
 
-    # Target uniform studio skin luminance (~152 in 0..255 LAB space)
-    target_L = 152.0
-    if boost_exposure or face_L < 138.0:
-        gain = np.clip(target_L / max(face_L, 65.0), 1.0, 1.38)
-        # Apply smooth shadow-friendly lift
+    if boost_exposure or face_L < 142.0:
+        # Lift skin/midtones nicely while preserving deep dark charcoal suit blacks
         l_norm = np.clip(lab[:, :, 0] / 255.0, 0.0, 1.0)
-        gamma = 1.0 / (1.0 + (gain - 1.0) * 1.15)
-        l_lifted = (l_norm ** gamma) * 255.0
-        # Blend slightly stronger lift cleanly without washing out dark blazer completely
-        lab[:, :, 0] = np.clip(0.88 * l_lifted + 0.12 * lab[:, :, 0], 0, 255)
-        # Gentle warmth correction for cool green screen shots
-        lab[:, :, 1] = np.clip(lab[:, :, 1] + 2.5, 0, 255)
-        lab[:, :, 2] = np.clip(lab[:, :, 2] + 3.0, 0, 255)
+        l_lifted = (l_norm ** 0.72) * 255.0
+        # Keep very deep blacks below L=36 anchored so suit doesn't turn washed-out grey
+        black_protect = np.clip((lab[:, :, 0] - 28.0) / 45.0, 0.0, 1.0)
+        lab[:, :, 0] = np.clip(lab[:, :, 0] * (1.0 - black_protect * 0.85) + l_lifted * (black_protect * 0.85), 0, 255)
+        lab[:, :, 1] = np.clip(lab[:, :, 1] + 2.0, 0, 255)
+        lab[:, :, 2] = np.clip(lab[:, :, 2] + 3.5, 0, 255)
     elif face_L > 168.0:
         l_norm = np.clip(lab[:, :, 0] / 255.0, 0.0, 1.0)
-        lab[:, :, 0] = np.clip((l_norm ** 1.06) * 255.0, 0, 255)
+        lab[:, :, 0] = np.clip((l_norm ** 1.05) * 255.0, 0, 255)
 
     out = cv2.cvtColor(lab.astype(np.uint8), cv2.COLOR_LAB2BGR)
-    # Mild contrast polish
-    out_f = np.clip((out.astype(np.float32) - 127.0) * 1.05 + 127.0, 0, 255).astype(np.uint8)
+    out_f = np.clip((out.astype(np.float32) - 127.0) * 1.04 + 127.0, 0, 255).astype(np.uint8)
     return out_f
 
 
@@ -331,7 +320,6 @@ def composite_portrait(fg_bgr: np.ndarray, alpha: np.ndarray, backdrop: np.ndarr
     a3 = alpha[:, :, None]
     comp = fg_bgr.astype(np.float32) * a3 + backdrop.astype(np.float32) * (1.0 - a3)
 
-    # Subtle bottom card gradient blend (y = 830..1000) toward #0B1120 (BGR: 32, 17, 11)
     yy = np.linspace(0.0, 1.0, OUT_H)[:, None]
     vig = np.clip((yy - 0.82) / 0.18, 0.0, 1.0) * 0.45
     vig3 = vig[:, :, None]
@@ -349,22 +337,22 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
 
     raw_bgr = load_upright_bgr(src_path)
     face_box = detect_primary_face(raw_bgr)
-    aligned, adj_face = align_portrait_canvas(raw_bgr, face_box)
+    aligned, valid_mask, adj_face = align_portrait_canvas(raw_bgr, face_box)
 
     if mode == 'green':
-        fg, alpha = segment_green_screen(aligned, adj_face)
-        fg = harmonize_lighting(fg, alpha, adj_face, boost_exposure=True)
+        fg, alpha = segment_green_screen(aligned, valid_mask, adj_face)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=True)
     elif mode == 'white_wall':
-        border_bg = build_border_flood_bg(aligned, thresh=14.0)
-        fg, alpha = grabcut_with_priors(aligned, adj_face, border_bg=border_bg, is_outdoor=False)
-        fg = harmonize_lighting(fg, alpha, adj_face, boost_exposure=False)
+        border_bg = build_border_flood_bg(aligned, valid_mask, thresh=13.0)
+        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
     elif mode == 'studio_neutral':
-        border_bg = build_border_flood_bg(aligned, thresh=16.0)
-        fg, alpha = grabcut_with_priors(aligned, adj_face, border_bg=border_bg, is_outdoor=False)
-        fg = harmonize_lighting(fg, alpha, adj_face, boost_exposure=False)
-    else:  # outdoor
-        fg, alpha = grabcut_with_priors(aligned, adj_face, border_bg=None, is_outdoor=True)
-        fg = harmonize_lighting(fg, alpha, adj_face, boost_exposure=False)
+        border_bg = build_border_flood_bg(aligned, valid_mask, thresh=15.0)
+        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
+    else:
+        fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=None, is_outdoor=True)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=False)
 
     final_bgr = composite_portrait(fg, alpha, backdrop)
     cv2.imwrite(out_path, final_bgr, [cv2.IMWRITE_JPEG_QUALITY, 92])
