@@ -44,25 +44,64 @@ MT_DRIVE_MATCHERS = [
     ('timbalan-bendahari', ['nazirah fatehah', 'mohamed nazri', 'timbalan bendahari']),
 ]
 PORT = 3000
-AUTO_REFRESH_SECONDS = 600  # 10 minutes server background refresh
+AUTO_REFRESH_SECONDS = 180  # 3 minutes server background refresh
 GIT_SYNC_INTERVAL_SECONDS = 15  # 15 seconds file watcher auto-sync to GitHub
 
+TRUSTED_PORTAL_MAP = {
+    'astro awani': 'Astro Awani',
+    'bernama': 'Bernama',
+    'berita harian': 'Berita Harian',
+    'sinar harian': 'Sinar Harian',
+    'sinar bestari': 'Sinar Bestari',
+    'harian metro': 'Harian Metro',
+    'utusan malaysia': 'Utusan Malaysia',
+    'kosmo online': 'Kosmo! Online',
+    'kosmo': 'Kosmo! Online',
+    'buletin tv3': 'Buletin TV3',
+    'portal berita rtm': 'Berita RTM',
+    'berita rtm': 'Berita RTM',
+    'malaysiagazette': 'MalaysiaGazette',
+    'selangorkini': 'SelangorKini',
+    'media selangor': 'Media Selangor',
+    'malaysiakini': 'Malaysiakini',
+    'free malaysia today': 'Free Malaysia Today',
+    'the star': 'The Star',
+    'majoriti': 'Majoriti',
+}
+
 QUERIES = [
-    'mahasiswa Selangor OR pelajar IPT Selangor OR bantuan IPT Selangor OR UNISEL OR Yayasan Selangor',
-    'mahasiswa Selangor',
-    'mahasiswa Malaysia IPT universiti biasiswa bantuan',
+    'site:astroawani.com (mahasiswa OR pelajar IPT OR universiti OR UiTM OR UNISEL OR UKM OR UPM OR UIAM OR PTPTN OR KPT OR biasiswa)',
+    'site:astroawani.com (mahasiswa Selangor OR Hadiah Pengajian IPT OR UNISEL OR UiTM OR UKM OR UPM)',
+    '(site:sinarharian.com.my OR site:bharian.com.my OR site:bernama.com) (mahasiswa Selangor OR pelajar IPT Selangor OR UNISEL OR UiTM OR UKM OR UPM OR UIAM)',
+    '(site:hmetro.com.my OR site:utusan.com.my OR site:kosmo.com.my) (mahasiswa Selangor OR pelajar IPT Selangor OR UNISEL OR UiTM OR UKM OR UPM OR HPIPT)',
+    '(site:buletintv3.my OR site:malaysiagazette.com OR site:berita.rtm.gov.my OR site:selangorkini.my) (mahasiswa OR pelajar IPT OR UiTM OR UNISEL OR UKM OR UPM) Selangor',
+    '(site:astroawani.com OR site:bernama.com OR site:bharian.com.my OR site:sinarharian.com.my OR site:utusan.com.my OR site:hmetro.com.my OR site:kosmo.com.my) (mahasiswa OR KPT OR PTPTN OR konvokesyen OR inovasi mahasiswa OR biasiswa IPT)',
 ]
 
 STUDENT_KW = [
-    'mahasiswa', 'mahasiswi', 'siswa', 'pelajar ipt', 'universiti',
-    'graduan', 'kampus', 'biasiswa', 'dermasiswa', 'unisel', 'uitm',
-    'ukm', 'upm', 'uis', 'kpt', 'pengajian tinggi', 'ptptn', 'kolej',
-    'politeknik', 'hpipt',
+    'mahasiswa', 'mahasiswi', 'siswa', 'pelajar ipt', 'pelajar universiti',
+    'universiti', 'graduan', 'kampus', 'biasiswa', 'dermasiswa', 'unisel',
+    'uitm', 'ukm', 'upm', 'uis', 'uiam', 'kpt', 'pengajian tinggi', 'ptptn',
+    'politeknik', 'hpipt', 'konvokesyen', 'kesatuan pelajar',
+    'majlis perwakilan pelajar', 'yuran pengajian', 'inovasi pelajar',
 ]
 
 SELANGOR_KW = [
-    'selangor', 'unisel', 'uis', 'shah alam', 'banting', 'uitm',
-    'ukm', 'upm', 'sagong tasi', 'amirudin', 'sungai buloh',
+    'selangor', 'unisel', 'uis', 'shah alam', 'banting', 'puncak alam',
+    'puncak perdana', 'uitm selangor', 'uitm shah alam', 'uitm dengkil',
+    'ukm', 'upm', 'uiam', 'gombak', 'bangi', 'serdang', 'sungai buloh',
+    'sagong tasi', 'hpipt', 'yayasan selangor', 'politeknik banting',
+    'politeknik shah alam', 'selangorkini',
+]
+
+EXCLUDE_KW = [
+    'tingkatan', 'sekolah rendah', 'sekolah menengah', 'murid', 'kanak-kanak',
+    'gisbh', 'kapak', 'tikam', 'lemas', 'rempuh lori', 'dipenjara',
+    'menyamar', 'penjawat awam', 'p-hailing', 'perancis', 'anak johor',
+    'anak perak', 'rakyat sabah', 'kerajaan sarawak', 'pelajar sarawak',
+    'pelajar ipt sarawak', 'ketua menteri melaka', 'sarawak memilih',
+    'pickleball', 'jamali shadat', 'hospital sentosa', 'kematian pelajar',
+    'kes tetak', 'warga asing', 'uitm tawau',
 ]
 
 BANTUAN_KW = [
@@ -156,6 +195,16 @@ def build_summary_and_body(title: str, source: str, date_full: str, desc_clean: 
     return summary, body_html
 
 
+def normalize_trusted_source(raw_source: str) -> str:
+    low = (raw_source or '').strip().lower()
+    if not low:
+        return ''
+    for key, canonical in TRUSTED_PORTAL_MAP.items():
+        if key == low or key in low:
+            return canonical
+    return ''
+
+
 def fetch_live_news_items():
     ctx = ssl._create_unverified_context()
     seen_titles = set()
@@ -167,28 +216,39 @@ def fetch_live_news_items():
             + urllib.parse.quote(q)
             + '&hl=ms&gl=MY&ceid=MY:ms'
         )
-        req = urllib.request.Request(
-            rss_url,
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) PERMAS-Portal/1.0'},
-        )
-        with urllib.request.urlopen(req, context=ctx, timeout=12) as resp:
-            xml_bytes = resp.read()
+        try:
+            req = urllib.request.Request(
+                rss_url,
+                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) PERMAS-Portal/1.0'},
+            )
+            with urllib.request.urlopen(req, context=ctx, timeout=12) as resp:
+                xml_bytes = resp.read()
+            root = ET.fromstring(xml_bytes)
+        except Exception as exc:
+            print(f'[PERMAS News] Query warning ({q[:40]}...): {exc}', file=sys.stderr)
+            continue
 
-        root = ET.fromstring(xml_bytes)
         for item in root.findall('.//item'):
             raw_title = (item.findtext('title') or '').strip()
+            raw_source = (item.findtext('source') or '').strip()
+            canonical_source = normalize_trusted_source(raw_source)
+            if not canonical_source:
+                continue
+
             clean_title = raw_title.rsplit(' - ', 1)[0].strip() if ' - ' in raw_title else raw_title
-            source = (item.findtext('source') or 'Media Tempatan').strip()
-            if ' | ' in clean_title and clean_title.lower().endswith(source.lower()):
+            if ' | ' in clean_title and clean_title.lower().endswith(raw_source.lower()):
                 clean_title = clean_title.rsplit(' | ', 1)[0].strip()
             if not clean_title:
                 continue
-            norm_key = re.sub(r'\W+', '', clean_title.lower())
-            if norm_key in seen_titles:
-                continue
 
             low = clean_title.lower()
+            if any(ex in low for ex in EXCLUDE_KW):
+                continue
             if not any(kw in low for kw in STUDENT_KW):
+                continue
+
+            norm_key = re.sub(r'\W+', '', clean_title.lower())
+            if norm_key in seen_titles:
                 continue
 
             pub_str = (item.findtext('pubDate') or '').strip()
@@ -213,7 +273,7 @@ def fetch_live_news_items():
                 categories.append('selangor')
             if is_bantuan:
                 categories.append('bantuan')
-            if not is_bantuan or any(ak in low for ak in ('santuni', 'sukarelawan', 'sukma', 'solar', 'literasi', 'nuklear', 'bas', 'pulang')):
+            if not is_bantuan or any(ak in low for ak in ('santuni', 'sukarelawan', 'sukma', 'solar', 'literasi', 'nuklear', 'bas', 'pulang', 'inovasi', 'konvokesyen')):
                 categories.append('aktiviti')
 
             primary_cat = 'selangor' if is_selangor else ('bantuan' if is_bantuan else 'aktiviti')
@@ -222,7 +282,7 @@ def fetch_live_news_items():
                 'dt': dt,
                 'timestamp': int(dt.timestamp()),
                 'title': clean_title,
-                'source': source,
+                'source': canonical_source,
                 'link': link,
                 'descClean': desc_clean,
                 'isSelangor': is_selangor,
@@ -277,7 +337,7 @@ def fetch_live_news_items():
         'mode': 'live-rss',
         'updatedAt': now_my.isoformat(),
         'updatedLabel': now_my.strftime('%d/%m/%Y %H:%M MYT'),
-        'nextRefreshMinutes': 5,
+        'nextRefreshMinutes': 2,
         'total': len(articles),
         'selangorCount': sum(1 for a in articles if a['isSelangor']),
         'articles': articles,
