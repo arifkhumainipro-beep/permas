@@ -374,7 +374,15 @@ def main():
         ('bendahari', 'white_wall'),
         ('su-komunikasi', 'studio_neutral'),
         ('suag', 'outdoor'),
+        ('su-pembangunan', 'studio_neutral'),
     ]
+    seen_ids = {lid for lid, _ in jobs}
+    if os.path.isdir(RAW_DIR):
+        for p in sorted(glob.glob(os.path.join(RAW_DIR, '*.jpg'))):
+            lid = os.path.splitext(os.path.basename(p))[0]
+            if lid not in seen_ids:
+                jobs.append((lid, 'studio_neutral'))
+                seen_ids.add(lid)
     for leader_id, mode in jobs:
         process_one(leader_id, mode, backdrop)
 
