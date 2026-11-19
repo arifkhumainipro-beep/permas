@@ -39,14 +39,15 @@
     }
     /* Map Container Style */
     #campus-map {
-      height: 520px;
+      height: 360px;
       width: 100%;
-      border-radius: 1.25rem;
+      border-radius: 0;
       z-index: 10;
     }
     @media (min-width: 640px) {
       #campus-map {
         height: 580px;
+        border-radius: 1.25rem;
       }
     }
   </style>
@@ -234,53 +235,67 @@
         </div>
 
         <!-- Quick Region View Pills -->
-        <div class="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xs">
-          <button onclick="panToRegion('all', this)" class="region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition">
+        <div class="flex flex-nowrap sm:flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xs overflow-x-auto max-w-full">
+          <button onclick="panToRegion('all', this)" class="region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition whitespace-nowrap shrink-0">
             🇲🇾 Semua Wilayah
           </button>
-          <button onclick="panToRegion('tengah', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-red-50 transition">
+          <button onclick="panToRegion('tengah', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-red-50 transition whitespace-nowrap shrink-0">
             Zon Tengah
           </button>
-          <button onclick="panToRegion('utara', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition">
+          <button onclick="panToRegion('utara', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition whitespace-nowrap shrink-0">
             Zon Utara
           </button>
-          <button onclick="panToRegion('selatan', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-amber-700 hover:bg-amber-50 transition">
+          <button onclick="panToRegion('selatan', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-amber-700 hover:bg-amber-50 transition whitespace-nowrap shrink-0">
             Zon Selatan
           </button>
-          <button onclick="panToRegion('timur', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition">
+          <button onclick="panToRegion('timur', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition whitespace-nowrap shrink-0">
             Pantai Timur
           </button>
-          <button onclick="panToRegion('borneo', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-purple-700 hover:bg-purple-50 transition">
+          <button onclick="panToRegion('borneo', this)" class="region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-purple-700 hover:bg-purple-50 transition whitespace-nowrap shrink-0">
             Borneo
           </button>
         </div>
       </div>
 
       <!-- Map Display Container (Real Satellite / Google Earth Style) -->
-      <div class="relative rounded-3xl overflow-hidden border-4 border-white shadow-2xl ring-1 ring-slate-300 bg-slate-950">
+      <div class="relative rounded-3xl overflow-hidden border-2 sm:border-4 border-white shadow-2xl ring-1 ring-slate-300 bg-slate-950">
         
-        <!-- Top-Left Map Mode Switcher (Satelit vs Peta Jalan) & Quick Zoom -->
-        <div class="absolute top-4 left-14 z-20 flex flex-wrap items-center gap-2">
-          <!-- Satellite / Street Switcher -->
-          <div class="inline-flex items-center bg-slate-900/90 backdrop-blur-md p-1 rounded-xl border border-white/20 shadow-lg">
-            <button id="mode-sat-btn" onclick="switchMapMode('satellite')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs transition flex items-center gap-1.5">
-              <span>🛰️ Satelit (Google Earth)</span>
-            </button>
-            <button id="mode-street-btn" onclick="switchMapMode('street')" class="px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white hover:bg-white/10 transition flex items-center gap-1.5">
-              <span>🗺️ Peta Jalan & Topografi</span>
+        <!-- Responsive Map Control Bar: Stacked bar above map on mobile, floating overlay on desktop (sm:+) -->
+        <div class="p-3 bg-slate-950/95 border-b border-slate-800 sm:p-0 sm:bg-transparent sm:border-0 sm:pointer-events-none sm:absolute sm:top-4 sm:inset-x-4 sm:z-20 flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+          <!-- Satellite / Street Switcher & Quick Zoom -->
+          <div class="flex flex-wrap items-center gap-2 sm:pl-10 sm:pointer-events-auto">
+            <div class="inline-flex items-center bg-slate-900/90 backdrop-blur-md p-1 rounded-xl border border-white/20 shadow-lg">
+              <button id="mode-sat-btn" onclick="switchMapMode('satellite')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs transition flex items-center gap-1.5">
+                <span>🛰️ Satelit</span>
+              </button>
+              <button id="mode-street-btn" onclick="switchMapMode('street')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white hover:bg-white/10 transition flex items-center gap-1.5">
+                <span>🗺️ Peta Jalan</span>
+              </button>
+            </div>
+
+            <button onclick="panToRegion('tengah')" class="bg-red-700/95 hover:bg-red-800 backdrop-blur-md text-white px-3 py-2 rounded-xl text-[11px] font-bold shadow-lg transition flex items-center gap-1.5 border border-red-400/40">
+              <span>🔍 Zoom Lembah Klang</span>
             </button>
           </div>
 
-          <button onclick="panToRegion('tengah')" class="bg-red-700/95 hover:bg-red-800 backdrop-blur-md text-white px-3 py-2 rounded-xl text-[11px] font-bold shadow-lg transition flex items-center gap-1.5 border border-red-400/40">
-            <span>🔍 Zoom Lembah Klang (6 UA)</span>
-          </button>
+          <!-- Arc Toggle & Reset Zoom Button -->
+          <div class="flex flex-wrap items-center gap-2 sm:pointer-events-auto">
+            <button id="toggle-arcs-btn" onclick="toggleNetworkArcs()" class="bg-slate-900/90 backdrop-blur-md text-amber-300 hover:bg-slate-800 px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-amber-400/40">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>Laluan Jaringan</span>
+            </button>
+            <button onclick="panToRegion('all')" class="bg-white/95 text-slate-900 hover:bg-white px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-slate-200">
+              <svg class="w-3.5 h-3.5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+              <span>Paparan Penuh</span>
+            </button>
+          </div>
         </div>
 
         <!-- Leaflet Map Canvas -->
         <div id="campus-map"></div>
 
-        <!-- Floating Zone Color Legend Overlay -->
-        <div class="absolute bottom-4 left-4 right-4 sm:right-auto z-20 bg-slate-950/90 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl text-xs text-left shadow-2xl flex flex-wrap items-center gap-x-4 gap-y-2 text-white">
+        <!-- Legend: Docked cleanly below map on mobile, floating pill inside map on desktop (sm:+) -->
+        <div class="p-3 sm:px-4 sm:py-2.5 bg-slate-950/95 sm:bg-slate-950/90 backdrop-blur-md border-t border-slate-800 sm:border sm:border-white/20 sm:rounded-2xl sm:absolute sm:bottom-4 sm:left-4 sm:z-20 text-xs text-left shadow-2xl flex flex-wrap items-center gap-x-4 gap-y-2 text-white">
           <div class="flex items-center gap-1.5">
             <span class="w-3.5 h-3.5 rounded-md bg-red-600/60 border-2 border-amber-400 shadow-2xs"></span>
             <span class="text-amber-300 font-extrabold text-[11px]">Selangor (Pusat PERMAS)</span>
@@ -301,18 +316,6 @@
             <span class="w-2.5 h-2.5 rounded-full bg-purple-500 ring-2 ring-white/50"></span>
             <span class="text-slate-200 font-semibold text-[11px]">Borneo (2)</span>
           </div>
-        </div>
-
-        <!-- Controls: Arc Toggle & Reset Zoom Button -->
-        <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
-          <button id="toggle-arcs-btn" onclick="toggleNetworkArcs()" class="bg-slate-900/90 backdrop-blur-md text-amber-300 hover:bg-slate-800 px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-amber-400/40">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            <span>Laluan Jaringan</span>
-          </button>
-          <button onclick="panToRegion('all')" class="bg-white/95 text-slate-900 hover:bg-white px-3 py-2 rounded-xl text-xs font-bold shadow-lg transition flex items-center gap-1.5 border border-slate-200">
-            <svg class="w-3.5 h-3.5 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-            <span>Paparan Penuh</span>
-          </button>
         </div>
       </div>
 
@@ -353,23 +356,23 @@
       </div>
 
       <!-- Zone Filter Tabs -->
-      <div class="flex flex-wrap items-center gap-2 mb-8">
-        <button onclick="filterZone('all', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs">
+      <div class="flex flex-nowrap sm:flex-wrap items-center gap-2 mb-8 overflow-x-auto pb-1 max-w-full">
+        <button onclick="filterZone('all', this)" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs whitespace-nowrap shrink-0">
           Semua Zon (20 UA)
         </button>
-        <button onclick="filterZone('Zon Tengah', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+        <button onclick="filterZone('Zon Tengah', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0">
           Zon Tengah (6 UA)
         </button>
-        <button onclick="filterZone('Zon Utara', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+        <button onclick="filterZone('Zon Utara', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0">
           Zon Utara (4 UA)
         </button>
-        <button onclick="filterZone('Zon Selatan', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+        <button onclick="filterZone('Zon Selatan', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0">
           Zon Selatan (4 UA)
         </button>
-        <button onclick="filterZone('Zon Pantai Timur', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+        <button onclick="filterZone('Zon Pantai Timur', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0">
           Zon Pantai Timur (4 UA)
         </button>
-        <button onclick="filterZone('Borneo', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs">
+        <button onclick="filterZone('Borneo', this)" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0">
           Borneo (2 UA)
         </button>
       </div>
@@ -1003,10 +1006,10 @@
     function filterZone(zone, btn) {
       activeZone = zone;
       document.querySelectorAll('.zone-filter-btn').forEach(b => {
-        b.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs';
+        b.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 zone-filter-btn shadow-2xs whitespace-nowrap shrink-0';
       });
       if (btn) {
-        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs';
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white zone-filter-btn shadow-xs whitespace-nowrap shrink-0';
       }
 
       const searchVal = document.getElementById('ipt-search').value;
