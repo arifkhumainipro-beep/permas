@@ -263,124 +263,149 @@ def outpaint_tight_suit(bgr: np.ndarray, alpha: np.ndarray, valid_mask: np.ndarr
         hits = np.where(fg_mask[:, col_c] & (np.arange(OUT_H) > cy + fh * 0.25))[0]
         return float(hits[0]) if len(hits) > 0 else fallback
 
-    y_sh_l = _shoulder_y(dst_x1 + 3, cy + fh * 0.84)
-    y_sh_in_l = _shoulder_y(dst_x1 + 42, y_sh_l - 12.0)
-    slope_l = float(np.clip((y_sh_l - y_sh_in_l) / 39.0, 0.22, 0.55))
+    y_sh_l = _shoulder_y(dst_x1 + 4, cy + fh * 0.84)
+    y_sh_in_l = _shoulder_y(dst_x1 + 44, y_sh_l - 12.0)
+    slope_l = float(np.clip((y_sh_l - y_sh_in_l) / 40.0, 0.24, 0.52))
 
-    y_sh_r = _shoulder_y(dst_x2 - 4, cy + fh * 0.88)
-    y_sh_in_r = _shoulder_y(dst_x2 - 43, y_sh_r - 12.0)
-    slope_r = float(np.clip((y_sh_r - y_sh_in_r) / 39.0, 0.22, 0.55))
+    y_sh_r = _shoulder_y(dst_x2 - 5, cy + fh * 0.88)
+    y_sh_in_r = _shoulder_y(dst_x2 - 45, y_sh_r - 12.0)
+    slope_r = float(np.clip((y_sh_r - y_sh_in_r) / 40.0, 0.24, 0.52))
 
-    target_x_l = max(86.0, cx - fw * 1.28)
-    target_x_r = min(float(OUT_W - 86), cx + fw * 1.28)
+    target_x_l = max(108.0, cx - fw * 1.24)
+    target_x_r = min(float(OUT_W - 108), cx + fw * 1.24)
     span_l = max(12.0, float(dst_x1) - target_x_l)
     span_r = max(12.0, target_x_r - float(dst_x2 - 1))
 
     out_bgr = bgr.astype(np.float32).copy()
     out_alpha = alpha.copy()
+    rng = np.random.default_rng(42)
 
-    # 1. Horizontal shoulder cap & sleeve extension (within valid vertical band)
+    # 1. Horizontal shoulder cap & sleeve extension using clean 1D pinstripe sleeve profile
     y_end_v = min(OUT_H, dst_y2)
+    anchor_y = max(y_end_v - 8, int(max(y_sh_l, y_sh_r) + 40))
+
+    # Extract clean vertical-stripe sample band near bottom-outer sleeves (free of chest pocket & armhole loops)
+    y_prof_0 = max(int(max(y_sh_l, y_sh_r) + 55), anchor_y - 26)
+    y_prof_1 = anchor_y - 2
     if dst_x1 > int(target_x_l):
-        xs_ext = np.arange(0, dst_x1, dtype=np.float32)
-        t_l = np.clip((float(dst_x1) - xs_ext) / span_l, 0.0, 1.0)
-        y_top_l = y_sh_l + (slope_l * span_l) * t_l + (88.0 - slope_l * span_l) * (t_l ** 3.2)
-        # Subtle outward arm expansion down to waist (mirroring executive silhouette)
+        # Smooth outer sleeve stripe motif (mirrored period ~28 px so zero repeating blobs)
+        patch_l = out_bgr[y_prof_0:y_prof_1, dst_x1 + 6:dst_x1 + 36]
+        prof_l = np.median(patch_l, axis=0)  # shape (30, 3)
+        period_l = len(prof_l)
         x_lim_l = np.where(
-            yy < y_sh_l + 88.0,
+            yy < y_sh_l + 68.0,
             target_x_l,
-            target_x_l - 16.0 * np.clip((yy - (y_sh_l + 88.0)) / 400.0, 0.0, 1.0),
+            target_x_l - 12.0 * np.clip((yy - (y_sh_l + 68.0)) / 420.0, 0.0, 1.0),
         )
-        for x in range(int(target_x_l) - 18, dst_x1):
+        for x in range(int(target_x_l) - 16, dst_x1):
             if x < 0:
                 continue
-            t = max(0.0, (float(dst_x1) - x) / span_l)
-            y_t = y_sh_l + (slope_l * span_l) * min(t, 1.0) + max(18.0, 88.0 - slope_l * span_l) * (min(t, 1.0) ** 3.2)
-            src_x = int(np.clip(dst_x1 + 3 + (dst_x1 - x), dst_x1 + 2, int(cx - fw * 0.52)))
-            src_hits = np.where(fg_mask[:, src_x] & (np.arange(OUT_H) > cy + fh * 0.25))[0]
-            src_y0 = int(src_hits[0]) + 4 if len(src_hits) > 0 else int(y_sh_l) + 4
-            shade = max(0.76, 1.0 - 0.14 * (min(t, 1.2) ** 1.3))
+            dx = float(dst_x1 - x)
+            t = max(0.0, dx / span_l)
+            y_t = y_sh_l + (slope_l * span_l) * min(t, 1.0) + max(18.0, 68.0 - slope_l * span_l) * (min(t, 1.0) ** 2.3)
+            # Ping-pong index into clean outer sleeve pinstripe motif
+            idx_m = int(dx) % (2 * (period_l - 1))
+            src_idx = idx_m if idx_m < period_l else (2 * (period_l - 1) - idx_m)
+            base_col = prof_l[src_idx]
+            shade = max(0.76, 1.0 - 0.16 * (min(t, 1.15) ** 1.25))
             ys_col = np.arange(int(round(y_t)), y_end_v)
             if len(ys_col) > 0:
-                src_ys = np.clip(ys_col, src_y0, y_end_v - 4)
-                out_bgr[ys_col, x] = out_bgr[src_ys, src_x] * shade
-                inside = (float(x) >= x_lim_l[ys_col, x]) & (t <= 1.05)
+                # Blend top 24 px into actual image column at dst_x1 + 3 for natural shoulder stitch
+                blend_w = np.clip((dx) / 14.0, 0.0, 1.0)
+                real_ys = np.clip(ys_col, int(y_sh_l) + 4, y_end_v - 4)
+                real_sample = out_bgr[real_ys, dst_x1 + 3]
+                grain = rng.normal(0.0, 1.1, size=(len(ys_col), 1)).astype(np.float32)
+                synth = base_col[None, :] * shade + grain
+                out_bgr[ys_col, x] = real_sample * (1.0 - blend_w * 0.78) * shade + synth * (blend_w * 0.78)
+                inside = (float(x) >= x_lim_l[ys_col, x]) & (t <= 1.03)
                 out_alpha[ys_col, x] = np.where(inside, 1.0, 0.0)
 
     if dst_x2 < int(target_x_r):
+        patch_r = out_bgr[y_prof_0:y_prof_1, dst_x2 - 36:dst_x2 - 6]
+        prof_r = np.median(patch_r, axis=0)
+        period_r = len(prof_r)
         x_lim_r = np.where(
-            yy < y_sh_r + 88.0,
+            yy < y_sh_r + 68.0,
             target_x_r,
-            target_x_r + 14.0 * np.clip((yy - (y_sh_r + 88.0)) / 400.0, 0.0, 1.0),
+            target_x_r + 12.0 * np.clip((yy - (y_sh_r + 68.0)) / 420.0, 0.0, 1.0),
         )
-        for x in range(dst_x2, min(OUT_W, int(target_x_r) + 18)):
-            t = max(0.0, (x - float(dst_x2 - 1)) / span_r)
-            y_t = y_sh_r + (slope_r * span_r) * min(t, 1.0) + max(18.0, 88.0 - slope_r * span_r) * (min(t, 1.0) ** 3.2)
-            src_x = int(np.clip((dst_x2 - 4) - (x - (dst_x2 - 1)), int(cx + fw * 0.52), dst_x2 - 3))
-            src_hits = np.where(fg_mask[:, src_x] & (np.arange(OUT_H) > cy + fh * 0.25))[0]
-            src_y0 = int(src_hits[0]) + 4 if len(src_hits) > 0 else int(y_sh_r) + 4
-            shade = max(0.76, 1.0 - 0.14 * (min(t, 1.2) ** 1.3))
+        for x in range(dst_x2, min(OUT_W, int(target_x_r) + 16)):
+            dx = float(x - (dst_x2 - 1))
+            t = max(0.0, dx / span_r)
+            y_t = y_sh_r + (slope_r * span_r) * min(t, 1.0) + max(18.0, 68.0 - slope_r * span_r) * (min(t, 1.0) ** 2.3)
+            idx_m = int(dx) % (2 * (period_r - 1))
+            src_idx = (period_r - 1 - idx_m) if idx_m < period_r else (idx_m - (period_r - 1))
+            base_col = prof_r[int(np.clip(src_idx, 0, period_r - 1))]
+            shade = max(0.76, 1.0 - 0.16 * (min(t, 1.15) ** 1.25))
             ys_col = np.arange(int(round(y_t)), y_end_v)
             if len(ys_col) > 0:
-                src_ys = np.clip(ys_col, src_y0, y_end_v - 4)
-                out_bgr[ys_col, x] = out_bgr[src_ys, src_x] * shade
-                inside = (float(x) <= x_lim_r[ys_col, x]) & (t <= 1.05)
+                blend_w = np.clip(dx / 14.0, 0.0, 1.0)
+                real_ys = np.clip(ys_col, int(y_sh_r) + 4, y_end_v - 4)
+                real_sample = out_bgr[real_ys, dst_x2 - 4]
+                grain = rng.normal(0.0, 1.1, size=(len(ys_col), 1)).astype(np.float32)
+                synth = base_col[None, :] * shade + grain
+                out_bgr[ys_col, x] = real_sample * (1.0 - blend_w * 0.78) * shade + synth * (blend_w * 0.78)
+                inside = (float(x) <= x_lim_r[ys_col, x]) & (t <= 1.03)
                 out_alpha[ys_col, x] = np.where(inside, 1.0, 0.0)
 
     # Smooth any tiny seam along dst_x1 / dst_x2 inside the suit
     if dst_x1 > 0:
         seam_y = np.arange(int(y_sh_l) + 6, y_end_v)
         if len(seam_y) > 0:
-            blend_patch = cv2.GaussianBlur(out_bgr[:, max(0, dst_x1 - 5):min(OUT_W, dst_x1 + 6)], (7, 3), 0)
+            blend_patch = cv2.GaussianBlur(out_bgr[:, max(0, dst_x1 - 5):min(OUT_W, dst_x1 + 6)], (7, 5), 0)
             out_bgr[seam_y, max(0, dst_x1 - 3):min(OUT_W, dst_x1 + 4)] = blend_patch[seam_y, 2:9]
     if dst_x2 < OUT_W:
         seam_y = np.arange(int(y_sh_r) + 6, y_end_v)
         if len(seam_y) > 0:
-            blend_patch = cv2.GaussianBlur(out_bgr[:, max(0, dst_x2 - 6):min(OUT_W, dst_x2 + 5)], (7, 3), 0)
+            blend_patch = cv2.GaussianBlur(out_bgr[:, max(0, dst_x2 - 6):min(OUT_W, dst_x2 + 5)], (7, 5), 0)
             out_bgr[seam_y, max(0, dst_x2 - 4):min(OUT_W, dst_x2 + 3)] = blend_patch[seam_y, 2:9]
 
-    # 2. Vertical lower-torso blazer extension down to OUT_H (y = dst_y2 .. 999)
+    # 2. Vertical lower-torso blazer extension down to OUT_H (smooth 1D column pinstripes -> zero zigzags!)
     if dst_y2 < OUT_H:
-        anchor_y = dst_y2 - 7  # avoid any bottom-edge JPEG darkening right at dst_y2 - 1
-        # Detect lowest bright shirt/tie pixel near center so we never reflect the tie
-        hsv_now = cv2.cvtColor(np.clip(out_bgr, 0, 255).astype(np.uint8), cv2.COLOR_BGR2HSV)
-        cx_i = int(round(cx))
-        center_bright = np.where((hsv_now[:anchor_y, max(0, cx_i - 42):min(OUT_W, cx_i + 42), 2].max(axis=1) > 78) & (np.arange(anchor_y) > cy + fh * 0.5))[0]
-        tie_end = int(center_bright[-1]) + 4 if len(center_bright) > 0 else int(cy + fh * 1.65)
-        center_span = max(14, anchor_y - tie_end)
-        side_span = max(36, min(92, anchor_y - int(max(y_sh_l, y_sh_r) + 45)))
+        # Average clean pure-blazer rows [anchor_y - 12 : anchor_y] per column so vertical pinstripes continue cleanly
+        row_strip = out_bgr[anchor_y - 12:anchor_y + 1]
+        col_profile = np.median(row_strip, axis=0)  # (OUT_W, 3)
 
-        x_lim_l_bot = target_x_l - 16.0 * np.clip((yy - (y_sh_l + 88.0)) / 400.0, 0.0, 1.0)
-        x_lim_r_bot = target_x_r + 14.0 * np.clip((yy - (y_sh_r + 88.0)) / 400.0, 0.0, 1.0)
+        # Normalize any accidental bright pixel near center seam below tie tip
+        cx_i = int(round(cx))
+        pure_left = np.median(col_profile[max(0, cx_i - 90):max(1, cx_i - 45)], axis=0)
+        pure_right = np.median(col_profile[min(OUT_W - 1, cx_i + 45):min(OUT_W, cx_i + 90)], axis=0)
+        pure_mid = 0.5 * (pure_left + pure_right)
+        # Keep only subtle vertical pinstripe variance inside center zone without bright highlights
+        ctr_l = max(0, cx_i - 42)
+        ctr_r = min(OUT_W, cx_i + 42)
+        ctr_lum = col_profile[ctr_l:ctr_r].mean(axis=1)
+        mid_lum = float(pure_mid.mean())
+        for x_c in range(ctr_l, ctr_r):
+            if abs(col_profile[x_c].mean() - mid_lum) > 8.0:
+                col_profile[x_c] = pure_mid
+
+        x_lim_l_bot = target_x_l - 12.0 * np.clip((yy - (y_sh_l + 68.0)) / 420.0, 0.0, 1.0)
+        x_lim_r_bot = target_x_r + 12.0 * np.clip((yy - (y_sh_r + 68.0)) / 420.0, 0.0, 1.0)
+
+        # Gentle center jacket opening crease (subtle dark shadow strictly at cx)
+        center_crease = 1.0 - 0.16 * np.exp(-(((np.arange(OUT_W, dtype=np.float32) - cx) / 2.2) ** 2))
 
         for y in range(anchor_y, OUT_H):
             dy = y - anchor_y
-            # Gentle vertical darkening toward waist bottom
-            v_shade = 1.0 - 0.10 * np.clip(dy / max(1.0, float(OUT_H - anchor_y)), 0.0, 1.0)
+            v_shade = 1.0 - 0.12 * np.clip(dy / max(1.0, float(OUT_H - anchor_y)), 0.0, 1.0)
+            # Soft vertical drape modulation + fine wool texture
+            drape = 1.0 + 0.025 * np.sin((xx[y] - cx) * 0.045 + dy * 0.008)
+            grain = rng.normal(0.0, 1.2, size=(OUT_W, 1)).astype(np.float32)
+            row_synth = col_profile * (v_shade * drape[:, None] * center_crease[:, None]) + grain
 
-            # Triangle wave bounce over [anchor_y - side_span .. anchor_y] keeps pinstripes unbroken
-            p_side = dy % (2 * side_span)
-            src_y_side = anchor_y - p_side if p_side <= side_span else (anchor_y - 2 * side_span + p_side)
-            src_y_side = int(np.clip(src_y_side, 0, anchor_y))
+            # Smooth 14-px vertical cross-fade right below anchor_y
+            if dy < 14:
+                w_real = (14.0 - dy) / 14.0
+                row_synth = out_bgr[anchor_y - (dy % 6)] * w_real + row_synth * (1.0 - w_real)
 
-            p_ctr = dy % (2 * center_span)
-            src_y_ctr = anchor_y - p_ctr if p_ctr <= center_span else (anchor_y - 2 * center_span + p_ctr)
-            src_y_ctr = int(np.clip(src_y_ctr, 0, anchor_y))
-
-            is_center = np.abs(xx[y] - cx) < 46.0
-            row_vals = np.where(is_center[:, None], out_bgr[src_y_ctr], out_bgr[src_y_side]) * v_shade
-            out_bgr[y] = row_vals
-
+            out_bgr[y] = row_synth
             inside_row = (xx[y] >= x_lim_l_bot[y]) & (xx[y] <= x_lim_r_bot[y])
             out_alpha[y] = np.where(inside_row, 1.0, 0.0)
 
-        # Feather transition rows right at anchor_y
-        seam_band = cv2.GaussianBlur(out_bgr[anchor_y - 5:anchor_y + 6], (3, 7), 0)
-        out_bgr[anchor_y - 3:anchor_y + 4] = seam_band[2:9]
-
     # Feather the outpainted outer arm/shoulder contour slightly so matte blends naturally on backdrop
     ext_region = (~valid_mask)
-    soft_alpha = cv2.GaussianBlur(out_alpha.astype(np.float32), (5, 5), 0)
+    soft_alpha = cv2.GaussianBlur(out_alpha.astype(np.float32), (7, 7), 0)
     out_alpha = np.where(ext_region, soft_alpha, out_alpha)
     return np.clip(out_bgr, 0, 255).astype(np.uint8), np.clip(out_alpha, 0.0, 1.0)
 
@@ -409,17 +434,14 @@ def segment_blue_screen(bgr: np.ndarray, valid_mask: np.ndarray, face_box):
     alpha = np.where(main_bool, alpha, 0.0)
     alpha = cv2.GaussianBlur(alpha.astype(np.float32), (3, 3), 0)
 
-    # Suppress blue spill along hair, ears, collar, and shoulder boundaries
-    avg_rg = 0.52 * r + 0.48 * g
-    spill = np.maximum(0.0, b - avg_rg)
-    edge_factor = np.clip(1.35 - alpha, 0.0, 1.0)
-    spill_strength = np.where(inner_face, 0.55, np.maximum(0.82, edge_factor))
-    clean_b = np.where(
-        is_blue_bg | (spill > 12.0),
-        b - spill * spill_strength,
-        b,
-    )
-    cleaned_bgr = np.stack([np.clip(clean_b, 0, 255), g, r], axis=-1).astype(np.uint8)
+    # Suppress blue spill strictly along semi-transparent edges so dark hair stays pure charcoal (never greenish)
+    edge_halo = (alpha < 0.92) | is_blue_bg
+    neutral_cap = np.maximum(r, 0.5 * (r + g))
+    spill = np.maximum(0.0, b - neutral_cap)
+    edge_factor = np.clip(1.25 - alpha, 0.0, 1.0)
+    clean_b = np.where(edge_halo & (spill > 4.0), b - spill * np.maximum(0.65, edge_factor), b)
+    clean_g = np.where(edge_halo & (blue_excess > 12.0), g - np.maximum(0.0, g - r) * 0.35 * (1.0 - alpha), g)
+    cleaned_bgr = np.stack([np.clip(clean_b, 0, 255), np.clip(clean_g, 0, 255), r], axis=-1).astype(np.uint8)
     cleaned_bgr, alpha = outpaint_tight_suit(cleaned_bgr, alpha, valid_mask, face_box)
     return cleaned_bgr, alpha
 
