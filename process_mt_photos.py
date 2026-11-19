@@ -307,7 +307,9 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
             gc_mask[enclosed_white] = cv2.GC_BGD
         else:
             # Remove enclosed inner-elbow backdrop triangles strictly above wrists (keeps wristwatch intact)
-            enclosed_elbow = (L_ch > 85) & (L_ch < 200) & (s_ch < 35) & (np.abs(xx - cx) > fw * 0.54) & (yy > cy + fh * 1.25) & (yy < cy + fh * 2.45)
+            elbow_ymax = OUT_H if tight_sides else (cy + fh * 2.45)
+            elbow_lmin = 72 if tight_sides else 85
+            enclosed_elbow = (L_ch > elbow_lmin) & (L_ch < 215) & (s_ch < (95 if tight_sides else 35)) & (np.abs(xx - cx) > fw * 0.54) & (yy > cy + fh * 1.25) & (yy < elbow_ymax)
             gc_mask[enclosed_elbow] = cv2.GC_BGD
 
     if is_outdoor:
