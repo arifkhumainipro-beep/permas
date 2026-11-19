@@ -255,8 +255,8 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
 
     # Core definite foreground priors
     face_core = (((xx - cx) / (fw * 0.36)) ** 2 + ((yy - cy) / (fh * 0.46)) ** 2) <= 1.0
-    torso_dark = (yy > cy + fh * 0.62) & (np.abs(xx - cx) < fw * 1.28) & (v_ch < 58)
-    maroon = ((h_ch >= 145) | (h_ch <= 15)) & (s_ch >= 55) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.72) & (yy > head_top) & (yy < cy + fh * 1.6)
+    torso_dark = (yy > cy + fh * 0.62) & (np.abs(xx - cx) < fw * 1.28) & (v_ch < 48)
+    maroon = ((h_ch >= 152) | (h_ch <= 10)) & (s_ch >= 65) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.72) & (yy > head_top) & (yy < cy + fh * 1.6)
     inner_shirt = (np.abs(xx - cx) < fw * 0.34) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140)
 
     gc_mask[face_core | torso_dark | maroon | inner_shirt] = cv2.GC_FGD
@@ -264,13 +264,17 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
 
     if border_bg is not None:
         gc_mask[border_bg & (~face_core) & (~inner_shirt)] = cv2.GC_BGD
+        # Also remove enclosed bright low-saturation wall pockets (e.g., between sleeve & waist)
+        enclosed_white = (L_ch > 160) & (s_ch < 42) & (~inner_shirt) & (~face_core)
+        gc_mask[enclosed_white] = cv2.GC_BGD
 
     if is_outdoor:
         # Outdoor architectural steps/glass/greenery background seeds outside face/shirt/suit
-        bright_arch = (L_ch > 148) & (s_ch < 90) & (~face_core) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.40)
-        upper_green_door = (yy < cy + fh * 1.15) & (np.abs(xx - cx) > fw * 0.48) & ((g_ch > r_ch + 2) | (v_ch > 75)) & (~maroon) & (~face_core)
-        upper_steps = (yy > cy + fh * 2.15) & (L_ch > 105) & (np.abs(xx - cx) > fw * 1.08)
-        gc_mask[bright_arch | upper_green_door | upper_steps] = cv2.GC_BGD
+        bright_arch = (L_ch > 142) & (s_ch < 85) & (~face_core) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.38)
+        crown_non_maroon = (yy < cy - fh * 0.45) & (~maroon) & (~face_core)
+        collar_gap = (yy < cy + fh * 1.05) & (np.abs(xx - cx) > fw * 0.44) & (~maroon) & (~face_core) & (~inner_shirt) & ((v_ch > 28) | (g_ch > r_ch + 1))
+        upper_steps = (yy > cy + fh * 2.05) & (L_ch > 100) & (np.abs(xx - cx) > fw * 1.05)
+        gc_mask[bright_arch | crown_non_maroon | collar_gap | upper_steps] = cv2.GC_BGD
 
     bgd_model = np.zeros((1, 65), dtype=np.float64)
     fgd_model = np.zeros((1, 65), dtype=np.float64)
@@ -299,14 +303,16 @@ def harmonize_lighting(bgr: np.ndarray, face_box, boost_exposure: bool = False):
     face_L = float(np.median(lab[:, :, 0][face_sample]))
 
     if boost_exposure or face_L < 142.0:
-        # Lift skin/midtones nicely while preserving deep dark charcoal suit blacks
+        # Lift midtones & skin brightness while keeping dark charcoal suit crisp black
         l_norm = np.clip(lab[:, :, 0] / 255.0, 0.0, 1.0)
-        l_lifted = (l_norm ** 0.72) * 255.0
-        # Keep very deep blacks below L=36 anchored so suit doesn't turn washed-out grey
-        black_protect = np.clip((lab[:, :, 0] - 28.0) / 45.0, 0.0, 1.0)
-        lab[:, :, 0] = np.clip(lab[:, :, 0] * (1.0 - black_protect * 0.85) + l_lifted * (black_protect * 0.85), 0, 255)
-        lab[:, :, 1] = np.clip(lab[:, :, 1] + 2.0, 0, 255)
-        lab[:, :, 2] = np.clip(lab[:, :, 2] + 3.5, 0, 255)
+        l_lifted = (l_norm ** 0.68) * 255.0
+        # Keep suit fabric dark charcoal (L < 62 stays rich & dark, skin/shirt L > 75 gets clean studio lift)
+        suit_protect = np.clip((lab[:, :, 0] - 54.0) / 36.0, 0.0, 1.0)
+        lab[:, :, 0] = np.clip(lab[:, :, 0] * (1.0 - suit_protect * 0.92) + l_lifted * (suit_protect * 0.92), 0, 255)
+        # Neutralize faint greenish-brown cast on dark suit while keeping warm natural skin tone
+        skin_like = (lab[:, :, 0] > 72.0) & (lab[:, :, 1] > 128.0) & (lab[:, :, 2] > 130.0)
+        lab[:, :, 1] = np.where(skin_like, np.clip(lab[:, :, 1] + 2.5, 0, 255), 128.0 + (lab[:, :, 1] - 128.0) * 0.85)
+        lab[:, :, 2] = np.where(skin_like, np.clip(lab[:, :, 2] + 3.0, 0, 255), 128.0 + (lab[:, :, 2] - 128.0) * 0.65)
     elif face_L > 168.0:
         l_norm = np.clip(lab[:, :, 0] / 255.0, 0.0, 1.0)
         lab[:, :, 0] = np.clip((l_norm ** 1.05) * 255.0, 0, 255)
