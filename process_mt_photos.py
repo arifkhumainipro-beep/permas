@@ -159,6 +159,7 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float, bgr: np.nda
     inv = (~main_mask).astype(np.uint8)
     n2, l2, s2, _ = cv2.connectedComponentsWithStats(inv, connectivity=8)
     filled = main_mask.copy()
+    hsv_img = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV) if bgr is not None else None
     for lbl in range(1, n2):
         area = s2[lbl, cv2.CC_STAT_AREA]
         x, y, bw, bh, _ = s2[lbl]
@@ -166,7 +167,11 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float, bgr: np.nda
         if not touches_edge and area < 45000:
             hole_mask = (l2 == lbl)
             hole_cx = x + bw * 0.5
-            # Skip refilling enclosed elbow/armpit triangles that match the outer studio wall color
+            # Skip refilling enclosed elbow/armpit background pockets that aren't dark suit fabric
+            if hsv_img is not None and abs(hole_cx - cx) > fw * 0.48:
+                mean_v = float(np.median(hsv_img[:, :, 2][hole_mask]))
+                if mean_v >= 55.0:
+                    continue
             if bg_lab_ref is not None and abs(hole_cx - cx) > fw * 0.45:
                 hole_lab = np.median(lab_img[hole_mask], axis=0)
                 if float(np.linalg.norm(hole_lab - bg_lab_ref)) < 30.0:
@@ -274,32 +279,26 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
     head_env = (((xx - cx) / (fw * 0.72)) ** 2 + ((yy - (cy - fh * 0.08)) / (fh * 0.86)) ** 2) <= 1.0
     gc_mask[body_env | head_env] = cv2.GC_PR_FGD
 
-    # Core definite foreground priors
+    # Core definite foreground priors (shielded against border_bg so white wall never gets forced FGD)
+    not_border = (~border_bg) if border_bg is not None else np.ones((OUT_H, OUT_W), dtype=bool)
     face_core = (((xx - cx) / (fw * 0.36)) ** 2 + ((yy - cy) / (fh * 0.46)) ** 2) <= 1.0
-    neck_skin = (np.abs(xx - cx) < fw * 0.30) & (yy >= cy) & (yy <= cy + fh * 0.80) & (s_ch > 28) & (v_ch > 70)
+    neck_skin = (np.abs(xx - cx) < fw * 0.24) & (yy >= cy) & (yy <= cy + fh * 0.72) & (s_ch > 35) & (v_ch > 70) & not_border
     torso_dark = (yy > cy + fh * 0.62) & (np.abs(xx - cx) < fw * 1.28) & (v_ch < 48)
     maroon = ((h_ch >= 152) | (h_ch <= 10)) & (s_ch >= 65) & (v_ch < 175) & (np.abs(xx - cx) < fw * 0.72) & (yy > head_top) & (yy < cy + fh * 1.6)
     inner_shirt = (
-        ((np.abs(xx - cx) < fw * 0.45) & (yy > cy + fh * 0.45) & (yy < cy + fh * 1.05) & (L_ch > 175) & (s_ch < 35))
-        | ((np.abs(xx - cx) < fw * 0.34) & (yy > cy + fh * 0.58) & (yy < cy + fh * 1.95) & (L_ch > 140))
+        ((np.abs(xx - cx) < fw * 0.42) & (yy > cy + fh * 0.50) & (yy < cy + fh * 1.05) & (L_ch > 185) & (s_ch < 28) & not_border)
+        | ((np.abs(xx - cx) < fw * 0.32) & (yy > cy + fh * 0.62) & (yy < cy + fh * 1.95) & (L_ch > 140) & not_border)
     )
 
     gc_mask[face_core | neck_skin | torso_dark | maroon | inner_shirt] = cv2.GC_FGD
     gc_mask[top_bg | outer_sides | (upper_bg & (~inner_shirt) & (~neck_skin)) | (~valid_mask)] = cv2.GC_BGD
 
     if border_bg is not None:
-        gc_mask[border_bg & (~face_core) & (~neck_skin) & (~inner_shirt)] = cv2.GC_BGD
-        # Remove enclosed bright wall pockets OR inner-elbow studio backdrop pockets matching border tone
+        gc_mask[border_bg & (~face_core)] = cv2.GC_BGD
+        # Remove enclosed bright wall pockets OR inner-elbow studio backdrop pockets
         enclosed_white = (L_ch > 160) & (s_ch < 42) & (~inner_shirt) & (~face_core) & (~neck_skin)
-        lab_f = lab.astype(np.float32)
-        mid_samples = np.concatenate([
-            lab_f[350:650, 5:35].reshape(-1, 3),
-            lab_f[350:650, -35:-5].reshape(-1, 3),
-        ], axis=0)
-        mid_bg_ref = np.median(mid_samples, axis=0)
-        mid_dist = np.linalg.norm(lab_f - mid_bg_ref[None, None, :], axis=-1)
-        enclosed_studio = (mid_dist < 24.0) & (v_ch > 48) & (~face_core) & (~neck_skin) & (~inner_shirt) & (np.abs(xx - cx) > fw * 0.52)
-        gc_mask[enclosed_white | enclosed_studio] = cv2.GC_BGD
+        enclosed_elbow = (L_ch > 85) & (L_ch < 200) & (s_ch < 35) & (np.abs(xx - cx) > fw * 0.52) & (yy > cy + fh * 1.15)
+        gc_mask[enclosed_white | enclosed_elbow] = cv2.GC_BGD
 
     if is_outdoor:
         # Outdoor architectural steps/glass/greenery background seeds outside face/shirt/suit
