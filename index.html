@@ -117,27 +117,27 @@
        LIVE ANNOUNCEMENT & HEBAHAN TERKINI BAR
   ======================================================== -->
   <div class="bg-slate-900 text-white border-b border-slate-800 py-2.5 px-4">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
-      <div class="flex items-center gap-2.5 overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2.5 overflow-hidden w-full sm:w-auto min-w-0">
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-600 text-white font-extrabold text-[10px] uppercase tracking-wider shrink-0">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span>
           Hebahan Terkini
         </span>
-        <p id="live-ticker-text" class="text-slate-200 font-medium truncate">
+        <p id="live-ticker-text" class="text-slate-200 font-medium truncate min-w-0">
           <strong class="text-amber-300">Berita Mahasiswa Selangor:</strong> Memuatkan berita tempatan terkini mengenai mahasiswa &amp; biasiswa Negeri Selangor...
         </p>
       </div>
-      <div class="flex items-center gap-3 shrink-0">
-        <a id="live-ticker-link" href="#berita-terkini" class="text-amber-300 hover:text-amber-200 font-bold underline underline-offset-4">
+      <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 w-full sm:w-auto">
+        <a id="live-ticker-link" href="#berita-terkini" class="text-amber-300 hover:text-amber-200 font-bold underline underline-offset-4 whitespace-nowrap">
           Baca Berita →
         </a>
         <span class="text-slate-600 hidden sm:inline">|</span>
-        <a href="inisiatif.html?v=12" class="text-emerald-300 hover:text-white font-bold hidden md:inline">
+        <a href="inisiatif.html?v=12" class="text-emerald-300 hover:text-white font-bold hidden md:inline whitespace-nowrap">
           Info Bantuan
         </a>
         <span class="text-slate-600 hidden sm:inline">|</span>
-        <a href="aduan.html?v=12" class="text-red-300 hover:text-white font-bold hidden sm:inline">
-          📢 Salur Aduan / SOS
+        <a href="aduan.html?v=12" class="text-red-300 hover:text-white font-bold hidden sm:inline whitespace-nowrap">
+          Salur Aduan / SOS
         </a>
       </div>
     </div>
@@ -146,7 +146,7 @@
   <!-- ========================================================
        HERO BANNER WITH MULTI-LAYERED GRAPHIC COMPOSITE
   ======================================================== -->
-  <section class="relative overflow-hidden bg-hero-mesh py-14 sm:py-20 border-b border-slate-200">
+  <section class="relative overflow-hidden bg-hero-mesh py-10 sm:py-20 border-b border-slate-200">
     <!-- Interactive Particle Network Canvas -->
     <canvas id="hero-particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
     <!-- Decorative Ambient Glow Orbs -->
@@ -154,20 +154,20 @@
     <div class="absolute top-1/3 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-10 items-center">
         
         <!-- Left Column: Institutional Value Proposition & Quick Lookup -->
-        <div class="lg:col-span-7 space-y-6 text-left">
+        <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
           
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white border border-red-200 shadow-xs">
-            <img src="assets/selangor-jata.svg" alt="Jata Selangor" class="w-4 h-4 object-contain">
-            <span class="text-xs font-extrabold uppercase tracking-wider text-red-800">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-red-200 shadow-xs max-w-full">
+            <img src="assets/selangor-jata.svg" alt="Jata Selangor" class="w-4 h-4 object-contain shrink-0">
+            <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-red-800 leading-tight">
               Badan Induk Rasmi Mahasiswa Negeri Selangor
             </span>
           </div>
 
-          <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-slate-900 leading-[1.1] font-heading tracking-tight">
-            Memartabatkan Suara, Kebajikan & Masa Depan 
+          <h1 class="text-3xl sm:text-5xl lg:text-[54px] font-extrabold text-slate-900 leading-[1.12] font-heading tracking-tight">
+            Memartabatkan Suara, Kebajikan &amp; Masa Depan 
             <span class="relative inline-block text-red-700">
               Mahasiswa Selangor.
               <!-- Graphic Gold Underline Swoosh SVG -->
@@ -178,8 +178,8 @@
           </h1>
 
           <!-- Official Tagline Block -->
-          <div class="inline-flex flex-wrap items-center gap-3 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-red-950/90 via-slate-900 to-slate-900 border border-amber-400/40 shadow-lg">
-            <span class="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-heading font-black text-[11px] uppercase tracking-wider shrink-0">
+          <div class="flex sm:inline-flex flex-wrap items-center gap-2 sm:gap-3 px-3.5 sm:px-4 py-2.5 rounded-2xl bg-gradient-to-r from-red-950/90 via-slate-900 to-slate-900 border border-amber-400/40 shadow-lg max-w-full">
+            <span class="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-heading font-black text-[10px] sm:text-[11px] uppercase tracking-wider shrink-0">
               KITA SISWA SELANGOR
             </span>
             <span class="font-heading font-extrabold text-xs sm:text-sm tracking-wide text-amber-200">
@@ -187,21 +187,21 @@
             </span>
           </div>
 
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl">
+          <p class="text-sm sm:text-lg text-slate-600 leading-relaxed font-medium max-w-2xl">
             Menyatukan lebih <strong class="text-slate-900">28,450+ mahasiswa anak Selangor</strong> di 20 Universiti Awam (UA) dan 38 cawangan kampus seluruh Malaysia. Siaga 24 jam menjaga kebajikan, menyalurkan dermasiswa, dan membina jaringan kepimpinan nasional.
           </p>
 
           <!-- Direct Action Buttons for Info, News & E-Aduan -->
-          <div class="flex flex-wrap items-center gap-3 pt-1">
-            <a href="#berita-terkini" class="btn-primary-red py-3.5 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg flex items-center gap-2">
-              <span>📰 Berita & Warta Terkini</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-1">
+            <a href="#berita-terkini" class="btn-primary-red py-3.5 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto">
+              <span>📰 Berita &amp; Warta Terkini</span>
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </a>
-            <a href="aduan.html?v=8" class="px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition shadow-md flex items-center gap-2">
+            <a href="aduan.html?v=8" class="px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2 w-full sm:w-auto">
               <span>📢 Salur Aduan Siswa</span>
-              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
-            <a href="inisiatif.html?v=8" class="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs sm:text-sm font-bold transition shadow-2xs flex items-center gap-1.5">
+            <a href="inisiatif.html?v=8" class="px-4 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs sm:text-sm font-bold transition shadow-2xs flex items-center justify-center gap-1.5 w-full sm:w-auto">
               <span>ℹ️ Info Bantuan</span>
             </a>
           </div>
@@ -249,7 +249,7 @@
         <div class="lg:col-span-5 relative flex justify-center">
           <div class="w-full max-w-lg">
             <div class="rounded-3xl overflow-hidden shadow-2xl border border-amber-400/35 bg-slate-900 group">
-              <img src="assets/images/selangor_shah_alam_night.jpg" alt="Masjid Sultan Salahuddin Abdul Aziz Shah, Shah Alam" class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700">
+              <img src="assets/images/selangor_shah_alam_night.jpg" alt="Masjid Sultan Salahuddin Abdul Aziz Shah, Shah Alam" class="w-full h-64 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700">
             </div>
           </div>
         </div>
