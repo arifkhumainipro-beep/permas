@@ -127,18 +127,8 @@
             Warta Digital &amp; <span class="text-red-700">Buletin Program Terlaksana.</span>
           </h1>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Arkib akhbar digital yang mendokumentasikan semua program, misi kebajikan, konvensyen dan kejayaan PERMAS Nasional. Klik <strong>Muat Naik Program</strong> untuk terus menerbitkan gambar serta berita baharu.
+            Arkib akhbar digital yang mendokumentasikan semua program, misi kebajikan, konvensyen serta laporan bergambar PERMAS Nasional.
           </p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-          <button onclick="openWartaEditor()" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs sm:text-sm font-extrabold shadow-lg transition">
-            <span>📰</span>
-            <span>+ Muat Naik Program &amp; Gambar</span>
-          </button>
-          <button id="warta-export-json-btn" onclick="exportWartaJson()" title="Muat turun salinan warta-data.json" class="hidden inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-300 text-xs font-bold transition">
-            ⬇ Eksport JSON
-          </button>
         </div>
       </div>
 
@@ -269,9 +259,6 @@
           <span id="reader-dateline">Selangor</span>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button id="reader-edit-btn" type="button" class="px-3 py-1.5 rounded-lg border broadsheet-hairline text-xs font-bold paper-ink hover:opacity-80 transition">
-            ✏️ Sunting
-          </button>
           <button type="button" onclick="window.print()" class="px-3 py-1.5 rounded-lg border broadsheet-hairline text-xs font-bold paper-ink hover:opacity-80 transition">
             🖨️ Cetak / PDF
           </button>
@@ -305,135 +292,6 @@
 
       <!-- Multi-Paragraph Broadsheet Columns -->
       <div id="reader-body" class="broadsheet-columns pt-2"></div>
-    </div>
-  </div>
-
-  <!-- ========================================================
-       UPLOAD & EDITORIAL COMPOSER MODAL
-  ======================================================== -->
-  <div id="warta-editor-modal" class="hidden fixed inset-0 z-[90] bg-slate-950/85 backdrop-blur-sm overflow-y-auto p-3 sm:p-6 flex items-start justify-center" onclick="if(event.target===this) closeWartaEditor()">
-    <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden my-4 text-left">
-
-      <div class="bg-slate-900 px-5 sm:px-6 py-4 flex items-center justify-between border-b border-slate-800">
-        <div>
-          <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 block">Meja Sidang Pengarang PERMAS</span>
-          <h3 id="editor-modal-title" class="font-heading font-extrabold text-white text-base sm:text-lg">
-            Terbitkan Berita Program Baharu
-          </h3>
-        </div>
-        <button type="button" onclick="closeWartaEditor()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
-          Tutup ✕
-        </button>
-      </div>
-
-      <form id="warta-editor-form" class="p-5 sm:p-6 space-y-4">
-        <div>
-          <label for="ed-title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-            Tajuk Besar Berita / Nama Program *
-          </label>
-          <input type="text" id="ed-title" required placeholder="Cth: Majlis Iftar Perdana Mahasiswa Selangor Zon Tengah 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm text-slate-900 font-semibold outline-none focus:border-red-600">
-        </div>
-
-        <div>
-          <label for="ed-subtitle" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-            Ringkasan Tajuk Kecil (Deck / Subhead)
-          </label>
-          <input type="text" id="ed-subtitle" placeholder="Ringkasan 1-2 ayat di bawah tajuk utama akhbar..." class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 outline-none focus:border-red-600">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div>
-            <label for="ed-category" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Ruangan / Kategori
-            </label>
-            <select id="ed-category" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 outline-none focus:border-red-600">
-              <option value="Kepimpinan & Wacana">Kepimpinan &amp; Wacana</option>
-              <option value="Kebajikan & Komuniti">Kebajikan &amp; Komuniti</option>
-              <option value="Kerjaya & Akademik">Kerjaya &amp; Akademik</option>
-              <option value="Sukan & Kampus">Sukan &amp; Kampus</option>
-              <option value="Warta Rasmi">Warta Rasmi</option>
-            </select>
-          </div>
-          <div>
-            <label for="ed-date" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Tarikh Program *
-            </label>
-            <input type="date" id="ed-date" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 outline-none focus:border-red-600">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div>
-            <label for="ed-location" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Lokasi Program
-            </label>
-            <input type="text" id="ed-location" placeholder="Cth: Shah Alam, Selangor / UKM Bangi" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 outline-none focus:border-red-600">
-          </div>
-          <div>
-            <label for="ed-author" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Oleh / Biro Pelapor
-            </label>
-            <input type="text" id="ed-author" placeholder="Cth: Biro Komunikasi Korporat PERMAS" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 outline-none focus:border-red-600">
-          </div>
-        </div>
-
-        <!-- Cover Image Upload Dropzone -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-            Muat Naik Gambar Utama Program (JPG / PNG / WebP)
-          </label>
-          <label id="ed-cover-dropzone" for="ed-cover-file" class="block border-2 border-dashed border-slate-300 rounded-2xl p-4 text-center cursor-pointer hover:border-red-500 transition bg-slate-50">
-            <input type="file" id="ed-cover-file" accept="image/*" class="hidden">
-            <img id="ed-cover-preview" src="" alt="Pratonton Gambar Utama" class="hidden w-full max-h-56 object-contain rounded-xl mx-auto mb-2">
-            <div id="ed-cover-placeholder" class="py-4 space-y-1">
-              <span class="text-2xl block">📷</span>
-              <p class="text-xs font-bold text-slate-700">Klik atau seret gambar utama program di sini</p>
-              <p class="text-[11px] text-slate-500">Gambar dimampatkan secara automatik supaya laju &amp; jelas di akhbar digital</p>
-            </div>
-            <p class="text-[11px] text-amber-600 font-semibold mt-1">Klik kotak ini untuk tukar gambar utama</p>
-          </label>
-          <input type="text" id="ed-caption" placeholder="Kapsyen gambar utama (Cth: Ahli jawatankuasa bergambar kenangan selepas majlis...)" class="mt-2 w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs text-slate-800 outline-none focus:border-red-600">
-        </div>
-
-        <!-- Additional Multi-Photo Gallery -->
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Galeri Foto Tambahan Program (Pilihan, Maks. 6 Foto)
-            </label>
-            <label for="ed-gallery-files" class="cursor-pointer px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-[11px] font-bold transition">
-              + Tambah Foto Galeri
-            </label>
-            <input type="file" id="ed-gallery-files" accept="image/*" multiple class="hidden">
-          </div>
-          <div id="ed-gallery-preview" class="space-y-2"></div>
-        </div>
-
-        <!-- Full Body Text -->
-        <div>
-          <label for="ed-body" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-            Ayat &amp; Isi Penuh Laporan Akhbar *
-          </label>
-          <textarea id="ed-body" rows="7" required placeholder="Tulis berita penuh program di sini. Tekan Enter dua kali untuk membuat perenggan baharu supaya tersusun kemas dalam lajur surat khabar..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-900 leading-relaxed outline-none focus:border-red-600"></textarea>
-        </div>
-
-        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
-          <input type="checkbox" id="ed-featured" class="w-4 h-4 accent-red-700 rounded">
-          <span class="text-xs font-bold text-slate-800">
-            Jadikan Laporan Utama (Front Page Lead Story) di Muka Hadapan Surat Khabar
-          </span>
-        </label>
-
-        <div class="pt-2 flex flex-wrap items-center justify-end gap-2.5 border-t border-slate-200">
-          <button type="button" onclick="closeWartaEditor()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition">
-            Batal
-          </button>
-          <button id="ed-submit-btn" type="submit" class="px-5 py-2.5 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs sm:text-sm font-extrabold shadow-md transition">
-            📰 Terbitkan ke Warta Digital
-          </button>
-        </div>
-      </form>
-
     </div>
   </div>
 
