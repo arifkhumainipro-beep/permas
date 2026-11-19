@@ -335,12 +335,94 @@ def refresh_cache(force: bool = False):
         }
 
 
+def sync_drive_mt_photos(force: bool = False) -> dict:
+    with DRIVE_SYNC_LOCK:
+        ahli_dir = os.path.join(ROOT_DIR, 'assets', 'ahli')
+        os.makedirs(ahli_dir, exist_ok=True)
+        ctx = ssl._create_unverified_context()
+        synced_ids = []
+        found_in_drive = []
+        errors = []
+
+        try:
+            folder_url = f'https://drive.google.com/embeddedfolderview?id={DRIVE_FOLDER_ID}#list'
+            req = urllib.request.Request(folder_url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, context=ctx, timeout=20) as r:
+                folder_html = r.read().decode('utf-8', errors='ignore')
+
+            entries = re.findall(
+                r'id="entry-([^"]+)"[^>]*>.*?<div class="flip-entry-title">([^<]+)</div>',
+                folder_html,
+                flags=re.S,
+            )
+
+            for file_id, raw_title in entries:
+                clean_title = html.unescape(raw_title).strip()
+                lower_title = clean_title.lower()
+                found_in_drive.append({'id': file_id, 'title': clean_title})
+
+                matched_leader_id = None
+                for leader_id, keywords in MT_DRIVE_MATCHERS:
+                    if any(kw in lower_title for kw in keywords):
+                        matched_leader_id = leader_id
+                        break
+
+                if not matched_leader_id:
+                    continue
+
+                out_path = os.path.join(ahli_dir, f'{matched_leader_id}.jpg')
+                if not force and os.path.exists(out_path) and os.path.getsize(out_path) > 500:
+                    continue
+
+                dl_url = f'https://drive.google.com/uc?export=download&id={file_id}'
+                dl_req = urllib.request.Request(dl_url, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(dl_req, context=ctx, timeout=30) as img_resp:
+                    img_bytes = img_resp.read()
+
+                if len(img_bytes) > 500 and (
+                    img_bytes.startswith(b'\xff\xd8')
+                    or img_bytes.startswith(b'\x89PNG')
+                    or img_bytes[:4] == b'RIFF'
+                ):
+                    tmp_path = out_path + '.tmp'
+                    with open(tmp_path, 'wb') as f:
+                        f.write(img_bytes)
+                    os.replace(tmp_path, out_path)
+                    synced_ids.append(matched_leader_id)
+                else:
+                    errors.append(f'{matched_leader_id}: invalid image payload from Drive ({file_id})')
+        except Exception as exc:
+            errors.append(str(exc))
+            print(f'[PERMAS Drive Sync] Warning: {exc}', file=sys.stderr)
+
+        existing_ids = [
+            leader_id
+            for leader_id, _ in MT_DRIVE_MATCHERS
+            if os.path.exists(os.path.join(ahli_dir, f'{leader_id}.jpg'))
+            and os.path.getsize(os.path.join(ahli_dir, f'{leader_id}.jpg')) > 500
+        ]
+
+        if synced_ids:
+            print(f"[PERMAS Drive Sync] Downloaded MT photos: {', '.join(synced_ids)}")
+
+        return {
+            'status': 'ok' if not errors else 'partial',
+            'folderId': DRIVE_FOLDER_ID,
+            'foundInDrive': len(found_in_drive),
+            'syncedIds': synced_ids,
+            'existingIds': existing_ids,
+            'errors': errors,
+        }
+
+
 def background_news_updater():
     # Initial populate on startup, then periodic auto-update
     refresh_cache(force=True)
+    sync_drive_mt_photos(force=False)
     while True:
         time.sleep(AUTO_REFRESH_SECONDS)
         refresh_cache(force=True)
+        sync_drive_mt_photos(force=False)
 
 
 GIT_SYNC_LOCK = threading.Lock()

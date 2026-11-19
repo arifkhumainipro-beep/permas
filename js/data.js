@@ -1194,13 +1194,62 @@ window.renderLeaderPortraitCard = function (l, options = {}) {
   const borderCard = isSpecial
     ? 'border-amber-400/50 ring-1 ring-amber-400/30 shadow-lg shadow-amber-950/20'
     : 'border-slate-800 hover:border-amber-400/40';
-  const photoSrc = getLeaderPhotoSrc(l);
   const safeName = escLeaderHtml(l.name);
   const safePos = escLeaderHtml(l.position);
   const safeInst = escLeaderHtml(l.institution);
   const safeQuote = escLeaderHtml(l.quote);
   const safeEmail = escLeaderHtml((l.social && l.social.email) || 'permasnasionalofficial@gmail.com');
-  const frameHeight = compact ? 'h-56' : 'h-64';
+
+  if (l.section !== 'tertinggi') {
+    const roleAccent = l.section === 'pembangunan'
+      ? 'bg-blue-900/80 border-blue-500/40 text-blue-200'
+      : l.section === 'kebajikan'
+      ? 'bg-emerald-900/80 border-emerald-500/40 text-emerald-200'
+      : 'bg-amber-900/70 border-amber-500/40 text-amber-200';
+
+    return `
+      <div class="pro-card rounded-2xl border ${borderCard} bg-slate-900/95 flex flex-col justify-between overflow-hidden transition-all group p-5" data-tilt-3d>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <span class="leader-badge-pill ${badgeClass}">${sectionLabel}</span>
+            <span class="text-[10px] font-black font-mono px-2 py-0.5 rounded-md bg-slate-950/85 border border-slate-700 text-amber-300 tracking-wider">
+              ${escLeaderHtml(l.shortUni)}
+            </span>
+          </div>
+
+          <div class="pt-1">
+            <span class="inline-block px-2.5 py-0.5 rounded-full border ${roleAccent} text-[10px] font-extrabold uppercase tracking-wider mb-2">
+              ${escLeaderHtml(l.roleCode)}
+            </span>
+            <span class="text-[11px] uppercase font-bold tracking-wider text-amber-300 block">
+              ${safePos}
+            </span>
+            <h4 class="font-extrabold text-[15px] text-white group-hover:text-amber-300 transition leading-snug mt-0.5">
+              ${safeName}
+            </h4>
+            <p class="text-xs text-slate-400 font-medium mt-1 line-clamp-1">
+              ${safeInst}
+            </p>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed italic border-l-2 border-red-700/70 pl-2.5 py-0.5 line-clamp-3">
+            &ldquo;${safeQuote}&rdquo;
+          </p>
+        </div>
+
+        <div class="pt-3 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+          <span class="text-[11px] font-semibold text-slate-400">PERMAS 24/26</span>
+          <a href="mailto:${safeEmail}" class="text-red-400 hover:text-amber-300 font-bold hover:underline inline-flex items-center gap-1 transition">
+            <span>Hubungi</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  const photoSrc = getLeaderPhotoSrc(l);
+  const frameHeight = compact ? 'h-56' : 'h-72';
 
   return `
     <div class="pro-card rounded-2xl border ${borderCard} bg-slate-900/95 flex flex-col justify-between overflow-hidden transition-all group" data-tilt-3d>
@@ -1212,7 +1261,7 @@ window.renderLeaderPortraitCard = function (l, options = {}) {
 
           <div id="leader-fallback-${l.id}" data-leader-fallback="${l.id}"
             class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gradient-to-b from-slate-900 via-red-950/50 to-slate-950">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-700 to-amber-500 p-0.5 shadow-lg mb-2.5">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-700 to-amber-500 p-0.5 shadow-lg mb-3">
               <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-amber-300">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -1222,10 +1271,9 @@ window.renderLeaderPortraitCard = function (l, options = {}) {
             <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 font-black font-heading text-[10px] tracking-wider uppercase">
               ${escLeaderHtml(l.roleCode)}
             </span>
-            <span class="text-[10px] text-slate-400 font-mono mt-1.5 opacity-80">assets/ahli/${l.id}.jpg</span>
           </div>
 
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/35 pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/35 pointer-events-none"></div>
 
           <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10 pointer-events-none">
             <span class="leader-badge-pill ${badgeClass} shadow-sm">${sectionLabel}</span>
@@ -1233,12 +1281,6 @@ window.renderLeaderPortraitCard = function (l, options = {}) {
               ${escLeaderHtml(l.shortUni)}
             </span>
           </div>
-
-          <button type="button" onclick="event.preventDefault(); event.stopPropagation(); triggerLeaderPhotoUpload('${l.id}')"
-            class="absolute bottom-3 right-3 z-10 px-2.5 py-1.5 rounded-lg bg-slate-950/85 hover:bg-amber-400 hover:text-slate-950 border border-amber-400/50 text-amber-300 text-[11px] font-bold shadow-lg backdrop-blur-sm transition inline-flex items-center gap-1.5">
-            <span>📷</span>
-            <span>Letak Gambar</span>
-          </button>
         </div>
 
         <div class="${compact ? 'p-4' : 'p-5'} space-y-2">
