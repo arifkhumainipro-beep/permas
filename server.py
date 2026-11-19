@@ -29,7 +29,6 @@ CACHE_PATH = os.path.join(ROOT_DIR, 'js', 'live-news-cache.json')
 ADUAN_LOG_PATH = os.path.join(ROOT_DIR, 'js', 'aduan-submissions.json')
 GAS_CONFIG_PATH = os.path.join(ROOT_DIR, 'js', 'gas-config.js')
 WARTA_DATA_PATH = os.path.join(ROOT_DIR, 'js', 'warta-data.json')
-WARTA_IMG_DIR = os.path.join(ROOT_DIR, 'assets', 'warta')
 ADUAN_LOCK = threading.Lock()
 DRIVE_SYNC_LOCK = threading.Lock()
 WARTA_LOCK = threading.Lock()
@@ -790,15 +789,6 @@ def _format_warta_date_label(date_str: str) -> str:
     return f'{day} {month_name} {year}'.strip()
 
 
-def _slugify_warta_id(raw_id: str, title: str) -> str:
-    candidate = re.sub(r'[^a-z0-9-]+', '-', str(raw_id or '').lower()).strip('-')
-    if candidate and re.fullmatch(r'[a-z0-9-]+', candidate):
-        return candidate[:80]
-    base = re.sub(r'[^a-z0-9]+', '-', str(title or '').lower()).strip('-')[:48] or 'program'
-    stamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-    return f'{base}-{stamp}'
-
-
 def load_warta_data() -> dict:
     with WARTA_LOCK:
         default_store = {
@@ -816,179 +806,6 @@ def load_warta_data() -> dict:
         except Exception:
             pass
         return default_store
-
-
-def _save_warta_image(data_url: str, filename_base: str) -> str:
-    raw_url = str(data_url or '').strip()
-    if not raw_url.startswith('data:image/') or ',' not in raw_url:
-        raise ValueError('Format data gambar tidak sah')
-    header, b64_part = raw_url.split(',', 1)
-    img_bytes = base64.b64decode(b64_part)
-    if len(img_bytes) > 8 * 1024 * 1024:
-        raise ValueError('Saiz gambar melebihi had 8 MB')
-
-    ext = '.jpg'
-    header_l = header.lower()
-    if 'image/png' in header_l:
-        ext = '.png'
-    elif 'image/webp' in header_l:
-        ext = '.webp'
-
-    safe_base = os.path.basename(re.sub(r'[^a-z0-9_-]+', '-', filename_base.lower()).strip('-')) or 'warta-foto'
-    filename = f'{safe_base}{ext}'
-    os.makedirs(WARTA_IMG_DIR, exist_ok=True)
-    out_path = os.path.join(WARTA_IMG_DIR, filename)
-    with open(out_path, 'wb') as f:
-        f.write(img_bytes)
-    return f'assets/warta/{filename}'
-
-
-def handle_save_warta(data: dict) -> dict:
-    title = str(data.get('title', '')).strip()
-    body = str(data.get('body', '')).strip()
-    if not title or not body:
-        raise ValueError('Tajuk program dan isi laporan akhbar wajib diisi')
-
-    article_id = _slugify_warta_id(data.get('id', ''), title)
-    date_iso = str(data.get('date', '')).strip()
-    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', date_iso):
-        date_iso = datetime.datetime.now().strftime('%Y-%m-%d')
-    date_label = str(data.get('dateLabel', '')).strip() or _format_warta_date_label(date_iso)
-
-    with WARTA_LOCK:
-        if os.path.exists(WARTA_DATA_PATH):
-            try:
-                with open(WARTA_DATA_PATH, 'r', encoding='utf-8') as f:
-                    store = json.load(f)
-                if not isinstance(store, dict):
-                    store = {}
-            except Exception:
-                store = {}
-        else:
-            store = {}
-
-        articles = list(store.get('articles') or [])
-        existing_idx = next((i for i, a in enumerate(articles) if str(a.get('id', '')) == article_id), -1)
-        prev_record = articles[existing_idx] if existing_idx >= 0 else {}
-
-        image_url = str(data.get('imageUrl', '') or prev_record.get('imageUrl', '')).strip()
-        image_data_url = str(data.get('imageDataUrl', '')).strip()
-        if image_data_url:
-            ts_tag = int(time.time())
-            image_url = _save_warta_image(image_data_url, f'{article_id}-cover-{ts_tag}')
-        if not image_url:
-            image_url = 'assets/images/campus_life.jpg'
-
-        raw_gallery = data.get('gallery')
-        gallery_clean = []
-        if isinstance(raw_gallery, list):
-            for idx, item in enumerate(raw_gallery[:6]):
-                if not isinstance(item, dict):
-                    continue
-                g_caption = str(item.get('caption', '')).strip()
-                g_data = str(item.get('dataUrl', '')).strip()
-                g_url = str(item.get('url', '')).strip()
-                if g_data:
-                    ts_tag = int(time.time())
-                    g_url = _save_warta_image(g_data, f'{article_id}-gal-{idx + 1}-{ts_tag}')
-                if g_url:
-                    gallery_clean.append({'url': g_url, 'caption': g_caption})
-
-        is_featured = bool(data.get('featured', False))
-        record = {
-            'id': article_id,
-            'title': title,
-            'subtitle': str(data.get('subtitle', '')).strip(),
-            'category': str(data.get('category', 'Program Terlaksana')).strip() or 'Program Terlaksana',
-            'date': date_iso,
-            'dateLabel': date_label,
-            'location': str(data.get('location', 'Negeri Selangor')).strip() or 'Negeri Selangor',
-            'author': str(data.get('author', 'Biro Komunikasi Korporat PERMAS')).strip() or 'Biro Komunikasi Korporat PERMAS',
-            'caption': str(data.get('caption', '')).strip(),
-            'body': body,
-            'featured': is_featured,
-            'imageUrl': image_url,
-            'gallery': gallery_clean,
-            'updatedAt': datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S+08:00'),
-        }
-
-        if is_featured:
-            for item in articles:
-                item['featured'] = False
-
-        if existing_idx >= 0:
-            if is_featured:
-                articles.pop(existing_idx)
-                articles.insert(0, record)
-            else:
-                articles[existing_idx] = record
-        else:
-            articles.insert(0, record)
-
-        if articles and not any(bool(a.get('featured')) for a in articles):
-            articles[0]['featured'] = True
-
-        store['edition'] = store.get('edition') or 'Jilid I • Bil. 01/2026'
-        store['updatedLabel'] = _format_warta_date_label(datetime.datetime.now().strftime('%Y-%m-%d'))
-        store['articles'] = articles
-
-        os.makedirs(os.path.dirname(WARTA_DATA_PATH), exist_ok=True)
-        tmp_path = WARTA_DATA_PATH + '.tmp'
-        with open(tmp_path, 'w', encoding='utf-8') as f:
-            json.dump(store, f, ensure_ascii=False, indent=2)
-        os.replace(tmp_path, WARTA_DATA_PATH)
-
-    return {
-        'status': 'ok',
-        'article': record,
-        'total': len(articles),
-        'data': store,
-    }
-
-
-def handle_delete_warta(data: dict) -> dict:
-    article_id = str(data.get('id', '')).strip()
-    if not article_id or not re.fullmatch(r'[a-z0-9-]+', article_id):
-        raise ValueError('ID artikel warta tidak sah')
-
-    with WARTA_LOCK:
-        if not os.path.exists(WARTA_DATA_PATH):
-            raise ValueError('Fail data warta tidak ditemui')
-        with open(WARTA_DATA_PATH, 'r', encoding='utf-8') as f:
-            store = json.load(f)
-        articles = list(store.get('articles') or [])
-        remaining = [a for a in articles if str(a.get('id', '')) != article_id]
-        if len(remaining) == len(articles):
-            raise ValueError('Artikel tidak ditemui')
-
-        if remaining and not any(bool(a.get('featured')) for a in remaining):
-            remaining[0]['featured'] = True
-
-        # Safely clean up uploaded assets/warta/{article_id}-* images
-        if os.path.isdir(WARTA_IMG_DIR):
-            prefix = f'{article_id}-'
-            for fname in os.listdir(WARTA_IMG_DIR):
-                if fname.startswith(prefix):
-                    target = os.path.join(WARTA_IMG_DIR, os.path.basename(fname))
-                    if os.path.isfile(target):
-                        try:
-                            os.remove(target)
-                        except OSError:
-                            pass
-
-        store['updatedLabel'] = _format_warta_date_label(datetime.datetime.now().strftime('%Y-%m-%d'))
-        store['articles'] = remaining
-        tmp_path = WARTA_DATA_PATH + '.tmp'
-        with open(tmp_path, 'w', encoding='utf-8') as f:
-            json.dump(store, f, ensure_ascii=False, indent=2)
-        os.replace(tmp_path, WARTA_DATA_PATH)
-
-    return {
-        'status': 'ok',
-        'deletedId': article_id,
-        'total': len(remaining),
-        'data': store,
-    }
 
 
 class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -1072,28 +889,6 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
                 raw = self.rfile.read(length).decode('utf-8')
                 data = json.loads(raw)
                 resp = handle_submit_aduan(data)
-                self._send_json(200, resp)
-            except Exception as exc:
-                self._send_json(400, {'status': 'error', 'message': str(exc)})
-            return
-
-        if parsed.path == '/api/warta/save':
-            try:
-                length = int(self.headers.get('Content-Length', '0'))
-                raw = self.rfile.read(length).decode('utf-8')
-                data = json.loads(raw)
-                resp = handle_save_warta(data)
-                self._send_json(200, resp)
-            except Exception as exc:
-                self._send_json(400, {'status': 'error', 'message': str(exc)})
-            return
-
-        if parsed.path == '/api/warta/delete':
-            try:
-                length = int(self.headers.get('Content-Length', '0'))
-                raw = self.rfile.read(length).decode('utf-8')
-                data = json.loads(raw)
-                resp = handle_delete_warta(data)
                 self._send_json(200, resp)
             except Exception as exc:
                 self._send_json(400, {'status': 'error', 'message': str(exc)})

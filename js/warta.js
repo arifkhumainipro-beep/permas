@@ -1,9 +1,8 @@
-/* PERMAS NASIONAL — WARTA DIGITAL BROADSHEET & EDITORIAL STUDIO
+/* PERMAS NASIONAL — WARTA DIGITAL BROADSHEET (READ-ONLY EDITORIAL VIEWER)
    Handles fetching, broadsheet newspaper rendering, full article reading,
-   multi-photo upload/compression, and static/server persistence.
+   gallery photo switching, paper themes, and printing.
 */
 (function () {
-  const STATIC_STORAGE_KEY = 'permas_warta_static_v1';
   const PAPER_MODE_KEY = 'permas_warta_paper_mode';
 
   const state = {
@@ -13,12 +12,6 @@
     category: 'all',
     query: '',
     paperMode: 'classic',
-    serverAvailable: false,
-    usingStaticFallback: false,
-    editingId: '',
-    coverDataUrl: '',
-    existingCoverUrl: '',
-    galleryDraft: [], // [{ url, dataUrl, caption }]
     activeReaderId: '',
   };
 
@@ -31,29 +24,14 @@
       .replace(/'/g, '&#39;');
   }
 
-  function todayIso() {
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${y}-${m}-${day}`;
-  }
-
   const MALAY_MONTHS = [
     '', 'Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun',
     'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember',
   ];
 
-  function formatMalayDate(iso) {
-    const m = String(iso || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (!m) {
-      const d = new Date();
-      return `${d.getDate()} ${MALAY_MONTHS[d.getMonth() + 1]} ${d.getFullYear()}`;
-    }
-    const year = Number(m[1]);
-    const month = Number(m[2]);
-    const day = Number(m[3]);
-    return `${day} ${MALAY_MONTHS[month] || ''} ${year}`.trim();
+  function formatCurrentMalayDate() {
+    const d = new Date();
+    return `${d.getDate()} ${MALAY_MONTHS[d.getMonth() + 1] || ''} ${d.getFullYear()}`.trim();
   }
 
   function splitParagraphs(body) {
@@ -74,98 +52,13 @@
     }).join('');
   }
 
-  function slugify(text) {
-    const clean = String(text || '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .slice(0, 48);
-    return `${clean || 'program'}-${Date.now().toString().slice(-6)}`;
-  }
-
-  function showToast(msg, isError) {
-    let el = document.getElementById('warta-toast');
-    if (!el) {
-      el = document.createElement('div');
-      el.id = 'warta-toast';
-      el.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-[140] px-4 py-3 rounded-xl text-xs font-bold shadow-2xl border backdrop-blur-md transition-all duration-300 max-w-[92vw] text-center no-print';
-      document.body.appendChild(el);
-    }
-    el.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[140] px-4 py-3 rounded-xl text-xs font-bold shadow-2xl border backdrop-blur-md transition-all duration-300 max-w-[92vw] text-center no-print ${
-      isError
-        ? 'bg-red-950/95 border-red-500/60 text-red-100'
-        : 'bg-slate-900/95 border-amber-400/60 text-amber-200'
-    }`;
-    el.textContent = msg;
-    el.style.opacity = '1';
-    el.style.transform = 'translate(-50%, 0)';
-    clearTimeout(el._timer);
-    el._timer = setTimeout(() => {
-      el.style.opacity = '0';
-      el.style.transform = 'translate(-50%, 10px)';
-    }, 4200);
-  }
-
-  async function compressImageFile(file, maxW = 1400, quality = 0.85) {
-    return new Promise((resolve, reject) => {
-      if (!file || !file.type.startsWith('image/')) {
-        reject(new Error('Sila pilih fail gambar (JPG, PNG atau WebP).'));
-        return;
-      }
-      const reader = new FileReader();
-      reader.onerror = () => reject(new Error('Gagal membaca fail gambar.'));
-      reader.onload = () => {
-        const img = new Image();
-        img.onerror = () => reject(new Error('Gambar tidak sah atau rosak.'));
-        img.onload = () => {
-          let w = img.naturalWidth || img.width;
-          let h = img.naturalHeight || img.height;
-          if (w > maxW) {
-            h = Math.round((h * maxW) / w);
-            w = maxW;
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.max(1, w);
-          canvas.height = Math.max(1, h);
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          resolve(canvas.toDataURL('image/jpeg', quality));
-        };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function loadLocalStaticEdits() {
-    try {
-      const raw = localStorage.getItem(STATIC_STORAGE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.articles)) return parsed;
-    } catch (e) {}
-    return null;
-  }
-
-  function saveLocalStaticEdits() {
-    try {
-      localStorage.setItem(STATIC_STORAGE_KEY, JSON.stringify({
-        edition: state.edition,
-        updatedLabel: state.updatedLabel,
-        articles: state.articles,
-      }));
-    } catch (e) {}
-  }
-
   async function loadWartaArticles() {
-    // 1. Try local server API first
     try {
       const res = await fetch('/api/warta?t=' + Date.now(), { cache: 'no-store' });
       const ctype = (res.headers.get('content-type') || '').toLowerCase();
       if (res.ok && ctype.includes('application/json')) {
         const payload = await res.json();
         if (payload && Array.isArray(payload.articles)) {
-          state.serverAvailable = true;
           state.edition = payload.edition || state.edition;
           state.updatedLabel = payload.updatedLabel || state.updatedLabel;
           state.articles = payload.articles;
@@ -174,8 +67,6 @@
       }
     } catch (e) {}
 
-    // 2. Fallback to static JSON file (GitHub Pages / file server without API)
-    state.serverAvailable = false;
     try {
       const res2 = await fetch('js/warta-data.json?t=' + Date.now(), { cache: 'no-store' });
       if (res2.ok) {
@@ -188,13 +79,6 @@
       }
     } catch (e) {}
 
-    // Merge localStorage static edits if present
-    const localSaved = loadLocalStaticEdits();
-    if (localSaved && localSaved.articles.length > 0) {
-      state.usingStaticFallback = true;
-      state.articles = localSaved.articles;
-      state.updatedLabel = localSaved.updatedLabel || state.updatedLabel;
-    }
     return state;
   }
 
@@ -214,13 +98,8 @@
     const dateEl = document.getElementById('warta-masthead-date');
     const countEl = document.getElementById('warta-masthead-count');
     if (edEl) edEl.textContent = state.edition || 'Jilid I • Bil. 01/2026';
-    if (dateEl) dateEl.textContent = `Kemaskini: ${state.updatedLabel || formatMalayDate(todayIso())}`;
+    if (dateEl) dateEl.textContent = `Kemaskini: ${state.updatedLabel || formatCurrentMalayDate()}`;
     if (countEl) countEl.textContent = `${state.articles.length} Laporan Program Terlaksana`;
-
-    const exportBtn = document.getElementById('warta-export-json-btn');
-    if (exportBtn) {
-      exportBtn.classList.toggle('hidden', state.serverAvailable && !state.usingStaticFallback);
-    }
   }
 
   function renderWartaBroadsheet() {
@@ -237,17 +116,13 @@
         <div class="lg:col-span-12 py-14 px-6 text-center paper-card rounded-2xl border">
           <p class="font-editorial text-2xl font-bold paper-ink">Tiada Laporan Ditemui</p>
           <p class="font-newsbody paper-muted text-sm mt-2 max-w-md mx-auto">
-            Cuba ubah kata kunci carian atau pilih kategori lain, atau klik butang muat naik untuk menerbitkan program baharu PERMAS Nasional.
+            Cuba ubah kata kunci carian atau pilih kategori lain untuk membaca edisi laporan program PERMAS Nasional.
           </p>
-          <button onclick="openWartaEditor()" class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-800 hover:bg-red-900 text-white text-xs font-bold shadow-sm transition">
-            + Muat Naik Program Baharu
-          </button>
         </div>`;
       if (archWrap) archWrap.classList.add('hidden');
       return;
     }
 
-    // Pick Lead Story (explicit featured when in 'all' & no search, else first match)
     let leadIdx = 0;
     if (state.category === 'all' && !state.query.trim()) {
       const fIdx = list.findIndex(a => a.featured);
@@ -312,14 +187,6 @@
           <button onclick="openWartaReader('${esc(lead.id)}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-xs font-bold transition shadow-xs">
             Baca Laporan Penuh &amp; Galeri →
           </button>
-          <div class="flex items-center gap-2">
-            <button onclick="openWartaEditor('${esc(lead.id)}')" class="px-3 py-1.5 rounded-lg border broadsheet-hairline text-xs font-bold paper-ink hover:opacity-80 transition">
-              ✏️ Sunting
-            </button>
-            <button onclick="confirmDeleteWarta('${esc(lead.id)}')" class="px-3 py-1.5 rounded-lg border border-red-400/50 text-xs font-bold paper-accent hover:bg-red-500/10 transition">
-              🗑️ Padam
-            </button>
-          </div>
         </div>
       </div>
     `;
@@ -356,20 +223,15 @@
                 <p class="font-newsbody text-xs paper-muted leading-relaxed mt-2 line-clamp-2">
                   ${esc(art.subtitle || splitParagraphs(art.body)[0] || '')}
                 </p>
-                <div class="mt-2 flex items-center justify-between text-[11px] no-print">
+                <div class="mt-2 text-[11px] no-print">
                   <button onclick="openWartaReader('${esc(art.id)}')" class="font-bold paper-accent hover:underline">
                     Baca Penuh →
                   </button>
-                  <div class="flex items-center gap-2 paper-muted">
-                    <button onclick="openWartaEditor('${esc(art.id)}')" class="hover:underline font-semibold">Sunting</button>
-                    <span>•</span>
-                    <button onclick="confirmDeleteWarta('${esc(art.id)}')" class="hover:underline font-semibold paper-accent">Padam</button>
-                  </div>
                 </div>
               </article>
             `).join('') : `
               <p class="font-newsbody italic text-xs paper-muted">
-                Muat naik lebih banyak program untuk memenuhi ruangan sorotan sisi akhbar.
+                Arkib sorotan program terlaksana akan dipaparkan di ruangan ini.
               </p>
             `}
           </div>
@@ -383,9 +245,6 @@
           <p class="font-newsbody italic text-xs leading-relaxed paper-ink">
             &ldquo;KITA SISWA SELANGOR — PERMAS Proaktif, Selangor Progresif. Setiap program dan misi kebajikan direkodkan sebagai rujukan rasmi mahasiswa anak Selangor.&rdquo;
           </p>
-          <button onclick="openWartaEditor()" class="no-print w-full mt-2 py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold transition">
-            + Tambah Berita Program Baharu
-          </button>
         </div>
       </aside>
     `;
@@ -422,15 +281,10 @@
                   ${esc(art.subtitle || splitParagraphs(art.body)[0] || '')}
                 </p>
               </div>
-              <div class="pt-3 mt-3 border-t broadsheet-hairline flex items-center justify-between text-[11px] no-print">
+              <div class="pt-3 mt-3 border-t broadsheet-hairline text-[11px] no-print">
                 <button onclick="openWartaReader('${esc(art.id)}')" class="font-bold paper-accent hover:underline">
                   Baca Artikel →
                 </button>
-                <div class="flex items-center gap-2 paper-muted">
-                  <button onclick="openWartaEditor('${esc(art.id)}')" class="font-semibold hover:underline">Sunting</button>
-                  <span>•</span>
-                  <button onclick="confirmDeleteWarta('${esc(art.id)}')" class="font-semibold paper-accent hover:underline">Padam</button>
-                </div>
               </div>
             </article>
           `;
@@ -544,9 +398,6 @@
     const waBtn = document.getElementById('reader-wa-btn');
     if (waBtn) waBtn.href = waHref;
 
-    const editBtn = document.getElementById('reader-edit-btn');
-    if (editBtn) editBtn.onclick = () => { closeWartaReader(); openWartaEditor(art.id); };
-
     modal.classList.remove('hidden');
     applyPaperMode(state.paperMode);
     if (history.replaceState) {
@@ -561,324 +412,6 @@
       history.replaceState(null, '', window.location.pathname);
     }
   };
-
-  function renderGalleryDraftUI() {
-    const box = document.getElementById('ed-gallery-preview');
-    if (!box) return;
-    if (!state.galleryDraft.length) {
-      box.innerHTML = `<p class="text-[11px] text-slate-400">Tiada foto tambahan lagi. Anda boleh pilih berbilang foto program di atas (maksimum 6 foto).</p>`;
-      return;
-    }
-    box.innerHTML = state.galleryDraft.map((item, idx) => `
-      <div class="flex items-center gap-3 p-2 rounded-xl border border-slate-200 bg-slate-50/70">
-        <img src="${esc(item.dataUrl || item.url)}" class="w-16 h-12 rounded-lg object-cover shrink-0">
-        <input type="text" data-gidx="${idx}" value="${esc(item.caption)}" placeholder="Kapsyen ringkas foto #${idx + 1}..." class="ed-gal-cap flex-1 min-w-0 px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white text-xs text-slate-800 outline-none focus:border-red-600">
-        <button type="button" onclick="removeWartaGalleryDraft(${idx})" class="px-2 py-1 rounded-lg text-[11px] font-bold text-red-600 hover:bg-red-50">Buang</button>
-      </div>
-    `).join('');
-    box.querySelectorAll('.ed-gal-cap').forEach(inp => {
-      inp.addEventListener('input', () => {
-        const i = Number(inp.getAttribute('data-gidx'));
-        if (state.galleryDraft[i]) state.galleryDraft[i].caption = inp.value;
-      });
-    });
-  }
-
-  window.removeWartaGalleryDraft = function (idx) {
-    state.galleryDraft.splice(idx, 1);
-    renderGalleryDraftUI();
-  };
-
-  window.openWartaEditor = function (editId = '') {
-    const modal = document.getElementById('warta-editor-modal');
-    if (!modal) return;
-    const form = document.getElementById('warta-editor-form');
-    form.reset();
-
-    state.editingId = editId || '';
-    state.coverDataUrl = '';
-    state.existingCoverUrl = '';
-    state.galleryDraft = [];
-
-    const existing = editId ? state.articles.find(a => a.id === editId) : null;
-    document.getElementById('editor-modal-title').textContent = existing
-      ? 'Sunting Artikel Warta Digital'
-      : 'Terbitkan Berita Program Baharu';
-
-    if (existing) {
-      document.getElementById('ed-title').value = existing.title || '';
-      document.getElementById('ed-subtitle').value = existing.subtitle || '';
-      document.getElementById('ed-category').value = existing.category || 'Kepimpinan & Wacana';
-      document.getElementById('ed-date').value = existing.date || todayIso();
-      document.getElementById('ed-location').value = existing.location || '';
-      document.getElementById('ed-author').value = existing.author || '';
-      document.getElementById('ed-caption').value = existing.caption || '';
-      document.getElementById('ed-body').value = existing.body || '';
-      document.getElementById('ed-featured').checked = Boolean(existing.featured);
-      state.existingCoverUrl = existing.imageUrl || '';
-      state.galleryDraft = (Array.isArray(existing.gallery) ? existing.gallery : []).map(g => ({
-        url: g.url || '',
-        dataUrl: '',
-        caption: g.caption || '',
-      }));
-    } else {
-      document.getElementById('ed-date').value = todayIso();
-      document.getElementById('ed-author').value = 'Biro Komunikasi Korporat PERMAS';
-      document.getElementById('ed-featured').checked = true;
-    }
-
-    const previewImg = document.getElementById('ed-cover-preview');
-    const placeholder = document.getElementById('ed-cover-placeholder');
-    if (state.existingCoverUrl) {
-      previewImg.src = state.existingCoverUrl;
-      previewImg.classList.remove('hidden');
-      placeholder.classList.add('hidden');
-    } else {
-      previewImg.classList.add('hidden');
-      placeholder.classList.remove('hidden');
-    }
-    renderGalleryDraftUI();
-    modal.classList.remove('hidden');
-  };
-
-  window.closeWartaEditor = function () {
-    const modal = document.getElementById('warta-editor-modal');
-    if (modal) modal.classList.add('hidden');
-  };
-
-  window.confirmDeleteWarta = async function (id) {
-    const art = state.articles.find(a => a.id === id);
-    if (!art) return;
-    if (!window.confirm(`Padam laporan "${art.title}" daripada Warta Digital?`)) return;
-
-    let deletedOnServer = false;
-    if (state.serverAvailable) {
-      try {
-        const res = await fetch('/api/warta/delete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id }),
-        });
-        if (res.ok) {
-          const payload = await res.json();
-          if (payload.data && Array.isArray(payload.data.articles)) {
-            state.articles = payload.data.articles;
-            state.updatedLabel = payload.data.updatedLabel || state.updatedLabel;
-            deletedOnServer = true;
-          }
-        }
-      } catch (e) {}
-    }
-
-    if (!deletedOnServer) {
-      state.articles = state.articles.filter(a => a.id !== id);
-      if (state.articles.length && !state.articles.some(a => a.featured)) {
-        state.articles[0].featured = true;
-      }
-      state.updatedLabel = formatMalayDate(todayIso());
-      state.usingStaticFallback = true;
-      saveLocalStaticEdits();
-    }
-
-    renderWartaBroadsheet();
-    showToast('Artikel program telah dipadam daripada Warta Digital.');
-  };
-
-  window.exportWartaJson = function () {
-    const payload = {
-      edition: state.edition,
-      updatedLabel: state.updatedLabel,
-      articles: state.articles,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'warta-data.json';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    showToast('Fail warta-data.json telah dimuat turun untuk simpanan/kemaskini repo.');
-  };
-
-  async function handleEditorSubmit(ev) {
-    ev.preventDefault();
-    const title = document.getElementById('ed-title').value.trim();
-    const subtitle = document.getElementById('ed-subtitle').value.trim();
-    const category = document.getElementById('ed-category').value.trim();
-    const dateIso = document.getElementById('ed-date').value.trim() || todayIso();
-    const location = document.getElementById('ed-location').value.trim() || 'Negeri Selangor';
-    const author = document.getElementById('ed-author').value.trim() || 'Biro Komunikasi Korporat PERMAS';
-    const caption = document.getElementById('ed-caption').value.trim();
-    const body = document.getElementById('ed-body').value.trim();
-    const featured = document.getElementById('ed-featured').checked;
-
-    if (!title || !body) {
-      showToast('Sila isi tajuk dan ayat/isi laporan program.', true);
-      return;
-    }
-
-    const submitBtn = document.getElementById('ed-submit-btn');
-    const origText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '⏳ Menerbitkan...';
-
-    const payload = {
-      id: state.editingId || slugify(title),
-      title,
-      subtitle,
-      category,
-      date: dateIso,
-      dateLabel: formatMalayDate(dateIso),
-      location,
-      author,
-      caption,
-      body,
-      featured,
-      imageUrl: state.existingCoverUrl || 'assets/images/campus_life.jpg',
-      imageDataUrl: state.coverDataUrl || '',
-      gallery: state.galleryDraft.slice(0, 6),
-    };
-
-    let savedOnServer = false;
-    try {
-      const res = await fetch('/api/warta/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const ctype = (res.headers.get('content-type') || '').toLowerCase();
-      if (res.ok && ctype.includes('application/json')) {
-        const respData = await res.json();
-        if (respData && respData.data && Array.isArray(respData.data.articles)) {
-          state.serverAvailable = true;
-          state.usingStaticFallback = false;
-          state.articles = respData.data.articles;
-          state.updatedLabel = respData.data.updatedLabel || state.updatedLabel;
-          savedOnServer = true;
-        }
-      }
-    } catch (e) {}
-
-    if (!savedOnServer) {
-      // Static browser mode: save locally in browser storage
-      const localRecord = {
-        id: payload.id,
-        title: payload.title,
-        subtitle: payload.subtitle,
-        category: payload.category,
-        date: payload.date,
-        dateLabel: payload.dateLabel,
-        location: payload.location,
-        author: payload.author,
-        caption: payload.caption,
-        body: payload.body,
-        featured: payload.featured,
-        imageUrl: payload.imageDataUrl || payload.imageUrl,
-        gallery: payload.gallery.map(g => ({
-          url: g.dataUrl || g.url,
-          caption: g.caption || '',
-        })).filter(g => g.url),
-        updatedAt: new Date().toISOString(),
-      };
-      if (localRecord.featured) {
-        state.articles.forEach(a => { a.featured = false; });
-      }
-      const idx = state.articles.findIndex(a => a.id === localRecord.id);
-      if (idx >= 0) {
-        if (localRecord.featured) {
-          state.articles.splice(idx, 1);
-          state.articles.unshift(localRecord);
-        } else {
-          state.articles[idx] = localRecord;
-        }
-      } else {
-        state.articles.unshift(localRecord);
-      }
-      if (!state.articles.some(a => a.featured) && state.articles.length) {
-        state.articles[0].featured = true;
-      }
-      state.updatedLabel = formatMalayDate(todayIso());
-      state.usingStaticFallback = true;
-      saveLocalStaticEdits();
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = origText;
-    closeWartaEditor();
-    renderWartaBroadsheet();
-    showToast(
-      savedOnServer
-        ? 'Berjaya diterbitkan ke Warta Digital PERMAS & sedia disegerak ke GitHub!'
-        : 'Disimpan dalam pelayar (Mod Statik). Klik "Eksport JSON" untuk sandaran.'
-    );
-  }
-
-  function wireEditorInputs() {
-    const coverInput = document.getElementById('ed-cover-file');
-    const dropZone = document.getElementById('ed-cover-dropzone');
-    const previewImg = document.getElementById('ed-cover-preview');
-    const placeholder = document.getElementById('ed-cover-placeholder');
-
-    const handleCoverFile = async (file) => {
-      if (!file) return;
-      try {
-        const dataUrl = await compressImageFile(file, 1400, 0.86);
-        state.coverDataUrl = dataUrl;
-        previewImg.src = dataUrl;
-        previewImg.classList.remove('hidden');
-        placeholder.classList.add('hidden');
-      } catch (err) {
-        showToast(err.message || 'Gagal memproses gambar.', true);
-      }
-    };
-
-    if (coverInput) {
-      coverInput.addEventListener('change', () => {
-        if (coverInput.files && coverInput.files[0]) handleCoverFile(coverInput.files[0]);
-      });
-    }
-    if (dropZone) {
-      dropZone.addEventListener('dragover', e => {
-        e.preventDefault();
-        dropZone.classList.add('border-red-500', 'bg-red-50/30');
-      });
-      dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('border-red-500', 'bg-red-50/30');
-      });
-      dropZone.addEventListener('drop', e => {
-        e.preventDefault();
-        dropZone.classList.remove('border-red-500', 'bg-red-50/30');
-        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-        if (file) handleCoverFile(file);
-      });
-    }
-
-    const galInput = document.getElementById('ed-gallery-files');
-    if (galInput) {
-      galInput.addEventListener('change', async () => {
-        const files = Array.from(galInput.files || []);
-        for (const f of files) {
-          if (state.galleryDraft.length >= 6) break;
-          try {
-            const dataUrl = await compressImageFile(f, 1280, 0.84);
-            state.galleryDraft.push({ url: '', dataUrl, caption: '' });
-          } catch (e) {}
-        }
-        renderGalleryDraftUI();
-        galInput.value = '';
-      });
-    }
-
-    const form = document.getElementById('warta-editor-form');
-    if (form) form.addEventListener('submit', handleEditorSubmit);
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        closeWartaReader();
-        closeWartaEditor();
-      }
-    });
-  }
 
   async function renderHomeWartaPreview() {
     const container = document.getElementById('home-warta-preview');
@@ -909,10 +442,10 @@
               <span class="font-sans font-extrabold paper-accent">${esc(lead.category)}</span>
               <span>${esc(lead.location)} &bull; ${esc(lead.dateLabel)}</span>
             </div>
-            <a href="warta.html?v=1#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
+            <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="block font-editorial font-black text-xl sm:text-3xl leading-tight paper-ink hover:underline">
               ${esc(lead.title)}
             </a>
-            <a href="warta.html?v=1#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
+            <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="block paper-photo-frame border p-1.5 overflow-hidden group">
               <div class="aspect-[16/9] overflow-hidden bg-slate-900">
                 <img src="${esc(lead.imageUrl)}" alt="${esc(lead.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
@@ -921,7 +454,7 @@
               ${esc(splitParagraphs(lead.body)[0] || lead.subtitle || '')}
             </p>
             <div class="pt-1">
-              <a href="warta.html?v=1#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
+              <a href="warta.html?v=2#artikel=${encodeURIComponent(lead.id)}" class="inline-flex items-center gap-1.5 text-xs font-extrabold paper-accent hover:underline">
                 Baca Edisi Penuh Akhbar →
               </a>
             </div>
@@ -933,7 +466,7 @@
               <span class="text-[10px] font-mono paper-muted">${state.articles.length} Edisi</span>
             </div>
             ${side.map((art, idx) => `
-              <a href="warta.html?v=1#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
+              <a href="warta.html?v=2#artikel=${encodeURIComponent(art.id)}" class="block ${idx > 0 ? 'pt-3.5 border-t broadsheet-hairline' : ''} group">
                 <div class="flex gap-3 items-start">
                   <div class="w-24 h-18 shrink-0 paper-photo-frame border p-0.5 overflow-hidden">
                     <img src="${esc(art.imageUrl)}" alt="${esc(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -951,11 +484,11 @@
 
             <div class="paper-card border p-3.5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <p class="text-[10px] font-extrabold uppercase tracking-wider paper-gold">Meja Sidang Pengarang</p>
-                <p class="font-newsbody text-xs paper-muted mt-0.5">Muat naik gambar &amp; laporan program baharu terus ke akhbar.</p>
+                <p class="text-[10px] font-extrabold uppercase tracking-wider paper-gold">Arkib Akhbar Program</p>
+                <p class="font-newsbody text-xs paper-muted mt-0.5">Lihat semua sorotan aktiviti &amp; program rasmi PERMAS Nasional.</p>
               </div>
-              <a href="warta.html?v=1#upload" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
-                + Muat Naik
+              <a href="warta.html?v=2" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-red-800 hover:bg-red-900 text-white text-[11px] font-bold transition">
+                Buka Warta →
               </a>
             </div>
           </div>
@@ -965,26 +498,25 @@
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Homepage preview mode
     if (document.getElementById('home-warta-preview')) {
       await renderHomeWartaPreview();
     }
 
-    // 2. Full Warta Digital Broadsheet mode
     if (document.getElementById('warta-broadsheet')) {
       try {
         const savedMode = localStorage.getItem(PAPER_MODE_KEY);
         if (savedMode === 'dark' || savedMode === 'classic') state.paperMode = savedMode;
       } catch (e) {}
       applyPaperMode(state.paperMode);
-      wireEditorInputs();
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeWartaReader();
+      });
+
       await loadWartaArticles();
       renderWartaBroadsheet();
 
       const h = window.location.hash || '';
-      if (h === '#upload') {
-        openWartaEditor();
-      } else if (h.startsWith('#artikel=')) {
+      if (h.startsWith('#artikel=')) {
         const targetId = decodeURIComponent(h.slice(9));
         if (targetId) openWartaReader(targetId);
       }
