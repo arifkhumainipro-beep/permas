@@ -1065,17 +1065,11 @@
       }
 
       if (gasDelivered) {
-        setEmailStatusBadge('success', '✅ Laporan Rasmi AI Dihantar ke permasnasionalofficial@gmail.com, Direkod ke Google Sheets & Resit Dihantar ke Emel Anda!');
-        showToast(`✅ Aduan (${report.refId}) berjaya dihantar ke PERMAS Nasional & resit dihantar ke ${data.emel}!`, 'success');
+        setEmailStatusBadge('success', `✅ Emel pelajar (${data.emel || 'Gmail'}) telah dibuka dengan laporan AI & salinan automatik turut direkod ke PERMAS + Google Sheets!`);
       } else if (emailDelivered) {
-        setEmailStatusBadge('success', '✅ Laporan Janaan AI Berjaya Dihantar Terus ke permasnasionalofficial@gmail.com!');
-        showToast(`✅ Aduan (${report.refId}) ditulis oleh AI & dihantar terus ke emel PERMAS!`, 'success');
-      } else if (needsActivation || savedLocally) {
-        setEmailStatusBadge('warning', '💾 Resit rasmi AI dijana & kes direkodkan! Sila cetak resit PDF atau lengkapkan tetapan Webhook Apps Script untuk penghantaran automatik penuh.');
-        showToast(`💾 Aduan (${report.refId}) telah direkodkan. Sila simpan resit rasmi PDF anda.`, 'info');
+        setEmailStatusBadge('success', `✅ Emel pelajar (${data.emel || 'Gmail'}) telah dibuka dengan laporan AI & salinan turut dihantar terus ke permasnasionalofficial@gmail.com!`);
       } else {
-        setEmailStatusBadge('warning', '⚠️ Resit rasmi AI telah dijana! Sila muat turun PDF / salin laporan sementara sambungan penghantaran automatik disiapkan.');
-        showToast('⚠️ Resit rasmi dijana. Sila simpan salinan PDF atau salin laporan.', 'info');
+        setEmailStatusBadge('success', `📨 Laporan AI telah dijana & tetingkap emel pelajar (${data.emel || 'Gmail / Mail'}) telah dibuka. Klik Send dalam emel tersebut (atau butang di bawah jika disekat pelayar).`);
       }
 
       e.target.reset();
