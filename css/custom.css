@@ -894,13 +894,20 @@ html.dark-mode .bg-white\/90 {
 }
 
 html.dark-mode .bg-slate-50,
+html.dark-mode .bg-slate-50\/40,
 html.dark-mode .bg-slate-50\/50,
-html.dark-mode .bg-slate-50\/40 {
+html.dark-mode .bg-slate-50\/60,
+html.dark-mode .bg-slate-50\/70,
+html.dark-mode .bg-slate-50\/80,
+html.dark-mode .hover\:bg-slate-50:hover {
   background-color: #0B1120 !important;
 }
 
 html.dark-mode .bg-slate-100,
-html.dark-mode .bg-slate-200 {
+html.dark-mode .bg-slate-100\/80,
+html.dark-mode .bg-slate-200,
+html.dark-mode .hover\:bg-slate-100:hover,
+html.dark-mode .hover\:bg-slate-100\/80:hover {
   background-color: #1E293B !important;
 }
 
@@ -1003,6 +1010,7 @@ html.dark-mode .text-blue-800 {
 /* Borders */
 html.dark-mode .border-slate-100,
 html.dark-mode .border-slate-200,
+html.dark-mode .border-slate-200\/60,
 html.dark-mode .border-slate-200\/80,
 html.dark-mode .border-slate-200\/90,
 html.dark-mode .border-slate-300 {
