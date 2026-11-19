@@ -833,11 +833,11 @@
       map.flyTo(target.center, target.zoom, { duration: 1.2 });
 
       document.querySelectorAll('.region-pill').forEach(btn => {
-        btn.className = 'region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-slate-100 transition';
+        btn.className = 'region-pill px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-slate-100 transition whitespace-nowrap shrink-0';
       });
       const activeBtn = btnEl || (typeof event !== 'undefined' && event ? event.currentTarget : null);
       if (activeBtn && activeBtn.classList && activeBtn.classList.contains('region-pill')) {
-        activeBtn.className = 'region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition';
+        activeBtn.className = 'region-pill px-3.5 py-2 rounded-xl text-xs font-bold bg-red-700 text-white shadow-xs transition whitespace-nowrap shrink-0';
       }
     }
 
