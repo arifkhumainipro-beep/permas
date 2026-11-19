@@ -10,7 +10,7 @@ const PERMAS_DATA = {
     yearFounded: "1974"
   },
 
-  slogan: "PERMAS Proaktif, Selangor Progresif",
+  slogan: "PERMAS PROAKTIF SELANGOR PROGRESIF",
   campaign: "KITA SISWA SELANGOR",
   nilaiTeras: [
     {
