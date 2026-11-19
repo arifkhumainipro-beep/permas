@@ -389,7 +389,7 @@ def refresh_cache(force: bool = False):
             'mode': 'empty',
             'updatedAt': datetime.datetime.now().isoformat(),
             'updatedLabel': 'Tiada sambungan suapan buat masa ini',
-            'nextRefreshMinutes': 5,
+            'nextRefreshMinutes': 2,
             'total': 0,
             'selangorCount': 0,
             'articles': [],
