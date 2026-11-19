@@ -168,10 +168,11 @@ def keep_main_component(mask_bool: np.ndarray, cx: float, cy: float, bgr: np.nda
             hole_mask = (l2 == lbl)
             hole_cx = x + bw * 0.5
             hole_cy = y + bh * 0.5
-            # Skip refilling enclosed elbow/armpit background pockets above wrist level
-            if hsv_img is not None and abs(hole_cx - cx) > fw * 0.48 and hole_cy < cy + fw * 2.45:
+            # Skip refilling enclosed elbow/armpit background pockets
+            if hsv_img is not None and abs(hole_cx - cx) > fw * 0.48:
                 mean_v = float(np.median(hsv_img[:, :, 2][hole_mask]))
-                if mean_v >= 55.0:
+                max_hole_y = OUT_H if (abs(hole_cx - cx) > fw * 0.54 and mean_v > 110.0) else (cy + fw * 2.45)
+                if hole_cy < max_hole_y and mean_v >= 55.0:
                     continue
             if bg_lab_ref is not None and abs(hole_cx - cx) > fw * 0.45 and hole_cy < cy + fw * 2.45:
                 hole_lab = np.median(lab_img[hole_mask], axis=0)
