@@ -531,13 +531,19 @@ def grabcut_with_priors(bgr: np.ndarray, valid_mask: np.ndarray, face_box, borde
     return defringed.astype(np.uint8), alpha
 
 
-def harmonize_lighting(bgr: np.ndarray, face_box, boost_exposure: bool = False):
+def harmonize_lighting(bgr: np.ndarray, face_box, boost_exposure: bool = False, boost_suit: bool = False):
     cx, cy, fw, fh = face_box
     yy, xx = np.mgrid[0:OUT_H, 0:OUT_W]
     face_sample = (((xx - cx) / (fw * 0.28)) ** 2 + ((yy - cy) / (fh * 0.35)) ** 2) <= 1.0
 
     lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB).astype(np.float32)
     face_L = float(np.median(lab[:, :, 0][face_sample]))
+
+    if boost_suit:
+        # Lift dark charcoal suit/blazer tones cleanly off the obsidian backdrop while preserving pinstripes
+        suit_band = (yy > cy + fh * 0.55) & (lab[:, :, 0] >= 12.0) & (lab[:, :, 0] <= 75.0)
+        suit_lift = 14.0 * np.clip(1.0 - (lab[:, :, 0] - 42.0) / 36.0, 0.0, 1.0)
+        lab[:, :, 0] = np.where(suit_band, np.clip(lab[:, :, 0] + suit_lift, 0, 255), lab[:, :, 0])
 
     if boost_exposure or face_L < 142.0:
         # Lift midtones & skin brightness while keeping dark charcoal suit crisp black
@@ -585,6 +591,9 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
     if mode == 'green':
         fg, alpha = segment_green_screen(aligned, valid_mask, adj_face)
         fg = harmonize_lighting(fg, adj_face, boost_exposure=True)
+    elif mode == 'blue':
+        fg, alpha = segment_blue_screen(aligned, valid_mask, adj_face)
+        fg = harmonize_lighting(fg, adj_face, boost_exposure=False, boost_suit=True)
     elif mode == 'white_wall':
         border_bg = build_border_flood_bg(aligned, valid_mask, thresh=13.0)
         fg, alpha = grabcut_with_priors(aligned, valid_mask, adj_face, border_bg=border_bg, is_outdoor=False, is_white_wall=True)
@@ -610,6 +619,7 @@ def process_one(leader_id: str, mode: str, backdrop: np.ndarray):
 DEFAULT_MODES = {
     'presiden': 'studio_hall',
     'tydp1': 'green',
+    'tydp2': 'blue',
     'bendahari': 'white_wall',
     'su-komunikasi': 'studio_neutral',
     'suag': 'outdoor',
