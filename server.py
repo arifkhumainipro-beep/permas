@@ -641,12 +641,14 @@ class PermasRequestHandler(http.server.SimpleHTTPRequestHandler):
             qs = urllib.parse.parse_qs(parsed.query)
             force_sync = qs.get('force', ['0'])[0] == '1'
             payload = sync_to_github(force_cache=force_sync)
-            body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json; charset=utf-8')
-            self.send_header('Content-Length', str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
+            self._send_json(200, payload)
+            return
+
+        if parsed.path == '/api/sync-drive-photos':
+            qs = urllib.parse.parse_qs(parsed.query)
+            force_sync = qs.get('force', ['0'])[0] == '1'
+            payload = sync_drive_mt_photos(force=force_sync)
+            self._send_json(200, payload)
             return
 
         super().do_GET()
@@ -718,6 +720,8 @@ def main():
         for art in payload.get('articles', [])[:8]:
             tag = '[SELANGOR]' if art['isSelangor'] else '[MALAYSIA]'
             print(f"  - {art['dateShort']} {tag} | {art['source']} | {art['title']}")
+        drive_res = sync_drive_mt_photos(force=False)
+        print(f"Drive MT photos: {len(drive_res.get('existingIds', []))} ready ({', '.join(drive_res.get('existingIds', []))})")
         return
 
     if args.sync_once:
