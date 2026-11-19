@@ -3,27 +3,6 @@
   "updatedLabel": "19 November 2026",
   "articles": [
     {
-      "id": "ujian-smoketest-warta",
-      "title": "Program Ujian Automatik Warta",
-      "subtitle": "Ujian penyimpanan gambar dan artikel.",
-      "category": "Warta Rasmi",
-      "date": "2026-11-19",
-      "dateLabel": "19 November 2026",
-      "location": "Shah Alam, Selangor",
-      "author": "Sistem Ujian",
-      "caption": "Gambar ujian automatik",
-      "body": "Perenggan pertama ujian.\n\nPerenggan kedua ujian.",
-      "featured": false,
-      "imageUrl": "assets/warta/ujian-smoketest-warta-cover-1795097263.jpg",
-      "gallery": [
-        {
-          "url": "assets/warta/ujian-smoketest-warta-gal-1-1795097263.jpg",
-          "caption": "Galeri ujian"
-        }
-      ],
-      "updatedAt": "2026-11-19T22:07:43+08:00"
-    },
-    {
       "id": "konvensyen-mahasiswa-selangor-2026",
       "title": "Sidang Konvensyen Mahasiswa Selangor 2026 Perkasakan Hala Tuju Kebajikan & Kepimpinan Kampus",
       "subtitle": "Lebih 600 pemimpin persatuan mahasiswa anak Selangor dari 20 universiti awam berhimpun di SACC Shah Alam membahaskan resolusi kebajikan siswa serta agenda Selangor Progresif.",
