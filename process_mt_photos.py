@@ -5,6 +5,7 @@ Standardize PERMAS Majlis Tertinggi portrait photos into uniform
 clean background removal, royal slate studio backdrop, and balanced lighting.
 """
 
+import glob
 import os
 import cv2
 import numpy as np
@@ -223,7 +224,7 @@ def build_border_flood_bg(bgr: np.ndarray, valid_mask: np.ndarray, thresh: float
     for sx, sy in seed_pts:
         if ff_mask[sy + 1, sx + 1] == 0:
             pix = lab[sy, sx]
-            if pix[0] > 75:
+            if pix[0] > 35:
                 cv2.floodFill(work, ff_mask, (sx, sy), 0, lo_up, lo_up, flags)
 
     return (ff_mask[1:-1, 1:-1] > 0) | (~valid_mask)

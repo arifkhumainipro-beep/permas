@@ -384,10 +384,28 @@ def sync_drive_mt_photos(force: bool = False) -> dict:
                     or img_bytes.startswith(b'\x89PNG')
                     or img_bytes[:4] == b'RIFF'
                 ):
-                    tmp_path = out_path + '.tmp'
-                    with open(tmp_path, 'wb') as f:
-                        f.write(img_bytes)
-                    os.replace(tmp_path, out_path)
+                    raw_dir = os.path.join(ahli_dir, 'raw')
+                    os.makedirs(raw_dir, exist_ok=True)
+                    raw_path = os.path.join(raw_dir, f'{matched_leader_id}.jpg')
+                    raw_tmp = raw_path + '.tmp'
+                    with open(raw_tmp, 'wb') as rf:
+                        rf.write(img_bytes)
+                    os.replace(raw_tmp, raw_path)
+
+                    processed = False
+                    try:
+                        import process_mt_photos
+                        backdrop = process_mt_photos.make_studio_backdrop()
+                        processed = bool(process_mt_photos.process_one(matched_leader_id, 'studio_neutral', backdrop))
+                    except Exception as proc_exc:
+                        print(f'[PERMAS Drive Sync] Studio processing fallback for {matched_leader_id}: {proc_exc}', file=sys.stderr)
+
+                    if not processed:
+                        tmp_path = out_path + '.tmp'
+                        with open(tmp_path, 'wb') as f:
+                            f.write(img_bytes)
+                        os.replace(tmp_path, out_path)
+
                     synced_ids.append(matched_leader_id)
                 else:
                     errors.append(f'{matched_leader_id}: invalid image payload from Drive ({file_id})')
