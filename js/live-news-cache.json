@@ -1,11 +1,11 @@
 {
   "status": "ok",
   "mode": "live-rss",
-  "updatedAt": "2026-11-26T21:14:48.166583+08:00",
-  "updatedLabel": "26/11/2026 21:14 MYT",
+  "updatedAt": "2026-11-27T06:26:38.973858+08:00",
+  "updatedLabel": "27/11/2026 06:26 MYT",
   "nextRefreshMinutes": 2,
   "total": 24,
-  "selangorCount": 18,
+  "selangorCount": 23,
   "articles": [
     {
       "id": 0,
@@ -114,6 +114,48 @@
     },
     {
       "id": 5,
+      "title": "Sarah buktikan wanita mampu kerja lasak, raih anugerah graduan terbaik UPM",
+      "source": "Utusan Malaysia",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOTzRzV3ZQSVBfOFpobXBZamdEUVVpQ2plSlBobFo4RW83QkktUlRSZ0pLRk9CZGVDamVqeUlqWm1VU2lEZWQ4SFVTSktWUmozMkRSdGZHSUpsOUFibGpsUFdFaGwyN3BTdDJFUi10bjVWNUEwV3gtRHA3X3ljWmtKMEd6NnBGWkVYSlJzVEh4b0RvNDNWU3cxNUh1dlZQY3JOU2dPRF91TjY2X0JZcmdpOVN1dnpTU1k?oc=5",
+      "dateShort": "03 Nov 2026",
+      "dateFull": "03 November 2026",
+      "timestamp": 1793692800,
+      "isoDate": "2026-11-03T16:00:00+08:00",
+      "isSelangor": true,
+      "isBantuan": false,
+      "category": "selangor",
+      "categories": [
+        "selangor",
+        "aktiviti"
+      ],
+      "badge": "Mahasiswa Selangor",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Sorotan berita tempatan daripada Utusan Malaysia (03 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Utusan Malaysia (03 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Utusan Malaysia &bull; Diterbitkan pada <strong>03 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Utusan Malaysia):</strong> Sarah buktikan wanita mampu kerja lasak, raih anugerah graduan terbaik UPM Utusan Malaysia</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Utusan Malaysia.</p>"
+    },
+    {
+      "id": 6,
+      "title": "Graduan mikrobiologi UPM jadi usahawan produk sejuk beku",
+      "source": "Utusan Malaysia",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxORkl5Sm4wNm9sY0x6VHJaVmh6LXJDQ2VFQzFTaDJCejk1aWx0Q3lLY1pkM0xIaVBDTkRfdV9rX0F4eU5MTmFvam9hSkZCWGJWdkhRcmkyNF9wMGZuUFVwNmp2S1BCUmpueE9fNGtvX21WSTI4cVk2SGhTT0ZnYWREX3BFX3Q2VGZxSUFZMkFaWHlrNmpIU0tzSDcxQS0tblU?oc=5",
+      "dateShort": "10 Sep 2026",
+      "dateFull": "10 September 2026",
+      "timestamp": 1789023600,
+      "isoDate": "2026-09-10T15:00:00+08:00",
+      "isSelangor": true,
+      "isBantuan": false,
+      "category": "selangor",
+      "categories": [
+        "selangor",
+        "aktiviti"
+      ],
+      "badge": "Mahasiswa Selangor",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Sorotan berita tempatan daripada Utusan Malaysia (10 September 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Utusan Malaysia (10 September 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Utusan Malaysia &bull; Diterbitkan pada <strong>10 September 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Utusan Malaysia):</strong> Graduan mikrobiologi UPM jadi usahawan produk sejuk beku Utusan Malaysia</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Utusan Malaysia.</p>"
+    },
+    {
+      "id": 7,
       "title": "Mahasiswa Universiti Malaya perkasa literasi kewangan pelajar SM Sains Selangor",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOLTdlenNkQ1hESEgyZjBlWk1pbEs1NlNISTVlOS10UzYxZTdXZjVqdjdvelc4M19QVko3cVljTnkzNnc4c0x4Ml9MQlZYRGxfbk56OXZiYW1ETjI0S0dEQ01FR2dMaUZubEtGY1dnUXp1dWU2VE5iZXBqQl84OGsyZG9WX2plVHp5WktUSHhxVUVQV0cwT0xJb3FZSzFnelU1Q090cWpqMHV3WmZULS1UVUVTNDF0WkxtaGRR?oc=5",
@@ -135,7 +177,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh MalaysiaGazette (08 September 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>08 September 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> Mahasiswa Universiti Malaya perkasa literasi kewangan pelajar SM Sains Selangor MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 6,
+      "id": 8,
       "title": "Selangor Cadang Tambah Jumlah Penerima HPIPT Hingga 5,000 Pelajar",
       "source": "Bernama",
       "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFB1UVBGLU94anVUN1dDVWQtcXA0YkFPZzlOdkplVXNFWDU3RmlOZktZOWFyU2VVQWJwbzRmd3NkM1JnUjhteWYwZDhVVFJ5Ujd6V1U2QQ?oc=5",
@@ -156,7 +198,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh Bernama (06 Ogos 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Bernama &bull; Diterbitkan pada <strong>06 Ogos 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Bernama):</strong> Selangor Cadang Tambah Jumlah Penerima HPIPT Hingga 5,000 Pelajar bernama</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Bernama.</p>"
     },
     {
-      "id": 7,
+      "id": 9,
       "title": "Selangor berhasrat tambah penerima Hadiah Pengajian IPT kepada 5,000",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYTlJY3dzSmNYNkFqaEw2OXAtWDZ2anFOczRQVTBRNjFxNm9fakFFSFZxY3lqUDh0cGVVMm9va0JBdTZtbGwxc2NrX2tablRUcU00N0xCUWZNbVNuSmVfY01temhUcTJSN3YtVnZUb2NYR3psNzRnQWFCVV8wbFpQM0ZscTgzbVl6enZWclJFbWJwekhRMFk2bmZlbXdsenBTZEFsS3ZXU2NZNFE?oc=5",
@@ -177,7 +219,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada MalaysiaGazette (06 Ogos 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>06 Ogos 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> Selangor berhasrat tambah penerima Hadiah Pengajian IPT kepada 5,000 MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 8,
+      "id": 10,
       "title": "Selangor berhasrat tingkatkan jumlah penerima HPIPT 5,000 pelajar pada 2027",
       "source": "Berita RTM",
       "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNWXN6b1JsRmxoLUp4WlEtSUhnTy1SbXJLS3BBNzhvYlBMc05xVlFEdUdfQjBSN29qMmkyMEpqRWM2eElNeTBFeEtXWjcwSVBBdHlaWC1QaURGajZyX1JkM3BwMnp1VEVpYzJzeVdRM3NVUlhlV1oyLXptdkRDeTVubElOYjktOHlDb0dRWFhaTXc4N2t4R1VVNGJBQVd3Z3Y0MzdOdS02b3B6YkxaNWFJZC0wV2IzbHd3bTJrTkh5YWxJNU5uNmdFbXFrazU4bWhXbF9rVklNZTdaOThGRV9jTlo1M28?oc=5",
@@ -198,7 +240,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh Berita RTM (06 Ogos 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Berita RTM &bull; Diterbitkan pada <strong>06 Ogos 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Berita RTM):</strong> Selangor berhasrat tingkatkan jumlah penerima HPIPT 5,000 pelajar pada 2027 Portal Berita RTM</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Berita RTM.</p>"
     },
     {
-      "id": 9,
+      "id": 11,
       "title": "Selangor Govt Plans To Increase HPIPT Recipients To 5,000 - MB",
       "source": "Bernama",
       "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5xM2dhNjZyYndsYW9uMmZOQkJKODNnZ09XcEhXZjN3OUotWjV3cWRNN2syRU5kYTZrU0V6QnNhMkQ0SFVjdGtBNDVQb0wtMWRHRW0yWmNTUGpzMnBzeHY1WTh4dw?oc=5",
@@ -219,7 +261,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh Bernama (06 Ogos 2026) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Bernama &bull; Diterbitkan pada <strong>06 Ogos 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Bernama):</strong> Selangor Govt Plans To Increase HPIPT Recipients To 5,000 - MB bernama</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Bernama.</p>"
     },
     {
-      "id": 10,
+      "id": 12,
       "title": "Tiada yang tertinggal: UKM prihatin kebajikan mahasiswa",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNR3ROQWh4X3B6RDFiUmdHeW10R2pGVDNvcXptajhqZm5oTkhRZGNkYmZCSjBZMXpkZk5sSlZhS1BxMk1odkduTXNncENuM2Z4TW5ydVhsMDRWakJOeHRldU9qV0Nyc2ZVLUlhTWtpR1dTRWkwa1lLRjJtUThsSjRPV0xHZ09Eb2F2MHhSMjA1MThDMlJCSE9SUjBR?oc=5",
@@ -235,12 +277,12 @@
         "aktiviti"
       ],
       "badge": "Mahasiswa Selangor",
-      "image": "assets/images/selangor_shah_alam_night.jpg",
+      "image": "assets/images/selangor_masjid_biru.jpg",
       "summary": "Sorotan berita tempatan daripada MalaysiaGazette (27 Jun 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada MalaysiaGazette (27 Jun 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>27 Jun 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> Tiada yang tertinggal: UKM prihatin kebajikan mahasiswa MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 11,
+      "id": 13,
       "title": "Misi Mahasiswa 3.0: UKM teruskan usaha perkasa komuniti luar bandar",
       "source": "Berita RTM",
       "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQOEg0YnN4WHFqM1lUUmYySHc4XzhRWF9ua1hlTFpra3JzQjlHbHlTX3JkczdTSTNiallIZnczS0hLSWxwdUtqOVRhZ0pTYVJuLUtCdVIzUVlMcnFzaklrendXTUhlTTZUcFluWTR1eEhucjhlOXQzSDNmczZfaWg0SWljeEVESmxUbGlUVTdHRU5BOG45dlVaaUpJQkNfM0ZRSldUd1V5elBkYnh3WHFIMzFYck1kSFlEM0V3eGZMVE53bFo5VUpCYzFhUm52VWlsRnJEcmpVVmhMQQ?oc=5",
@@ -261,7 +303,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Berita RTM (21 April 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Berita RTM &bull; Diterbitkan pada <strong>21 April 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Berita RTM):</strong> Misi Mahasiswa 3.0: UKM teruskan usaha perkasa komuniti luar bandar Portal Berita RTM</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Berita RTM.</p>"
     },
     {
-      "id": 12,
+      "id": 14,
       "title": "UPM peneraju kebolehpasaran graduan, 18 bidang raih penarafan 6 bintang majikan",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPaFY3Ul9FVmVEbGV6dG50a0ZCU1U5SERQSzdqMHFLaXp6S3ZScVZjMnJyN1o4NHIxaEFaVGJ6YmpBeURJdm5YRks2WkczOWtnR3dMQzFJV0ZVTm5ZaElMSFFQbW91dkZqLWZnd0hXNVFBTk5yQXVrVWt0ZjY4Yzk5WFdYbHA5T2lveWVUNGhiRVFlUklCUE5taWJSQ3ROQ3JMejdSZmU0aVJGcHZUSG82ZU9SWE40N1ZINEE?oc=5",
@@ -282,7 +324,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada MalaysiaGazette (14 April 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>14 April 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> UPM peneraju kebolehpasaran graduan, 18 bidang raih penarafan 6 bintang majikan MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 13,
+      "id": 15,
       "title": "Permohonan Hadiah Pengajian IPT anak Selangor dibuka semula hingga 14 April",
       "source": "Astro Awani",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQRXVjN0tBaGdLcXFrd3BNYndLTXV2TExFb083dXJ2UzR1VjhwQVdkUlNNSTJOUzhGbTNMSmFrMDRITFc3R0dQZ1R0YkNJazdkM2Fnai1ncEZmVnNTYkstdUlzQ2xpVGpuSVF1dG80ckRHXzF4X2s5Z19mSlVMMDctSHdZWmI4WGpEbllUcUdQRFhwbXhMc1ltV0hoaTQyN29fS0R2dXM5T0hfLWV4U2FpaFFTeGFITnBDOGc?oc=5",
@@ -303,7 +345,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (30 Mac 2026) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>30 Mac 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> Permohonan Hadiah Pengajian IPT anak Selangor dibuka semula hingga 14 April Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
     },
     {
-      "id": 14,
+      "id": 16,
       "title": "Mahasiswa UPM cipta aplikasi kenal pasti cafe tawar menu RM7 ke bawah",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPZWQ1cFJWWDdIT0NGVzAwMU92Q0tScC1fOXhqdDgzXzlRRy05RlpVZ1RxMV9pN0FLb2ViRkk0ZXh0MjFGRDlTZkxxdS13V2puOHRYdDlIWkdXb3pnTVd3MnpOS0Y0akVHNDlSTUp3VkpxR0pyWGpBcUR4OUN5OFZKYkMzanpQRU04SkhrU2Y0OFg1VVFfYzNSQUV3V3VIT2lQLWJCTDFMZFlIbU1BQmc?oc=5",
@@ -319,12 +361,75 @@
         "aktiviti"
       ],
       "badge": "Mahasiswa Selangor",
-      "image": "assets/images/study_group.jpg",
+      "image": "assets/images/campus_life.jpg",
       "summary": "Sorotan berita tempatan daripada MalaysiaGazette (28 Disember 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada MalaysiaGazette (28 Disember 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>28 Disember 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> Mahasiswa UPM cipta aplikasi kenal pasti cafe tawar menu RM7 ke bawah MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 15,
+      "id": 17,
+      "title": "Graduan UPM perlu terus lonjak kecemerlangan sebagai alumni – Tan Sri Peter Chin",
+      "source": "Utusan Malaysia",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPUGhXVEt4MWRqNkt5ZlZ4Q0d0TGhvbmNrcW9vbGNNNGR1Xy1qdkVLa1MtLVJDSjJMUHUtSWtQX0FYYUpwTDdxbGxaRldwT2t6SDJUeHNjQkI2amVYMGF3eUl3NXFDaUVXeHhKSVhUcU9Ha1ZYM080bW8xY3NmclJUQmZndThVNG5BekI1cGRGX1BqaTJEVG9tSmxpaUFoNnY5dUJLb0VVUF9DUGw1SWdCVmwwUi1UdWprSzA3di14OA?oc=5",
+      "dateShort": "01 Dis 2025",
+      "dateFull": "01 Disember 2025",
+      "timestamp": 1764576000,
+      "isoDate": "2025-12-01T16:00:00+08:00",
+      "isSelangor": true,
+      "isBantuan": false,
+      "category": "selangor",
+      "categories": [
+        "selangor",
+        "aktiviti"
+      ],
+      "badge": "Mahasiswa Selangor",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Sorotan berita tempatan daripada Utusan Malaysia (01 Disember 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Utusan Malaysia (01 Disember 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Utusan Malaysia &bull; Diterbitkan pada <strong>01 Disember 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Utusan Malaysia):</strong> Graduan UPM perlu terus lonjak kecemerlangan sebagai alumni – Tan Sri Peter Chin Utusan Malaysia</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Utusan Malaysia.</p>"
+    },
+    {
+      "id": 18,
+      "title": "Graduan Sabah redah 13 jam, jadi pengundi terawal N10 Usukan sebelum berkonvokesyen di UPM",
+      "source": "Utusan Malaysia",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOeVJwY09ULXI5RGYwY2p1aVBDdnZ6c1pzZDJFdHdCRFFEdEJNbDBwNlVmZDJ2Z2xyZHZ3dFlPVzBsaktFa3NUT05tUmVGWGIyTkw0X2NFcENQR1RCUEpFUk1tSzZwTUwtUlMxUGlfUjFaanF0VGYwcmpDZTNWSU01QVN0THhybG5WREZaRDJIdTVpbHpkUmxqc0VnbzhZM3RpWlUteFVsRkd3cXQyWHRqd3ZGUDJfVVdKUWtKY080V0pESkh5RURvRnowMWhGdw?oc=5",
+      "dateShort": "30 Nov 2025",
+      "dateFull": "30 November 2025",
+      "timestamp": 1764489600,
+      "isoDate": "2025-11-30T16:00:00+08:00",
+      "isSelangor": true,
+      "isBantuan": false,
+      "category": "selangor",
+      "categories": [
+        "selangor",
+        "aktiviti"
+      ],
+      "badge": "Mahasiswa Selangor",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Sorotan berita tempatan daripada Utusan Malaysia (30 November 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Utusan Malaysia (30 November 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Utusan Malaysia &bull; Diterbitkan pada <strong>30 November 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Utusan Malaysia):</strong> Graduan Sabah redah 13 jam, jadi pengundi terawal N10 Usukan sebelum berkonvokesyen di UPM Utusan Malaysia</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Utusan Malaysia.</p>"
+    },
+    {
+      "id": 19,
+      "title": "UKM raikan 13,904 graduan",
+      "source": "Utusan Malaysia",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9ndWdlbmlDTUswdE4ycWVoVzh4N1pRY3dBY3ZjWlNkNnJneHpUbXFKb2EwRUZoSzdkb1k1NlowY3FxcnlQSmNMd3FhYUd2ekpnX2dFNkdUUVZuTUt2c0ZhOUlQXzRBN3BkbC01MXNKWGlhaU5NY3p3?oc=5",
+      "dateShort": "22 Nov 2025",
+      "dateFull": "22 November 2025",
+      "timestamp": 1763798400,
+      "isoDate": "2025-11-22T16:00:00+08:00",
+      "isSelangor": true,
+      "isBantuan": false,
+      "category": "selangor",
+      "categories": [
+        "selangor",
+        "aktiviti"
+      ],
+      "badge": "Mahasiswa Selangor",
+      "image": "assets/images/graduation.jpg",
+      "summary": "Sorotan berita tempatan daripada Utusan Malaysia (22 November 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.",
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada Utusan Malaysia (22 November 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Utusan Malaysia &bull; Diterbitkan pada <strong>22 November 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Utusan Malaysia):</strong> UKM raikan 13,904 graduan Utusan Malaysia</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Utusan Malaysia.</p>"
+    },
+    {
+      "id": 20,
       "title": "Belanjawan Selangor 2026: Pelajar IPT anak Selangor dapat durian runtuh",
       "source": "Kosmo! Online",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNSDZwRnY2b2ttQl9mcFlPQmQtNjJIb3Vvbmx3M1V5aGNIcWJHamZlQl95OFBiRGIyUzNSWURBQUN6SWxtemZrd0ZEaEtONDVsS2tFZHpxcldsNkpnRV84ZVBPY2xVcFIzWFhVRU43MU80RU9CTkhPa2pDQldNWlloT0Y0VkhSRkRXQm83eEI2NFN4R0doT1pjNG8zU1Z2WVBNNHBUTHp0M0tZSUU?oc=5",
@@ -340,12 +445,12 @@
         "bantuan"
       ],
       "badge": "Mahasiswa Selangor",
-      "image": "assets/images/campus_life.jpg",
+      "image": "assets/images/selangor_masjid_biru.jpg",
       "summary": "Laporan terkini oleh Kosmo! Online (14 November 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.",
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh Kosmo! Online (14 November 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Kosmo! Online &bull; Diterbitkan pada <strong>14 November 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Kosmo! Online):</strong> Belanjawan Selangor 2026: Pelajar IPT anak Selangor dapat durian runtuh Kosmo Online</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Kosmo! Online.</p>"
     },
     {
-      "id": 16,
+      "id": 21,
       "title": "Mahasiswa UKM santuni 74 pesakit kanser di Manila",
       "source": "MalaysiaGazette",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOWHB6Ym1tRTQ1clhGekh2MjN2UmhnM29DTWM1eVM4Rnk0MlZ6LWwyakNzb20zNTc1Y3hROTVzOEgxQ25DMDcybmRUelYtdUJzT2F1c3h6U2F3STRDZUJ6Tkg1aGJMYXJPc0pIM0Qtc1hJdFhrX2RUdWxkVGo3Vy1Md25lWG1LNmNlTnc1bVh1V1IxbFk?oc=5",
@@ -366,7 +471,7 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Sorotan berita tempatan daripada MalaysiaGazette (06 Ogos 2025) mengenai perkembangan, aktiviti dan suara mahasiswa anak Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> MalaysiaGazette &bull; Diterbitkan pada <strong>06 Ogos 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (MalaysiaGazette):</strong> Mahasiswa UKM santuni 74 pesakit kanser di Manila MalaysiaGazette</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi MalaysiaGazette.</p>"
     },
     {
-      "id": 17,
+      "id": 22,
       "title": "Yayasan Selangor salur biasiswa pendidikan lebih RM2 juta",
       "source": "Sinar Harian",
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQc1FFTEZmSktqMFp4Z3FLOWp1eWdGa3NsQUItWWxEUWIwOWFONG9SSGZEak5mbWJqWDhyMnRCVzZzczM5YnBLUEswTzI3Q2IzUjdkMUJzWW04cHl3X1lEOWhuOWJnTmtJZVpUX0RqN0R3UkItWWJBaDlISjRWZEUtanhnWE11cFRyQ09CSTNVdktqV2Z4bDZGblpBMHFhSFJ2QVpuVW9aVDI5dEpnVjNlektmWnNVTUtaVVVnZWdR0gFcQVVfeXFMTTM5QlZtVjJ3T3FOeExxOXZrYmJHQkRYdDRWUGpEZnVBTWFWeVZBZ1BYOTM5NTd6OHItaVlkRzVEU0d5UXZsbzhPM2RHWkhBaXZPMFhPLWp5TlJ2X0I?oc=5",
@@ -387,114 +492,14 @@
       "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Mahasiswa &amp; Pengajian Tinggi Selangor</p>\n        <p>Laporan terkini oleh Sinar Harian (29 April 2025) berhubung skim bantuan kewangan, biasiswa atau inisiatif kebajikan mahasiswa Negeri Selangor.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>29 April 2025</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> Yayasan Selangor salur biasiswa pendidikan lebih RM2 juta | Sinar Harian Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
     },
     {
-      "id": 18,
-      "title": "70 judul lagu 'penyeri' ucapan, inspirasi buat graduan UPSI",
-      "source": "Harian Metro",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQdEN6anJCdFdaNjNaeUU5M2I0SVNSR0FJZXRrUV9PZXhIS21YTFlUTzNLSlJVUmlhQTd3YXNoOG5YTFRJNXI2Rzc0TXlLRFdIaXV1SnBPWTlUb2dVdFFBYkh6bDVtenFjajQ1UG1scFM1VDVEWnRZOUpqQjZma1RJSWpkcl9yYUpzaDFaeUF5Rm1XWkVtSW55ZHlUaW5ackUxbzh5V0h6MVdQUWvSAbABQVVfeXFMTU94YlIwLVNEbHJIcW1mWEQ1bnJqVjZLYXJmYW94UG1ac2h1THRSa2Q5M213OHdMRFUwa191T0dTcmNiN0RaUUlZTUV1LWo2SG8wWEJZVjJ0bW9wV0RaZGYxSUowdFBnZWdVT2xNX01sak1tbk94QU5kMXFkUnJ5OVFGc1R2V0lLNng5OS1HcEQ5Szd0c01BR3NuZUtHeGs0U2t2YW54eEo5LTgzRkgzVTU?oc=5",
-      "dateShort": "26 Nov 2026",
-      "dateFull": "26 November 2026",
-      "timestamp": 1795684026,
-      "isoDate": "2026-11-26T17:07:06+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Sorotan berita tempatan daripada Harian Metro (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Harian Metro (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Harian Metro &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Harian Metro):</strong> 70 judul lagu &#x27;penyeri&#x27; ucapan, inspirasi buat graduan UPSI Harian Metro</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Harian Metro.</p>"
-    },
-    {
-      "id": 19,
-      "title": "Graduan keselamatan siber perlu kuasai asas, pendedahan industri",
-      "source": "Berita Harian",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPWjR2V3hNR2xWNWE4ZzZoaXRuOTBmdURxM19NdVBoeUkyMFVfYk5mTzZzRlR2YWJFajdkT0VwYnZVTFJTUks1OFR0Yi1pOHdrMUFWNW5IQlBiZHZzYWdUY3owbzNLN2ZKQU82SkJPcjNxVkVlSkZ2NjRHY05zMEdhSV9JN2s5QkVGYXdvNlJ2TkxzeF9hVktJOW9zMEJuVlVjQXJXMWZ3dnIteXRzd05UaWlTWnFKZHB4UkpJa20tNNIBxAFBVV95cUxNWm1DVW8wMkZIZWhWc0s1MzU1OUQycGJLbTg4Nm9WU1UwaG8yWEx5MU5zWXNCMUs1STVzcTNaV1JBLWxWaTFkbDZLSzh5SENhcjRYMFVnbDNYdFlJSXRUcWJScER6V1VwbXZmdk9WM2FOM05QaWhtcWxXSnpyMkVxYm9ORUlyaUt0M3p3bDVKblRvVDNabmxiNE52S0JjdU9YelNyNGpBT0huSXptVWZFSHdGR25FZUhHN09rMnhicGtmNUxC?oc=5",
-      "dateShort": "26 Nov 2026",
-      "dateFull": "26 November 2026",
-      "timestamp": 1795681549,
-      "isoDate": "2026-11-26T16:25:49+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Sorotan berita tempatan daripada Berita Harian (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Berita Harian (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Berita Harian &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Berita Harian):</strong> Graduan keselamatan siber perlu kuasai asas, pendedahan industri Berita Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Berita Harian.</p>"
-    },
-    {
-      "id": 20,
-      "title": "November bulan Kualiti Sedunia: Kualiti di kampus bukan sekadar fail dan angka",
-      "source": "Sinar Harian",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNaEc5YzM1b1NfeF9XZW9yVDJlTkJEZG5qQzd5S2g1WXMtZkZVRDA0VXRnNHJQaUppQlNaazh5VC1GdV83STVPZW9NWC1YZFpMUzN5WW5zSTJKYUxadWZoTE9DeXZfZDRiQThWVG8tbTRUc20wVy1rVnNKR2FyakN0VkR0TTJSTmtsSnhNa2VKOTdUOVBQVlMwdzVqYmhYUGo1X3hEQTFiOWVNdDdyMGpfMkpXaE9QempoS25QakdrMUt0Uk9jSnZ1bjY0eUpVOGhSYWJz0gFcQVVfeXFMTm1xRnc4SHoxSGpoX09qa2dHYkFjc0tpSHZOTkhqTFgwU3o4NWNuekJHMnRQd1l6SjRqODlJRTBrYlQ2MlREeWhTbjVtQjl5OU02UUtvalRvX05TQkc?oc=5",
-      "dateShort": "26 Nov 2026",
-      "dateFull": "26 November 2026",
-      "timestamp": 1795670580,
-      "isoDate": "2026-11-26T13:23:00+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/selangor_shah_alam_night.jpg",
-      "summary": "Sorotan berita tempatan daripada Sinar Harian (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Sinar Harian (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Sinar Harian &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Sinar Harian):</strong> November bulan Kualiti Sedunia: Kualiti di kampus bukan sekadar fail dan angka | Sinar Harian Sinar Harian</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Sinar Harian.</p>"
-    },
-    {
-      "id": 21,
-      "title": "Kenapa graduan pendidikan paling ramai menganggur pada 2025?",
-      "source": "Astro Awani",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOWmd5Q0dxdnlTT04tbThLU1NOS3Q2MWRRajdST2o3SHJYT2ZtR1NQT1pkY0xSMXBESlI2NXp1Xzd0ZFFvYWVUcXhHZ1VyVzJuVGJvVnRkeHk3bkNqbUVsWXBzdGwyWWZ5SHdPSVJLcEdLcDRvTkRKdG0tNEgwbVdNMTVwU2gzalVDWGdoSjNQSm4xTW9wSnY0?oc=5",
-      "dateShort": "26 Nov 2026",
-      "dateFull": "26 November 2026",
-      "timestamp": 1795669000,
-      "isoDate": "2026-11-26T12:56:40+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> Kenapa graduan pendidikan paling ramai menganggur pada 2025? Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
-    },
-    {
-      "id": 22,
-      "title": "Graduan pendidikan paling ramai menganggur, di mana silapnya?",
-      "source": "Astro Awani",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQQkhvdzk0dVZOazEyOGIwaDZoUE83UTQ4a1F5MGEtMUZSUGpCbTVOZ2hTMnFSLUZMckpza1dLakdXenRMakFtQUxDQ2cxQ0VsQktQeGwxcDZncXJJOTI4YjZ2THh1ZmpZMlAwc19Vb0NLTUVhcXkyNHpQWlM0RzlfWGt6TWswQlV4Y1BuN21JSEFsX1dyd2tj?oc=5",
-      "dateShort": "26 Nov 2026",
-      "dateFull": "26 November 2026",
-      "timestamp": 1795660243,
-      "isoDate": "2026-11-26T10:30:43+08:00",
-      "isSelangor": false,
-      "isBantuan": false,
-      "category": "aktiviti",
-      "categories": [
-        "aktiviti"
-      ],
-      "badge": "Kampus Malaysia",
-      "image": "assets/images/graduation.jpg",
-      "summary": "Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> Graduan pendidikan paling ramai menganggur, di mana silapnya? Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
-    },
-    {
       "id": 23,
-      "title": "[DATA & STATISTIK] Graduan (Warganegara) 2024-2025 yang belum bekerja",
+      "title": "Pindaan Akta 173 dan Akta 174 iktiraf kematangan intelektual mahasiswa - TNC HEP UiTM",
       "source": "Astro Awani",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOQW1tR0VnS3VwVXpjZVp2dHo5d3RCbXczZWx5cGpYamlpNXE2a3hsb29aV2RWd3BJUGtSc01oNXlkLWJ2LXNIeWE3UkFfLWRRWF9uLU15ZVVXZUV5b1piSGNVREliSU5VeTRSSDZORGxRMGhrc0Y3TU9wWDN1RmRzaUFvdEVtTFVtWjNIN3BzQW1FTy1EV1FZek1GTDE?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONHlXalhGUGl1NjUxUm1adldLRDJDMFZZbmNjREc2blU4blR2Q0lDcVBCODlMRUFUaU1QUVIwSGRsNW9GRVFEczczdm01WUNqQzA4VFp6ZXJ0cVlDdDVzTEwxMzZqb2tJMDBmZjNZZzdfdGI2b3hGS2U1U0RucVViYUR2Zm9aQ3k0SmVVOG15UGd2Sm1CNmNnQURHMnh5ek9PSlZiT09hQnRvdEJHS3ZoVFJEdF9IZ0c0Zk9lUS1EdndEZEIt?oc=5",
       "dateShort": "26 Nov 2026",
       "dateFull": "26 November 2026",
-      "timestamp": 1795659222,
-      "isoDate": "2026-11-26T10:13:42+08:00",
+      "timestamp": 1795701600,
+      "isoDate": "2026-11-26T22:00:00+08:00",
       "isSelangor": false,
       "isBantuan": false,
       "category": "aktiviti",
@@ -504,7 +509,7 @@
       "badge": "Kampus Malaysia",
       "image": "assets/images/graduation.jpg",
       "summary": "Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.",
-      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> [DATA &amp; STATISTIK] Graduan (Warganegara) 2024-2025 yang belum bekerja Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
+      "bodyHtml": "<div class=\"p-4 rounded-2xl bg-red-50/70 border border-red-200/80 text-xs sm:text-sm text-slate-800 space-y-1.5\">\n        <p class=\"font-bold text-red-800 uppercase tracking-wider text-[11px]\">Ringkasan Berita Tempatan &bull; Pendidikan Tinggi &amp; Siswa Malaysia</p>\n        <p>Sorotan berita tempatan daripada Astro Awani (26 November 2026) mengenai perkembangan, aktiviti dan suara mahasiswa di institusi pengajian tinggi.</p>\n      </div>\n      <p><strong>Sumber Media Rasmi:</strong> Astro Awani &bull; Diterbitkan pada <strong>26 November 2026</strong>.</p>\n      <p class=\"p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600\"><strong>Petikan Suapan Media (Astro Awani):</strong> Pindaan Akta 173 dan Akta 174 iktiraf kematangan intelektual mahasiswa - TNC HEP UiTM Astro Awani</p>\n      <p>Pautan berita ini disegerakkan secara automatik ke Portal PERMAS Nasional bagi memudahkan mahasiswa anak Selangor mengikuti dasar pendidikan negeri, pembukaan biasiswa, serta perkembangan semasa kampus seluruh negara.</p>\n      <p class=\"text-xs text-slate-500\">Klik butang <strong>&ldquo;Baca Artikel Penuh di Portal Asal&rdquo;</strong> di bawah untuk membuka laporan lengkap terus di laman web rasmi Astro Awani.</p>"
     }
   ]
 }
